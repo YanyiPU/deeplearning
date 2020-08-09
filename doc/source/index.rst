@@ -11,10 +11,10 @@ deeplearning
    :maxdepth: 2
 
    Source
-   Env/Python-Env
-   Env/TensorFlow-Env
-   Env/Keras-Env
-   Env/torch-Env
+   Envs/Python-Env
+   Envs/TensorFlow-Env
+   Envs/Keras-Env
+   Envs/torch-Env
 
 
 .. toctree::

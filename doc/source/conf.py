@@ -158,7 +158,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
 #
-html_title = u'test vtest'
+# html_title = u'test vtest'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #

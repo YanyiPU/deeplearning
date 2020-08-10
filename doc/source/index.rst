@@ -23,20 +23,23 @@ deeplearning
 
    deeplearning/DNN
    deeplearning/CNN
-   deeplearning/RNN
-   deeplearning/RNN-GRU
-   deeplearning/RNN-LSTM
-   deeplearning/RNN-Attention-Augmented
-   deeplearning/VAE
-   deeplearning/GAN
+   deeplearning/RNN/RNN
+   deeplearning/RNN/RNN-GRU
+   deeplearning/RNN/RNN-LSTM
+   deeplearning/RNN/RNN-Attention-Augmented
+   deeplearning/GEN/LSTM_TextGen
+   deeplearning/GEN/Neural_Style_Transfer
+   deeplearning/GEN/DeepDream
+   deeplearning/GEN/VAE
+   deeplearning/GEN/GAN
    deeplearning/Backforward
    deeplearning/Optimization
    deeplearning/Regularization
    deeplearning/Parameter_Init
-   deeplearning/ResNet-V1
-   deeplearning/LeNet-5 
-   deeplearning/GPU-hardware
-   deeplearning/GPU-software
+   deeplearning/Net/ResNet-V1
+   deeplearning/Net/LeNet-5
+   deeplearning/GPU/GPU-hardware
+   deeplearning/GPU/GPU-software
    deeplearning/NLP/NLP1
    deeplearning/NLP/NLP2
    deeplearning/NLP/deeplearningAI_NLP

@@ -5,8 +5,8 @@ GAN
 
 .. _header-n4:
 
-1.GAN 生成式对抗网络
---------------------
+5.GAN 生成式对抗网络介绍
+-------------------------
 
 生成式对抗网络 (Generative Adversial Networks, GAN)
 自从问世以来就颇受瞩目，相对于变分自编码器
@@ -17,7 +17,7 @@ Network <http://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf>`__.
 
 .. _header-n7:
 
-1.1 GAN 的核心思想和基本原理
+5.1 GAN 的核心思想和基本原理
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 GAN
@@ -61,7 +61,7 @@ G(z)，而此时的 D 难以判定生成的图像到底是真是假，最后得�
 
 下图是真实数据和生成数据所代表的的两个分布在 GAN 训练中的演化过程：
 
-.. image:: ../../images/yanhua.png
+.. image:: ../../../images/yanhua.png
    :alt: 
 
 GAN 在训练过程中，同时更新判别分布（D，蓝色虚线）使 D
@@ -69,20 +69,20 @@ GAN 在训练过程中，同时更新判别分布（D，蓝色虚线）使 D
 中的样本。下面的黑色箭头表示生成模型 x=G(z)
 如何将分布pg作用在转换后的样本上。可以看到，在经过若干次训练之后，判别分布接近某个稳定点，此时真实分布等于生成分布，即pdata=pg。判别器将无法区分训练数据分布和生成数据分布，即D(x)=1/2
 
-.. image:: ../../images/framework.png
+.. image:: ../../../images/framework.png
    :alt: 
 
 生成器和判别器的优化算法都是随机梯度下降。但有个细节需要注意：第一步我们训练D，D是希望V(G,
 D)越大越好，所以这里是梯度上升(ascending)。第二步训练G时，V(G,
 D)越小越好，所以到这里则是梯度下降(descending)。整个训练是一个动态的交替过程。
 
-.. image:: ../../images/algorithm.png
+.. image:: ../../../images/algorithm.png
    :alt: 
 
 上面我们已经知道了极小化极大的二人博弈问题的全局最优结果为pg=pdata，在给定任意生成器G的情况下，考虑最优判别器D。给定任意生成器G，判别器D
 的训练标准为最大化目标函数\ :math:`V(G, D)`
 
-.. image:: ../../images/formular.png
+.. image:: ../../../images/formular.png
    :alt: 
 
 可以看到，对于任意不为零的 :math:`(a, b)`\ ，函数
@@ -91,7 +91,7 @@ D)越小越好，所以到这里则是梯度下降(descending)。整个训练是
 
 .. _header-n43:
 
-1.2 DCGAN 深度卷积对抗网络
+5.2 DCGAN 深度卷积对抗网络
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 自从GoodFellow提出GAN以后，GAN就存在着训练困难、生成器和判别器的loss无法指示训练进程、生成样本缺乏多样性等问题。为了解决这些问题，后来的研究者不断推陈出新，以至于现在有着各种各样的GAN变体和升级网络。比如
@@ -116,12 +116,12 @@ NETWORKS <https://arxiv.org/pdf/1511.06434.pdf>`__.
 
 -  在判别网络的所有层上使用 LeakReLU 激活函数
 
-.. image:: ../../images/DCGAN.png
+.. image:: ../../../images/DCGAN.png
    :alt: 
 
 .. _header-n59:
 
-2.2 Keras 搭建一个 DCGAN
+5.3 Keras 搭建一个 DCGAN
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: python
@@ -258,3 +258,5 @@ NETWORKS <https://arxiv.org/pdf/1511.06434.pdf>`__.
            img.save(os.path.join(save_dir, "generated_forg" + str(step) + ".png"))
            img = image.array_to_img(real_images[0] * 255., scale = False)
            img.save(os.path.join(save_dir, "real_forg" + str(step) + ".png"))
+
+

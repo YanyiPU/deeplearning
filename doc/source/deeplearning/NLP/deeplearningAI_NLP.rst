@@ -1,5 +1,5 @@
 
-deeplearning.ai NLP
+NLP deeplearning.ai 
 =========================
 
 

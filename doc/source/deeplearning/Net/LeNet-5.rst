@@ -13,7 +13,7 @@ Gradient-based learning applied to document recognition
 LeNet-5 结构分析
 ~~~~~~~~~~~~~~~~
 
-.. image:: ../../images/LeNet-5.png
+.. image:: ../../../images/LeNet-5.png
    :alt: 
 
 :math:`输入-卷积-池化-卷积-池化-卷积(全连接)-全连接-全连接(输出)`

@@ -82,3 +82,105 @@ PyTorch 自动求导
    y = x.detach()
    print(y.requires_grad)
    print(x.eq(y).all())
+
+
+4.PyTorch 动态图、自动求导
+-------------------------------------
+
+- 4.1 计算图
+
+   - 描述运算的有向无环图
+
+      - Tensor 的 is_leaf 属性
+
+      - Tensor 的 grad_fn 属性
+
+- 4.2 PyTorch 动态图机制
+
+   - 动态图与静态图
+
+- 4.3 PyTorch 自动求导机制
+
+   - torch.autograd.backward() 方法自动求取梯度
+
+   - torch.autograd.grad() 方法可以高阶求导
+
+   - note
+
+      - 梯度不自动清零
+
+      - 依赖叶节点的节点, requires_grad 默认为 True
+
+      - 叶节点不能执行原位操作
+
+4.1 计算图
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+计算图是用来描述运算的有向无环图。主要有两个因素：节点、边。
+其中节点表示数据，如向量、矩阵、张量；而边表示运算，如加减乘除、卷积等。
+
+使用计算图的好处不仅是让计算看起来更加简洁，还有个更大的优势是让梯度求导也变得更加方便。
+
+- 示例：
+
+   .. code-block:: python
+
+      x = torch.tensor([2.], requires_grad = True)
+      w = torch.tensor([1.], requires_grad = True)
+      
+      a = torch.add(w, x)
+      b = torch.add(w, 1)
+      
+      y = torch.mul(a, b)
+      
+      y.backward()
+      print(w.grad)
+      
+
+
+
+
+
+
+
+
+4.2 Pytorch 动态图机制
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+4.3 PyTorch 自动求导机制
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   -  package ``autograd``
+
+   -  torch.Tensor
+
+   -  .requires_grad = True
+
+   -  .backward()
+
+   -  .grad
+
+   -  .detach()
+
+   -  with torch.no_grad(): pass
+
+   -  .grad_fn
+
+PyTorch 自动求导机制使用的是 ``torch.autograd.backward`` 方法，功能就是自动求取梯度。
+
+- API:
+
+   .. code-block:: python
+
+      torch.autograd.backward(
+         tensors, 
+         gard_tensors = None, 
+         retain_graph = None, 
+         create_graph = False
+      )
+

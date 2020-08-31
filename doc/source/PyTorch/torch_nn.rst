@@ -1,7 +1,7 @@
 .. _header-n0:
 
-Torch
-=====
+PyTorch nn
+============
 
 A typical training procedure for a neural network is as follows:
 

@@ -1,7 +1,25 @@
+
+
+PyTorch 数据读取与预处理
+================================
+
+PyTorch 数据
+--------------------------------
+
+
+
+
+
+
+PyTorch 数据读取
+--------------------------------
+
+
+
 .. _header-n0:
 
 构造自定义的 Datasets, Dataloaders, Transforms
-==============================================
+-----------------------------------------------
 
 .. _header-n3:
 
@@ -47,10 +65,10 @@
 .. code:: python
 
    def show_landmarks(image, landmarks):
-   	"""show image with landmarks"""
-   	plt.imshow(image)
-   	plt.scatter(landmarks[:, 0], landmarks[:, 1], s = 10, marker = ".", c = "r")
-   	plt.pause(0.001)
+      """show image with landmarks"""
+      plt.imshow(image)
+      plt.scatter(landmarks[:, 0], landmarks[:, 1], s = 10, marker = ".", c = "r")
+      plt.pause(0.001)
 
    plt.figure()
    show_landmarks(io.imread(os.path.join("../data/faces/", img_name)), landmarks)
@@ -63,6 +81,6 @@ Dataset class
 .. code:: python
 
    class FaceLandmarksDataset(Dataset):
-   	"""Face Landmarks dataset."""
-   	def __init__(self, csv_file, root_dir, transform = None):
-   		pass
+      """Face Landmarks dataset."""
+      def __init__(self, csv_file, root_dir, transform = None):
+         pass

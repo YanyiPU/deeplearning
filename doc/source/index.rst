@@ -53,6 +53,7 @@ deeplearning
    Keras/keras-Backend
    Keras/keras-Datasets
    Keras/keras-Preprocessing
+   Keras/keras-Sequential-model
    Keras/keras-Functional-API
    Keras/keras-Layers
    Keras/keras-Models
@@ -100,14 +101,19 @@ deeplearning
    :caption: PyTorch
    :maxdepth: 2
    
-   PyTorch/torch_api
-   PyTorch/torch_save_model
-   PyTorch/classifier
-   PyTorch/torch_Tensor
+   PyTorch/torch
+   PyTorch/torch_tensor
    PyTorch/torch_autogard
+   PyTorch/torch_data
    PyTorch/torch_nn
-   PyTorch/datasets_dataloaders_transforms
-   PyTorch/torch_DataParallel
+   PyTorch/torch_model
+   PyTorch/torch_model_save
+   PyTorch/torch_data_parallel
+   PyTorch/torch_api
+   PyTorch/PyTorch-models/torch_linear_regression
+   PyTorch/PyTorch-models/torch_logistic_regression
+   PyTorch/PyTorch-models/classifier
+
 
 
 .. .. toctree::

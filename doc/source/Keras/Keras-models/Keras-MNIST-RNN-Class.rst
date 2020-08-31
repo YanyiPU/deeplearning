@@ -1,14 +1,9 @@
-.. _header-n0:
 
 Keras-MNIST-RNN-Class
 =====================
 
-.. _header-n3:
-
 1. Keras Sequential Model
 -------------------------
-
-.. _header-n4:
 
 导入模块
 ~~~~~~~~
@@ -23,7 +18,6 @@ Keras-MNIST-RNN-Class
    from keras.layers import SimpleRNN, Activation, Dense
    from keras.optimizers import Adam
 
-.. _header-n6:
 
 数据预处理
 ~~~~~~~~~~
@@ -49,7 +43,6 @@ Keras-MNIST-RNN-Class
    y_train = utils.to_categorical(y_train, num_classes = 10)
    y_test = utils.to_categorical(y_test, num_classes = 10)
 
-.. _header-n10:
 
 建立模型
 ~~~~~~~~
@@ -60,15 +53,14 @@ Keras-MNIST-RNN-Class
    model = Sequential()
    # RNN cell
    model.add(SimpleRNN(
-   	batch_input_shape = (None, TIME_STEPS, INPUT_SIZE),
-   	output_dim = CELL_SIZE,
-   	unroll = True
+      batch_input_shape = (None, TIME_STEPS, INPUT_SIZE),
+      output_dim = CELL_SIZE,
+      unroll = True
    ))
    # output layer
    model.add(Dense(OUTPUT_SIZE))
    model.add(Activation("softmax"))
 
-.. _header-n13:
 
 模型编译
 ~~~~~~~~
@@ -77,10 +69,9 @@ Keras-MNIST-RNN-Class
 
    adam = Adam(LR)
    model.compile(optimizer = adam,
-   			  loss = "categorical_crossentropy",
-   			  metrics = ["accuracy"])
+              loss = "categorical_crossentropy",
+              metrics = ["accuracy"])
 
-.. _header-n16:
 
 模型训练
 ~~~~~~~~
@@ -88,39 +79,38 @@ Keras-MNIST-RNN-Class
 .. code:: python
 
    for step in range(4001):
-   	X_batch = X_train[BATCH_INDEX:BATCH_INDEX + BATCH_SIZE, :, :]
-   	Y_batch = y_train[BATCH_INDEX:BATCH_INDEX + BATCH_SIZE, :]
-   	cost = model.train_on_batch(X_batch, Y_batch)
-   	BATCH_INDEX += BATCH_SIZE
-   	BATCH_INDEX = 0 if BATCH_INDEX >= X_train.shape[0] else BATCH_INDEX
+      X_batch = X_train[BATCH_INDEX:BATCH_INDEX + BATCH_SIZE, :, :]
+      Y_batch = y_train[BATCH_INDEX:BATCH_INDEX + BATCH_SIZE, :]
+      cost = model.train_on_batch(X_batch, Y_batch)
+      BATCH_INDEX += BATCH_SIZE
+      BATCH_INDEX = 0 if BATCH_INDEX >= X_train.shape[0] else BATCH_INDEX
 
-   	if setp % 500 == 0:
-   		cost, accuracy = model.evaluate(X_test, y_test, batch_size = y_test.shape[0], verbose = False)
-   		print("test cost: ", cost)
-   		print("test accuracy: ", accuracy)
-
-.. _header-n19:
+      if setp % 500 == 0:
+         cost, accuracy = model.evaluate(X_test, y_test, batch_size = y_test.shape[0], verbose = False)
+         print("test cost: ", cost)
+         print("test accuracy: ", accuracy)
 
 模型评估
 ~~~~~~~~
 
 .. code:: python
 
-.. _header-n21:
+   test
+
 
 模型预测
 ~~~~~~~~
 
 .. code:: python
 
-.. _header-n24:
+   test
 
 模型结果输出
 ~~~~~~~~~~~~
 
 .. code:: python
 
-.. _header-n27:
+   test
 
 2. Keras 函数式 API Model
 -------------------------

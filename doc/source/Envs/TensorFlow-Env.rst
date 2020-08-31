@@ -45,11 +45,11 @@ TensorFlow Env
 
 .. important:: TensorFlow pip packages
 
-    - tensorflow: Current release for CPU-only (recommended for beginners)
+    - tensorflow: 支持 CPU 和 GPU 的最新稳定版（适用于 Ubuntu 和 Windows）
+
+    - tf-nightly: 预览 build（不稳定）。Ubuntu 和 Windows 均包含 GPU 支持
 
     - tensorflow-gpu: Current release with GPU support (Ubuntu and Windows)
-
-    - tf-nightly: Nightly build for CPU-only (unstable)
 
     - tf-nightly-gpu: Nightly build with GPU support (unstable, Ubuntu and Windows)
 
@@ -60,14 +60,13 @@ TensorFlow Env
 
     - 必须使用最新版本的 pip, 才能安装 TensorFlow 2
 
-
 - Virtualenv 安装 
 
     .. code-block:: shell
         
         # Requires the latest pip
         (venv) $ pip install --upgrade pip
-
+        
         # Current stable release for CPU and GPU
         (venv) $ pip install --upgrade tensorflow
         (venv) $ python -c "import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1000])))"

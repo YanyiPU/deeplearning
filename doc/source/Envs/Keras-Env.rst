@@ -2,9 +2,12 @@
 Keras Env
 =============
 
+Keras comes packaged with TensorFlow 2.0 as ``tensorflow.keras``. 
+To start using Keras, simply install TensorFlow 2.0.
+
 -  Keras/Tensorflow 兼容的设备
 
-   -  Python 3.5-3.7
+   -  Python 3.5-3.8
 
    -  Ubuntu 16.04 or later
 
@@ -15,7 +18,7 @@ Keras Env
 -  在安装 Keras 之前, 需要安装一个后端引擎: TensorFlow, Theano, CNTK
 
    -  `TensorFlow
-      安装说明 <https://www.tensorflow.org/install/#tensorflow>`__
+      安装说明 <https://www.tensorflow.org/install>`__
 
    -  `Theano
       安装说明 <http://deeplearning.net/software/theano/install.html#install>`__
@@ -35,12 +38,11 @@ Keras Env
 
 -  配置 Keras 后端
 
-.. _header-n68:
 
 1. 安装后端引擎
 ----------------------
 
-**Tensorflow:**
+**Tensorflow 2.0:**
 
 .. code:: shell
 
@@ -61,8 +63,6 @@ Keras Env
 .. code:: shell
 
    $ todo
-
-.. _header-n76:
 
 2. 安装可选依赖项
 ----------------------
@@ -85,15 +85,13 @@ or
 
 .. code:: shell
 
-   $ 
+   $ pip install
 
 **pydot:**
 
 .. code:: shell
 
-   $ 
-
-.. _header-n87:
+   $ pip install 
 
 3. 安装 Keras
 ----------------------
@@ -120,8 +118,6 @@ or
    $ cd keras
    $ sudo python setup.py install
 
-.. _header-n92:
-
 4. 配置 Keras 后端
 ----------------------
 
@@ -129,4 +125,4 @@ or
 
 `配置文档 <https://keras.io/backend/>`__
 
-.. _header-n96:
+

@@ -22,7 +22,23 @@ if not 'READTHEDOCS' in os.environ:
     sys.path.insert(0, os.path.abspath('..'))
 
 sys.path.insert(0, os.path.abspath('../..src/'))
-# sys.path.append(os.path.abspath('.Linux/'))
+sys.path.append(os.path.abspath('.Envs/'))
+sys.path.append(os.path.abspath('.deeplearning/'))
+sys.path.append(os.path.abspath('.deeplearning/RNN/'))
+sys.path.append(os.path.abspath('.deeplearning/NLP/'))
+sys.path.append(os.path.abspath('.deeplearning/Net/'))
+sys.path.append(os.path.abspath('.deeplearning/GEN/'))
+sys.path.append(os.path.abspath('.deeplearning/GPU/'))
+sys.path.append(os.path.abspath('.Keras/'))
+sys.path.append(os.path.abspath('.Keras/Keras-models/'))
+sys.path.append(os.path.abspath('.TensorFlow/'))
+sys.path.append(os.path.abspath('.TensorFlow/TensorFlow-models/'))
+sys.path.append(os.path.abspath('.TensorFlow/TF-keras/'))
+sys.path.append(os.path.abspath('.PyTorch/'))
+sys.path.append(os.path.abspath('.PyTorch/PyTorch-models/'))
+sys.path.append(os.path.abspath('.Linux/'))
+sys.path.append(os.path.abspath('.Linux/'))
+sys.path.append(os.path.abspath('.Linux/'))
 
 # -- General configuration ------------------------------------------------
 

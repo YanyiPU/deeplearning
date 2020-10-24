@@ -83,6 +83,15 @@ TensorFlow Env
         $ python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
 
 
+    .. code-block:: shell
+    
+        $ pip3 install pydot
+
+
+    - graphviz
+
+        - https://graphviz.gitlab.io/download/
+
 3.2 使用 Docker 安装 TensorFlow 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

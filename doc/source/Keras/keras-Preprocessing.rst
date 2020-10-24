@@ -68,25 +68,6 @@ Keras 数据预处理
 
             -  标准化
 
--  Utils
-
-   -  keras.utils.CustomObjectScope
-
-   -  keras.utils.HDF5Matrix
-
-   -  keras.utils.Sequence
-
-   -  keras.utils.to_categorical
-
-   -  keras.utils.normalize
-
-   -  keras.utils.get_file
-
-   -  keras.utils.print_summary
-
-   -  keras.utils.plot_model
-
-   -  keras.utils.multi\ *gpu*\ model
 
 .. _header-n100:
 
@@ -303,18 +284,3 @@ Keras 数据预处理
 
 .. _header-n116:
 
-4.Utils
--------
-
-**keras.utils.to_categorical**
-
--  将一个类别型向量(整数)转换为 二元类别矩阵
-
--  类似于 one-hot
-
-.. code:: python
-
-   from keras import utils
-   utils.to_categorical(y,
-                        num_classes = None, 
-                        dtypes = "float32")

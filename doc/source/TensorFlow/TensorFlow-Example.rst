@@ -36,8 +36,8 @@ TensorFlow 2.0 for beginners
     # model compile
     # --------------------------------------
     model.compile(optimizer = "adam",
-                    loss = "sparse_categorical_crossentropy",
-                    metrics = ["accuracy"])
+                  loss = "sparse_categorical_crossentropy",
+                  metrics = ["accuracy"])
 
     # --------------------------------------
     # model training

@@ -3,131 +3,74 @@
 TensorFlow Datasets
 =====================
 
-.. _header-n3:
-
-3.1 导入数据
-------------
-
-   -  API: ``tf.data``
-
-      -  根据简单的可重用片段构建复杂的输入管道；
-
-         -  图片模型：
-
-         -  文本模型：
-
-   -  tf.data在TensorFlow中引入两个新的抽象类：
-
-      -  ``tf.data.Dataset``:
-         表示一系列元素，其中每个元素包含一个或多个Tensor对象；
-
-         -  两种创建数据集的方式：
-
-            -  **创建来源**\ ：通过一个或多个tf.Tensor对象构建数据集
-
-               -  ``tf.data.Dataset.from_tensors()``
-
-               -  ``tf.data.Dataset.from_tensor_slices()``
-
-            -  **应用转换**\ ：通过一个或多个tf.data.Dataset对象构建数据集
-
-               -  ``tf.data.Dataset.map()``
-
-               -  ``tf.data.Dataset.batch()``
-
-      -  ``tf.data.Iterator``: 提供了从数据集中提取元素的主要方法
-
-         -  ``tf.data.Iterator.get_next()``
-
-            -  返回的操作会在执行时生成Dataset的下一个元素，并且此操作通常当输入管道和模型之间的接口
-
-         -  ``tf.data.Iterator.initializer``
-
-            -  使用不同的数据集重新初始化和参数化迭代器
-
-.. _header-n53:
-
-3.1.1 基本机制
-~~~~~~~~~~~~~~
-
-   创建不同种类的Dataset和Iterator对象的基础知识，以及如何从这些对象中提取数据；
-
-1. **定义数据来源——Dataset：**
-
-   -  通过内存中的张量构建Dataset
-
-      -  tf.data.Dataset.from_tensors()
-
-      -  tf.data.Dataset.from\ *tensor*\ slices()
-
-   -  通过以TFRecord格式存储在磁盘上的数据构建Dataset
-
-      -  tf.data.TFRecordDataset
-
-2. **将Dataset进行数据转换：**
-
-   -  tf.data.Dataset的数据转换方法
-
-      -  tf.data.Dataset.map()
-
-         -  单元素转换，为每个元素应用一个函数
-
-      -  tf.data.Dataset.batch()
-
-         -  多元素转换
-
-      -  ...
-
-3. **从数据集中提取元素：**
-
-   -  构建迭代器对象：
-
-      -  tf.data.Iterator.initializer
-
-         -  重新初始化迭代器的状态
-
-      -  tf.data.Iterator.get_next()
-
-         -  返回对应于有符号下一个元素的tf.Tensor对象
-
-.. _header-n106:
-
-3.1.2 数据集结构
-~~~~~~~~~~~~~~~~
-
 .. _header-n108:
 
-1.TensorFlow Datasets is now released on PyPI:
-----------------------------------------------
+1.TensorFlow Datasets 安装及使用
+----------------------------------
 
-.. code:: shell
+库安装:
 
-   $ pip install tensorflow
-   $ pip install tensorflow-gpu
-   $ pip install tensorflow-datasets
+   .. code-block:: shell
+
+      $ pip install tensorflow
+      $ pip install tensorflow-datasets
+
+库导入:
+
+   .. code-block:: python
+   
+      import numpy as np
+      import tensorflow as tf
+      import matplotlib.pyplot as plt
+      import tensorflow_datasets as tfds
+
 
 .. _header-n110:
 
-2.TensorFlow 中内置的可用 Datasets
+2.TensorFlow Datasets 介绍
 ----------------------------------
 
-TensorFlow Datasets 是可用于 TensorFlow
-的一系列数据集的集合。所有数据集都显示为 ``tf.data.Datasets``
+2.1 介绍
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**查看 TensorFlow Datasets 库中可用的数据集：**
+TensorFlow Datasets 是可用于 TensorFlow 或其他 Python 机器学习框架(例如 Jax) 的一系列数据集。
+所有数据集都作为 ``tf.data.Datasets`` 提供，实现易用且高性能的输入流水线。
 
-.. code:: python
+
+示例:
+
+   .. code-block:: python
+
+      import tensorflow as tf
+      import tensorflow_datasets as tfds
+
+      # Construct a tf.data.Dataset
+      ds =  tfds.load("mnist", split = "train", shuffle_files = True)
+
+      # Build your input pipeline
+      ds = ds.shuffle(1024).batch(32).prefetch(tf.data.experimential.AUTOTUNE)
+      for example in ds.take(1):
+         image, label = example["image"], example["label"]
+
+
+2.2 内置数据集
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+每一个数据集都通过实现了抽象基类 ``tfds.core.DatasetBuilder`` 来构建.
+
+查看数据集：
+
+.. code-block:: python
 
    import tensorflow as tf
    import tensorflow_datasets as tfds
 
-   # 启动 TF Eager 模式
-   tf.enable_eager_execution()
-
    # 所有可用的数据集
    print(tfds.list_builders()) 
 
-.. code:: 
+查看数据集结果：
+
+.. code-block:: 
 
    ['abstract_reasoning', 'aflw2k3d', 'amazon_us_reviews', 
     'bair_robot_pushing_small', 'bigearthnet', 'binarized_mnist', 'binary_alpha_digits', 
@@ -152,211 +95,313 @@ TensorFlow Datasets 是可用于 TensorFlow
     'wikipedia', 'wmt14_translate', 'wmt15_translate', 'wmt16_translate', 'wmt17_translate', 'wmt18_translate', 'wmt19_translate', 'wmt_t2t_translate', 'wmt_translate', 
     'xnli']
 
--  Audio
+数据集分类：
 
-   -  groove
+   -  Audio
 
-   -  nsynth
+      -  groove
 
--  Image
+      -  nsynth
 
-   -  abstract_reasoning
+   -  Image
 
-   -  aflw2k3d
+      -  abstract_reasoning
 
-   -  bigearthnet
+      -  aflw2k3d
 
-   -  binarized_mnist
+      -  bigearthnet
 
-   -  binary\ *alpha*\ digits
+      -  binarized_mnist
 
-   -  caltech101
+      -  binary\ *alpha*\ digits
 
-   -  caltech_birds2010
+      -  caltech101
 
-   -  caltech_birds2011
+      -  caltech_birds2010
 
-   -  cats\ *vs*\ dogs
+      -  caltech_birds2011
 
-   -  celeb_a
+      -  cats\ *vs*\ dogs
 
-   -  celeb\ *a*\ hq
+      -  celeb_a
 
-   -  cifar10
+      -  celeb\ *a*\ hq
 
-   -  cifar100
+      -  cifar10
 
-   -  cifar10_corrupted
+      -  cifar100
 
-   -  clevr
+      -  cifar10_corrupted
 
-   -  coco
+      -  clevr
 
-   -  coco2014
+      -  coco
 
-   -  coil100
+      -  coco2014
 
-   -  colorectal_histology
+      -  coil100
 
-   -  colorectal\ *histology*\ large
+      -  colorectal_histology
 
-   -  curated\ *breast*\ imaging_ddsm
+      -  colorectal\ *histology*\ large
 
-   -  cycle_gan
+      -  curated\ *breast*\ imaging_ddsm
 
-   -  deep_weeds
+      -  cycle_gan
 
-   -  diabetic\ *retinopathy*\ detection
+      -  deep_weeds
 
-   -  downsampled_imagenet
+      -  diabetic\ *retinopathy*\ detection
 
-   -  dsprites
+      -  downsampled_imagenet
 
-   -  dtd
+      -  dsprites
 
-   -  emnist
+      -  dtd
 
-   -  eurosat
+      -  emnist
 
-   -  fashion_mnist
+      -  eurosat
 
-   -  food101
+      -  fashion_mnist
 
-   -  horses\ *or*\ humans
+      -  food101
 
-   -  image\ *label*\ folder
+      -  horses\ *or*\ humans
 
-   -  imagenet2012
+      -  image\ *label*\ folder
 
-   -  imagenet2012_corrupted
+      -  imagenet2012
 
-   -  kitti
+      -  imagenet2012_corrupted
 
-   -  kmnist
+      -  kitti
 
-   -  lfw
+      -  kmnist
 
-   -  lsun
+      -  lfw
 
-   -  mnist
+      -  lsun
 
-   -  mnist_corrupted
+      -  mnist
 
-   -  omniglot
+      -  mnist_corrupted
 
-   -  open\ *images*\ v4
+      -  omniglot
 
-   -  oxford_flowers102
+      -  open\ *images*\ v4
 
-   -  oxford\ *iiit*\ pet
+      -  oxford_flowers102
 
-   -  patch_camelyon
+      -  oxford\ *iiit*\ pet
 
-   -  pet_finder
+      -  patch_camelyon
 
-   -  quickdraw_bitmap
+      -  pet_finder
 
-   -  resisc45
+      -  quickdraw_bitmap
 
-   -  rock\ *paper*\ scissors
+      -  resisc45
 
-   -  scene_parse150
+      -  rock\ *paper*\ scissors
 
-   -  shapes3d
+      -  scene_parse150
 
-   -  smallnorb
+      -  shapes3d
 
-   -  so2sat
+      -  smallnorb
 
-   -  stanford_dogs
+      -  so2sat
 
-   -  stanford\ *online*\ products
+      -  stanford_dogs
 
-   -  sun397
+      -  stanford\ *online*\ products
 
-   -  svhn_cropped
+      -  sun397
 
-   -  tf_flowers
+      -  svhn_cropped
 
-   -  uc_merced
+      -  tf_flowers
 
-   -  visual\ *domain*\ decathlon
+      -  uc_merced
 
-   -  voc2007
+      -  visual\ *domain*\ decathlon
 
--  Structured
+      -  voc2007
 
-   -  amazon\ *us*\ reviews
+   -  Structured
 
-   -  higgs
+      -  amazon\ *us*\ reviews
 
-   -  iris
+      -  higgs
 
-   -  rock_you
+      -  iris
 
-   -  titanic
+      -  rock_you
 
--  Text
+      -  titanic
 
-   -  cnn_dailymail
+   -  Text
 
-   -  definite\ *pronoun*\ resolution
+      -  cnn_dailymail
 
-   -  gap
+      -  definite\ *pronoun*\ resolution
 
-   -  glue
+      -  gap
 
-   -  imdb_reviews
+      -  glue
 
-   -  lm1b
+      -  imdb_reviews
 
-   -  multi_nli
+      -  lm1b
 
-   -  snli
+      -  multi_nli
 
-   -  squad
+      -  snli
 
-   -  super_glue
+      -  squad
 
-   -  trivia_qa
+      -  super_glue
 
-   -  wikipedia
+      -  trivia_qa
 
-   -  xnli
+      -  wikipedia
 
--  Translate
+      -  xnli
 
-   -  flores
+   -  Translate
 
-   -  para_crawl
+      -  flores
 
-   -  ted\ *hrlr*\ translate
+      -  para_crawl
 
-   -  ted\ *multi*\ translate
+      -  ted\ *hrlr*\ translate
 
-   -  wmt14_translate
+      -  ted\ *multi*\ translate
 
-   -  wmt15_translate
+      -  wmt14_translate
 
-   -  wmt16_translate
+      -  wmt15_translate
 
-   -  wmt17_translate
+      -  wmt16_translate
 
-   -  wmt18_translate
+      -  wmt17_translate
 
-   -  wmt19_translate
+      -  wmt18_translate
 
-   -  wmt\ *t2t*\ translate
+      -  wmt19_translate
 
--  Video
+      -  wmt\ *t2t*\ translate
 
-   -  bair\ *robot*\ pushing_small
+   -  Video
 
-   -  moving_mnist
+      -  bair\ *robot*\ pushing_small
 
-   -  starcraft_video
+      -  moving_mnist
 
-   -  ucf101
+      -  starcraft_video
+
+      -  ucf101
+
+2.3 获取内置数据集
+~~~~~~~~~~~~~~~~~~~~
+
+``tfds.load`` 是构建并加载 ``tf.data.Dataset`` 最简单的方式。``tf.data.Dataset`` 是构建输入流水线的标准 TensorFlow 接口。
+
+示例:
+
+   .. code-block:: python
+
+      mnist_train = tfds.load("mnist", split = "train", download = False, data_dir = "~/.tensorflow_datasets/")
+      assert isinstance(mnist_train, tf.data.Dataset)
+      print(mnist_train)
+
+
+2.4 特征字典
+~~~~~~~~~~~~~~~~~~~~~
+
+所有 ``tfds`` 数据集都包含将特征名称映射到 Tensor 值的特征字典。典型的数据集将具有 2 个键:
+
+   - ``"image"``
+
+   - ``"label"``
+
+示例:
+
+   .. code-block:: python
+
+      mnist_train = tfds.load("mnist", split = "train", download = False, data_dir = "~/.tensorflow_datasets/")
+      for mnist_example in mnist_train.take(1): # 只取一个样本
+         image, label = mnist_example["image"], mnist_example["label"]
+         plt.imshow(image.numpy()[:, :, 0].astype(np.float32), cma = plt.get_cmap("gray"))
+         print("Label: %d" % label.numpy())
+
+2.5 DatasetBuilder
+~~~~~~~~~~~~~~~~~~~~~~
+
+``tfds.load`` 实际上是一个基于 ``DatasetBuilder`` 的简单方便的包装器
+
+示例:
+
+   .. code-block:: python
+
+      mnist_builder = tfds.builder("mnist")
+      mnsit_builder.download_and_prepare()
+      mnist_train = mnist_builder.as_dataset(split = "train")
+      mnist_train
+
+
+
+2.6 输入流水线
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+一旦有了 ``tf.data.Dataset`` 对象，就可以使用 ``tf.data`` 接口定义适合模型训练的输入流水线的其余部分.
+
+示例:
+
+   .. code-block:: python
+
+      mnist_train = mnist_train.repeat().shuffle(1024).batch(32)
+
+      # prefetch 将使输入流水线可以在模型训练时一步获取批处理
+      mnist_train = mnist_train \
+                     .repeat() \
+                     .shuffle(1024) \
+                     .batch(32) \
+                     .prefetch(tf.data.experimental.AUTOTUNE)
+
+2.7 数据集信息
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+示例:
+
+   .. code-block:: python
+
+      # method 1
+      info = mnist_builder.info
+      print(info)
+      print(info.features)
+      print(info.features["label"].num_classes)
+      print(info.features["label"].names)
+
+      # method 2
+      mnist_test, info = tfds.load("mnist", split = "test", with_info = True)
+      print(info)
+
+
+2.8 数据集可视化
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+示例:
+
+   .. code-block:: python
+
+      fig = tfds.show_examples(info, mnist_test)
+
+
+
+
+
 
 .. _header-n329:
 
@@ -726,8 +771,177 @@ method 2:
            except tf.errors.OutOfRangeError:
                break
 
-..
 
    随机重排输入数据
 
    使用高阶 API
+
+
+
+3.4 导入数据
+~~~~~~~~~~~~~~~~~~~~~~~
+
+   -  API: ``tf.data``
+
+      -  根据简单的可重用片段构建复杂的输入管道；
+
+         -  图片模型：
+
+         -  文本模型：
+
+   -  tf.data在TensorFlow中引入两个新的抽象类：
+
+      -  ``tf.data.Dataset``:
+         表示一系列元素，其中每个元素包含一个或多个Tensor对象；
+
+         -  两种创建数据集的方式：
+
+            -  **创建来源**\ ：通过一个或多个tf.Tensor对象构建数据集
+
+               -  ``tf.data.Dataset.from_tensors()``
+
+               -  ``tf.data.Dataset.from_tensor_slices()``
+
+            -  **应用转换**\ ：通过一个或多个tf.data.Dataset对象构建数据集
+
+               -  ``tf.data.Dataset.map()``
+
+               -  ``tf.data.Dataset.batch()``
+
+      -  ``tf.data.Iterator``: 提供了从数据集中提取元素的主要方法
+
+         -  ``tf.data.Iterator.get_next()``
+
+            -  返回的操作会在执行时生成Dataset的下一个元素，并且此操作通常当输入管道和模型之间的接口
+
+         -  ``tf.data.Iterator.initializer``
+
+            -  使用不同的数据集重新初始化和参数化迭代器
+
+.. _header-n53:
+
+3.1.1 基本机制
+^^^^^^^^^^^^^^^^^^^^^
+
+   创建不同种类的Dataset和Iterator对象的基础知识，以及如何从这些对象中提取数据；
+
+1. **定义数据来源——Dataset：**
+
+   -  通过内存中的张量构建Dataset
+
+      -  tf.data.Dataset.from_tensors()
+
+      -  tf.data.Dataset.from\ *tensor*\ slices()
+
+   -  通过以TFRecord格式存储在磁盘上的数据构建Dataset
+
+      -  tf.data.TFRecordDataset
+
+2. **将Dataset进行数据转换：**
+
+   -  tf.data.Dataset的数据转换方法
+
+      -  tf.data.Dataset.map()
+
+         -  单元素转换，为每个元素应用一个函数
+
+      -  tf.data.Dataset.batch()
+
+         -  多元素转换
+
+      -  ...
+
+3. **从数据集中提取元素：**
+
+   -  构建迭代器对象：
+
+      -  tf.data.Iterator.initializer
+
+         -  重新初始化迭代器的状态
+
+      -  tf.data.Iterator.get_next()
+
+         -  返回对应于有符号下一个元素的tf.Tensor对象
+
+.. _header-n106:
+
+3.1.2 数据集结构
+^^^^^^^^^^^^^^^^^^^^^
+
+
+
+4.加载和预处理数据
+----------------------------
+
+
+4.1 tf.data 数据集的构建与预处理
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TensorFlow 提供了 ``tf.data`` 模块，它包含了一套灵活的数据集构建 API，能够帮助我们快速、高效地构建数据输入的流水线，
+尤其适用于数据量巨大的场景。
+
+4.1.1 数据集对象的建立
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``tf.data`` 的核心是 ``tf.data.Dataset`` 类，提供对数据集的高层封装。
+
+``tf.data.Dataset`` 由一系列可迭代访问的元素(element)组成，每个元素包含一个或多个张量。
+
+
+
+
+
+4.2 图像
+~~~~~~~~~~~~~~~~~~~~~
+
+
+
+4.2 文本
+~~~~~~~~~~~~~~~~~~~~~
+
+
+
+4.3 CSV
+~~~~~~~~~~~~~~~~~~~~~
+
+
+4.4 Numpy
+~~~~~~~~~~~~~~~~~~~~~
+
+
+4.5 pandas.DataFrame
+~~~~~~~~~~~~~~~~~~~~~
+
+
+4.6 Unicode
+~~~~~~~~~~~~~~~~~~~~~
+
+
+4.7 TF.Text
+~~~~~~~~~~~~~~~~~~~~~
+
+
+4.8 TFRecord 和 tf.Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+4.9 tf.io 的其他格式
+~~~~~~~~~~~~~~~~~~~~~
+
+
+5.数据输入流水线
+---------------------
+
+5.1 tf.data
+~~~~~~~~~~~~~~~~~~~
+
+
+5.2 优化流水线性能
+~~~~~~~~~~~~~~~~~~~~
+
+
+
+5.3 分析流水线性能
+~~~~~~~~~~~~~~~~~~~~~~
+
+

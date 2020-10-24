@@ -36,6 +36,8 @@ deeplearning
    deeplearning/Optimization
    deeplearning/Regularization
    deeplearning/Parameter_Init
+   deeplearning/Losses
+   deeplearning/Metrics
    deeplearning/Net/ResNet-V1
    deeplearning/Net/LeNet-5
    deeplearning/GPU/GPU-hardware
@@ -53,26 +55,22 @@ deeplearning
    Keras/keras-Backend
    Keras/keras-Datasets
    Keras/keras-Preprocessing
-   Keras/keras-Sequential-model
-   Keras/keras-Functional-API
-   Keras/keras-Layers
-   Keras/keras-Models
+   Keras/keras-model-Sequential-model
+   Keras/keras-model-Functional-API
+   Keras/keras-model-Subclassing
+   Keras/keras-structure-Layers
+   Keras/keras-structure-Models
+   Keras/keras-structure-Callbacks
+   Keras/keras-Utilities
    Keras/keras-Compile
    Keras/keras-Fit
+   Keras/keras-Losses
+   Keras/keras-Metrics
+   Keras/keras-Optimizers
+   Keras/keras-Applications
    Keras/Introduction to Keras for Engineers
-   Keras/Python Learning Book
-   Keras/Keras-models/Keras-Linear-Regression
-   Keras/Keras-models/Keras-MNIST-MLP
-   Keras/Keras-models/Keras-MNIST-Classification
-   Keras/Keras-models/Keras-MNIST-CNN
-   Keras/Keras-models/Keras-MNIST-LeNet-5
-   Keras/Keras-models/Keras-MNIST-RNN-Class
-   Keras/Keras-models/Keras-MNIST-RNN-Reg
-   Keras/Keras-models/Keras-CIFAR10-CNN
-   Keras/Keras-models/Keras-CIFAR10-CNN_Capsule
-   Keras/Keras-models/Keras-CIFAR10-ResNet
-   Keras/Keras-models/Keras-LSTM-text-generation
-
+   Keras/Python-Learning-Book
+   Keras/keras-ecosystem
 
 
 .. toctree::
@@ -87,60 +85,9 @@ deeplearning
    TensorFlow/TensorFlow-TensorBoard
    TensorFlow/TensorFlow-Estimator
    TensorFlow/TensorFlow-APIs
-   TensorFlow/TensorFlow-models/TensorFlow-sign-DNN
-   TensorFlow/TensorFlow-models/TensorFlow-sign-CNN
-   TensorFlow/TensorFlow-models/TensorFlow-MNIST-CNN
    TensorFlow/TF-keras/TF-keras
    TensorFlow/TF-keras/TF-keras-functional-API
    TensorFlow/TF-keras/TF-keras-custom
    TensorFlow/TF-keras/TF-keras-RNN
    TensorFlow/TF-keras/TF-keras-save-a-model
 
-
-.. toctree::
-   :caption: PyTorch
-   :maxdepth: 2
-   
-   PyTorch/torch
-   PyTorch/torch_tensor
-   PyTorch/torch_autogard
-   PyTorch/torch_data
-   PyTorch/torch_nn
-   PyTorch/torch_model
-   PyTorch/torch_model_save
-   PyTorch/torch_data_parallel
-   PyTorch/torch_api
-   PyTorch/PyTorch-models/torch_linear_regression
-   PyTorch/PyTorch-models/torch_logistic_regression
-   PyTorch/PyTorch-models/classifier
-
-
-
-.. .. toctree::
-..    :caption: Numpy-DL
-..    :maxdepth: 2
-
-..    Numpy/Numpy-Perceptron
-..    Numpy/Numpy-MultiPerceptron
-..    Numpy/Numpy-DNN
-..    Numpy/Numpy-DNN2
-..    Numpy/Numpy-CNN
-..    Numpy/Numpy-Activation
-..    Numpy/Numpy-Loss
-..    Numpy/Numpy-GradientAlgorithm
-   
-
-.. .. toctree::
-..    :caption: MXNet
-..    :maxdepth: 2
-
-..    MXNet/mxnet
-..    MXNet/weight_decay_sample
-..    MXNet/LinearRegression_simple
-..    MXNet/MLP_simple
-..    MXNet/SoftmaxRegression_simple
-..    MXNet/weight_decay_complex
-..    MXNet/LinearRegression_complex
-..    MXNet/MLP_complex
-..    MXNet/SoftmaxRegression_complex
-..    MXNet/data-preprocessing

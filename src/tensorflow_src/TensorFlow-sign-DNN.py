@@ -80,9 +80,9 @@ data
 .. code:: python
 
    def create_placeholders(n_x, n_y):
-   	X = tf.placeholder(tf.float32, shape = (n_x, None), name = "X")
-   	Y = tf.placeholder(tf.float32, shape = (n_y, None), name = "Y")
-   	return X, Y
+       X = tf.placeholder(tf.float32, shape = (n_x, None), name = "X")
+       Y = tf.placeholder(tf.float32, shape = (n_y, None), name = "Y")
+       return X, Y
 
 .. _header-n49:
 
@@ -102,26 +102,26 @@ data
 .. code:: python
 
    def initialize_parameters():
-   	tf.set_random.seed(1)
-   	W1 = tf.get_variable(name = "W1", shape = [25, 12288], 
-   						 initializer = tf.contrib.layers.xavier_initializer(seed = 1))
-   	b1 = tf.get_variable(name = "b1", shape = [25, 1], 
-   						 initializer = tf.zeros_initializer())
-   	W2 = tf.get_variable(name = "W2", shape = [12, 25], 
-   						 initializer = tf.contrib.layers.xavier_initializer(seed = 1))
-   	b2 = tf.get_variable(name = "b2", shape = [12, 1], 
-   						 initializer = tf.zeros_initializer())
+       tf.set_random.seed(1)
+       W1 = tf.get_variable(name = "W1", shape = [25, 12288], 
+                            initializer = tf.contrib.layers.xavier_initializer(seed = 1))
+       b1 = tf.get_variable(name = "b1", shape = [25, 1], 
+                            initializer = tf.zeros_initializer())
+       W2 = tf.get_variable(name = "W2", shape = [12, 25], 
+                            initializer = tf.contrib.layers.xavier_initializer(seed = 1))
+       b2 = tf.get_variable(name = "b2", shape = [12, 1], 
+                            initializer = tf.zeros_initializer())
        W3 = tf.get_variable(name = "W3", shape = [6, 12], 
-       					 initializer = tf.contrib.layers.xavier_initializer(seed = 1))
+                            initializer = tf.contrib.layers.xavier_initializer(seed = 1))
        b3 = tf.get_variable(name = "b3", shape = [6,1], 
-       					 initializer = tf.zeros_initializer())
+                            initializer = tf.zeros_initializer())
        parameters = {
-       	"W1": W1,
-       	"b1": b1,
-       	"W2": W2,
-       	"b2": b2,
-       	"W3": W3,
-       	"b3": b3
+           "W1": W1,
+           "b1": b1,
+           "W2": W2,
+           "b2": b2,
+           "W3": W3,
+           "b3": b3
        }
        return parameters
 
@@ -145,31 +145,31 @@ data
 .. code:: python
 
    def forward_propagation(X, parameters):
-   	"""
-   	Implements the forward propagation for the model: LINEAR -> RELU -> LINEAR -> RELU -> LINEAR -> SOFTMAX
-   	"""
-   	W1 = parameters["W1"]
-   	b1 = parameters["b1"]
-   	W2 = parameters["W2"]
-   	b2 = parameters["b2"]
-   	W3 = parameters["W3"]
-   	b3 = parameters["b3"]
-   	Z1 = tf.add(tf.matmul(W1, X), b1)
-   	A1 = tf.nn.relu(Z1)
-   	Z2 = tf.add(tf.matmul(W2, A1), b2)
-   	A2 = tf.nn.relu(Z2)
-   	Z3 = tf.add(tf.matmul(W3, A2), b3)
-   	return Z3
+       """
+       Implements the forward propagation for the model: LINEAR -> RELU -> LINEAR -> RELU -> LINEAR -> SOFTMAX
+       """
+       W1 = parameters["W1"]
+       b1 = parameters["b1"]
+       W2 = parameters["W2"]
+       b2 = parameters["b2"]
+       W3 = parameters["W3"]
+       b3 = parameters["b3"]
+       Z1 = tf.add(tf.matmul(W1, X), b1)
+       A1 = tf.nn.relu(Z1)
+       Z2 = tf.add(tf.matmul(W2, A1), b2)
+       A2 = tf.nn.relu(Z2)
+       Z3 = tf.add(tf.matmul(W3, A2), b3)
+       return Z3
 
 计算损失：
 
 .. code:: python
 
    def compute_cost(Z3, Y):
-   	logits = tf.transpose(Z3)
-   	lables = tf.transpose(Y)
-   	cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = logits, labels = labels))
-   	return cost
+       logits = tf.transpose(Z3)
+       lables = tf.transpose(Y)
+       cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = logits, labels = labels))
+       return cost
 
 反向传播、权重更新：
 
@@ -204,46 +204,46 @@ data
 
 
    def model(x_train, y_train, x_test, y_test, learning_rate = 0.0001, num_epochs = 1500, minibatch_size = 32, print_cost = True):
-   	ops.reset_default_graph()
+       ops.reset_default_graph()
 
-   	# configuration
-   	tf.set_random_seed(1)
-   	seed = 3
-   	(n_x, m) = x_train.shape
-   	n_y = y_train.shape[0]
-   	costs = []
+       # configuration
+       tf.set_random_seed(1)
+       seed = 3
+       (n_x, m) = x_train.shape
+       n_y = y_train.shape[0]
+       costs = []
 
-   	X, Y = create_placeholders(n_x, n_y)
-   	# 初始化模型参数
-   	parameters = initialize_parameters()
-   	# 前向传播
-   	Z3 = forward_propagation(X, parameters)
-   	# 计算损失
-   	cost = compute_cost(Z3, Y)
-   	# 后向传播
-   	optimizer = tf.train.GradientDescentOptimizer(learning_rate = learning_rate).minimize(cost)
+       X, Y = create_placeholders(n_x, n_y)
+       # 初始化模型参数
+       parameters = initialize_parameters()
+       # 前向传播
+       Z3 = forward_propagation(X, parameters)
+       # 计算损失
+       cost = compute_cost(Z3, Y)
+       # 后向传播
+       optimizer = tf.train.GradientDescentOptimizer(learning_rate = learning_rate).minimize(cost)
 
-   	init = tf.global_variables_initializer()
-   	with tf.Session() as sess:
-   		sess.run(init)
-   		for epoch in range(num_epochs): # epoch: 0, 1, 2, ..., 1500
-   			epoch_cost = 0.0
-   			num_minibatches = int(m / minibatch_size)
-   			seed += 1
-   			minibatches = random_mini_batch(x_train, y_train, minibatch_size, seed)
-   			for minibatch in minibatches:
-   				(minibatch_x, minibatch_y) = minibatch 
-   				_, minibatch_cost = sess.run([optimizer, cost], feed_dict = {X: minibatch_x, Y: minibatch_y})
-   				epoch_cost += minibatch_cost / num_minibatches
+       init = tf.global_variables_initializer()
+       with tf.Session() as sess:
+           sess.run(init)
+           for epoch in range(num_epochs): # epoch: 0, 1, 2, ..., 1500
+               epoch_cost = 0.0
+               num_minibatches = int(m / minibatch_size)
+               seed += 1
+               minibatches = random_mini_batch(x_train, y_train, minibatch_size, seed)
+               for minibatch in minibatches:
+                   (minibatch_x, minibatch_y) = minibatch 
+                   _, minibatch_cost = sess.run([optimizer, cost], feed_dict = {X: minibatch_x, Y: minibatch_y})
+                   epoch_cost += minibatch_cost / num_minibatches
 
-   		if print_cost == True and epoch % 100 == 0:
-   			print("Cost after epoch %i: %f" % (epoch, epoch_cost))
-   		if print_cost == True and epoch % 5 == 0:
-   			costs.append(epoch_cost)
+           if print_cost == True and epoch % 100 == 0:
+               print("Cost after epoch %i: %f" % (epoch, epoch_cost))
+           if print_cost == True and epoch % 5 == 0:
+               costs.append(epoch_cost)
 
-   		# 模型结果可视化
-   		plt.plot(np.squeeze(costs))
-   		plt.ylabel('cost')
+           # 模型结果可视化
+           plt.plot(np.squeeze(costs))
+           plt.ylabel('cost')
            plt.xlabel('iterations (per tens)')
            plt.title("Learning rate =" + str(learning_rate))
            plt.show()

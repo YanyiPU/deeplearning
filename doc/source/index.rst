@@ -52,6 +52,7 @@ deeplearning
    :maxdepth: 2
 
    Keras/keras
+   Keras/keras-engineers
    Keras/keras-Backend
    Keras/keras-Datasets
    Keras/keras-Preprocessing
@@ -68,7 +69,6 @@ deeplearning
    Keras/keras-Metrics
    Keras/keras-Optimizers
    Keras/keras-Applications
-   Keras/Introduction to Keras for Engineers
    Keras/Python-Learning-Book
    Keras/keras-ecosystem
 
@@ -85,9 +85,10 @@ deeplearning
    TensorFlow/TensorFlow-TensorBoard
    TensorFlow/TensorFlow-Estimator
    TensorFlow/TensorFlow-APIs
+   TensorFlow/TensorFlow-SaveModel
+   TensorFlow/TensorFLow-Serving
    TensorFlow/TF-keras/TF-keras
    TensorFlow/TF-keras/TF-keras-functional-API
    TensorFlow/TF-keras/TF-keras-custom
    TensorFlow/TF-keras/TF-keras-RNN
-   TensorFlow/TF-keras/TF-keras-save-a-model
 

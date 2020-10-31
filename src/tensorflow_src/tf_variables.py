@@ -1,4 +1,3 @@
-from __future__ import print_function
 import tensorflow as tf
 import os
 from tensorflow.python.framework import ops

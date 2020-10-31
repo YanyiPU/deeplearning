@@ -23,6 +23,7 @@ class MNISTLoader():
         # [10000, 28, 28, 1]
         self.test_data = np.expand_dims(self.test_data.astype(np.float32) / 255.0, axis = 1)
         self.test_label = self.test_label.astype(np.int32) # [10000]
+        # trian_data, test_data number
         self.num_train_data, self.num_test_data = self.train_data.shape[0], self.test_data.shape[0]
     
     def get_batch(self, batch_size):

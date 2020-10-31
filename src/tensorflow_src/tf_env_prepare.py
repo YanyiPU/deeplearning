@@ -2,6 +2,7 @@ from __future__ import print_function
 import tensorflow as tf
 import os
 
+
 # event file 路径设置
 tf.app.flags.DEFINE_string(
     'log_dir', 

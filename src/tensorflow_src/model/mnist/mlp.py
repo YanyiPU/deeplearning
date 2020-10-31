@@ -1,6 +1,6 @@
 import numpy as np
 import tensorflow as tf
-import MNISTLoader
+# import MNISTLoader
 
 print(tf.__version__)
 
@@ -17,6 +17,7 @@ class MLP(tf.keras.Model):
         self.dense1 = tf.keras.layers.Dense(units = 100, activation = tf.nn.relu)
         self.dense2 = tf.keras.layers.Dense(units = 10)
     
+    @tf.function
     def call(self, input):        # [batch_size, 28, 28, 1]
         x = self.flatten(input)   # [batch_size, 28 * 28 * 1 = 784]
         x = self.dense1(x)        # [batch_size, 100]

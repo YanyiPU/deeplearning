@@ -295,3 +295,22 @@ Install the latest version of TensorBoard to use the uploader.
 .. code:: shell
 
    $ tensorboard --logdir .
+
+
+
+2.实时查看参数变化情况
+------------------------------------
+
+
+
+
+
+
+
+
+
+3.查看 Graph 和 Profile 信息
+-------------------------------------
+
+
+

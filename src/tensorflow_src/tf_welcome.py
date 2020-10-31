@@ -1,13 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Date    : 2019-03-15 23:38:42
-# @Author  : Your Name (you@example.org)
-# @Link    : http://example.org
-# @Version : $Id$
-
-from __future__ import print_function
 import tensorflow as tf
 import os
+
 
 # event file 路径设置
 tf.app.flags.DEFINE_string(

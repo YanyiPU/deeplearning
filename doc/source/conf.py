@@ -30,15 +30,10 @@ sys.path.append(os.path.abspath('.deeplearning/Net/'))
 sys.path.append(os.path.abspath('.deeplearning/GEN/'))
 sys.path.append(os.path.abspath('.deeplearning/GPU/'))
 sys.path.append(os.path.abspath('.Keras/'))
-sys.path.append(os.path.abspath('.Keras/Keras-models/'))
 sys.path.append(os.path.abspath('.TensorFlow/'))
-sys.path.append(os.path.abspath('.TensorFlow/TensorFlow-models/'))
 sys.path.append(os.path.abspath('.TensorFlow/TF-keras/'))
-sys.path.append(os.path.abspath('.PyTorch/'))
-sys.path.append(os.path.abspath('.PyTorch/PyTorch-models/'))
-sys.path.append(os.path.abspath('.Linux/'))
-sys.path.append(os.path.abspath('.Linux/'))
-sys.path.append(os.path.abspath('.Linux/'))
+sys.path.append(os.path.abspath('.pilllow/'))
+sys.path.append(os.path.abspath('.opencv/'))
 
 # -- General configuration ------------------------------------------------
 

@@ -92,3 +92,14 @@ deeplearning
    TensorFlow/TF-keras/TF-keras-custom
    TensorFlow/TF-keras/TF-keras-RNN
 
+.. toctree::
+   :caption: pillow
+   :maxdepth: 2
+
+   pillow/pillow
+
+.. toctree::
+   :caption: opencv
+   :maxdepth: 2
+
+   opencv/opencv

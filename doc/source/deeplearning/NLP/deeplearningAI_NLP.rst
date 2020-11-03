@@ -6,13 +6,13 @@ NLP deeplearning.ai
 1.课程主要内容
 --------------------------------
 
-    - Use logistic regression, naïve Bayes, and word vectors to implement sentiment analysis, complete analogies & translate words
+    - Use **logistic regression**, **naïve Bayes**, and *word vectors* to implement **sentiment analysis**, **complete analogies** & **translate words**
 
-    - Use recurrent neural networks, LSTMs, GRUs & Siamese network in TensorFlow & Trax for sentiment analysis, text generation & named entity recognition
+    - Use **recurrent neural networks**, **LSTMs**, **GRUs** & **Siamese network** in TensorFlow & Trax for **sentiment analysis**, **text generation** & **named entity recognition**
 
-    - Use dynamic programming, hidden Markov models, and word embeddings to implement autocorrect, autocomplete & identify part-of-speech tags for words
+    - Use **dynamic programming**, **hidden Markov models**, and **word embeddings** to implement **autocorrect**, **autocomplete** & **identify part-of-speech tags for words**
 
-    - Use encoder-decoder, causal, & self-attention to machine translate complete sentences, summarize text, build chatbots & question-answering
+    - Use **encoder-decoder**, **causal**, & **self-attention** to **machine translate complete sentences**, **summarize text**, **build chatbots** & **question-answering**
 
 
 2.主要技能

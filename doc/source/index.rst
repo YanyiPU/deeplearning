@@ -43,8 +43,10 @@ deeplearning
    deeplearning/GPU/GPU-hardware
    deeplearning/GPU/GPU-software
    deeplearning/NLP/NLP
+   deeplearning/NLP/NLP-segment
    deeplearning/NLP/deeplearningAI_NLP
    deeplearning/NLP/NLP_classification_and_vector_spaces
+
 
 .. toctree::
    :caption: Keras

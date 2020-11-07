@@ -1,0 +1,152 @@
+
+NLP 分词
+=================
+
+-  常用分词库
+
+   -  StanfordNLP
+
+   -  哈工大语言云
+
+   -  庖丁解牛分词
+
+   -  盘古分词 (ICTCLAS, 中科院汉语词法分析系统)
+
+   -  IKAnalyzer（Luence项目下，基于java）
+
+   -  FudanNLP（复旦大学）
+
+   -  中文分词工具
+
+   -  ``Ansj``
+
+   -  盘古分词
+
+   -  ``jieba``
+
+1.jieba 分词
+---------------------
+
+1.1 安装
+~~~~~~~~~~~~~~~~~~~~~
+
+    .. code-block:: shell
+
+        $ pip install paddlepaddle-tiny=1.6.1 # Python3.7
+        $ pip install jieba
+
+1.2 特点、算法
+~~~~~~~~~~~~~~~~~~~~~
+
+    - 特点:
+
+        - 支持四种分词模式：
+
+            - 精确模式，试图将句子最精确地切开，适合文本分析
+
+            - 全模式，把句子中所有的可以成词的词语都扫描出来, 速度非常快，但是不能解决歧义
+
+            - 搜索引擎模式，在精确模式的基础上，对长词再次切分，提高召回率，适合用于搜索引擎分词
+
+            - paddle 模式，利用 PaddlePaddle 深度学习框架，训练序列标注(双向GRU)网络模型实现分词。同时支持词性标注
+
+                - paddle 模式使用需安装 ``paddlepaddle-tiny``
+
+                - 目前 paddle 模式支持 jieba v0.40 及以上版本
+
+        - 支持繁体分词
+
+        - 支持自定义词典
+
+        - MIT 授权协议
+
+    - 算法:
+
+        - 基于前缀词典实现高效的词图扫描，生成句子中汉字所有可能成词情况所构成的有向无环图 (DAG)
+
+        - 采用了动态规划查找最大概率路径, 找出基于词频的最大切分组合
+
+        - 对于未登录词，采用了基于汉字成词能力的 HMM 模型，使用了 Viterbi 算法
+
+1.4 主要功能
+~~~~~~~~~~~~~~~~~~~~~
+
+1.4.1 分词 API
+^^^^^^^^^^^^^^^^^^^^^
+
+    - ``jieba.enable_paddle()``
+
+    - ``jieba.cut(sentence = "", cut_all = False, HMM = True, use_paddle = False)``
+
+    - ``jieba.lcut(sentence = "", cut_all = False, HMM = True, use_paddle = False)``
+
+    - ``jieba.cut_for_search(sentence = "", HMM = True)``
+
+    - ``jieba.lcut_for_search(sentence = "", HMM = True)``
+
+1.4.2 添加自定义词典
+^^^^^^^^^^^^^^^^^^^^^
+
+    - jieba.load_userdict(file_name): 载入自定义词典
+
+    - jieba.dt.tmp_dir
+    
+    - jieba.dt.cache_file
+
+    - add_word(word, freq = None, tag = None)
+
+    - del_word(word)
+
+    - suggest_freq(segment, tune - True)
+
+1.4.3 关键词提取
+^^^^^^^^^^^^^^^^^^^^^
+
+
+
+
+
+1.4.4 词性标注
+^^^^^^^^^^^^^^^^^^^^^
+
+
+
+
+
+
+1.4.5 并行分词
+^^^^^^^^^^^^^^^^^^^^
+
+
+
+
+
+
+1.4.6 Tokenize：返回词语在原文的起止位置
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+
+1.4.7 ChineseAnalyzer for Whoosh 搜索引擎
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+1.4.8 命令行分词
+^^^^^^^^^^^^^^^^^^^^
+
+
+
+
+
+
+
+
+
+
+
+2.其他分词
+----------------------
+
+

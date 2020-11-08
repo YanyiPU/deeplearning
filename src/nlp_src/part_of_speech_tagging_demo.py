@@ -1,5 +1,4 @@
-# encoding=utf-8
-
+# -*- coding: utf-8 -*-
 import jieba.posseg as psg
 
 sent = "中文分词是文本处理不可或缺的一步!"

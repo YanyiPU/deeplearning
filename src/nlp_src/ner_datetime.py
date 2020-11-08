@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 import re
 from datetime import datetime, timedelta
 from dateutil.parser import parse

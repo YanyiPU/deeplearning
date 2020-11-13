@@ -34,8 +34,8 @@ https://github.com/nlpinaction/code/tree/master/chapter-5
 """
 
 project_path = os.path.abspath(".")
-stopword_path = os.path.join(project_path, "src/nlp_src/word_stop.txt")
-corpus_path = os.path.join(project_path, "src/nlp_src/corpus.txt")
+stopword_path = os.path.join(project_path, "src/nlp_src/utils/word_stop.txt")
+corpus_path = os.path.join(project_path, "src/nlp_src/data/corpus.txt")
 
 
 # 1.加载已有的文档数据集
@@ -54,7 +54,8 @@ def load_train_data():
 
     return text
 
-def load_data(data_path, pos = False):
+
+def load_data(data_path, stopword_list, pos = False):
     """
     1.加载新的文本数据
     2.对新文本进行分词
@@ -71,9 +72,7 @@ def load_data(data_path, pos = False):
     for line in open(data_path, "r", encoding = "utf-8"):
         content = line.strip()
         seg_list = seg_to_list(content, pos)
-        print(seg_list)
-        filter_list = word_filter(seg_list, pos)
-        print(filter_list)
+        filter_list = word_filter(seg_list, stopword_list, pos)
         doc_list.append(filter_list)
 
     return doc_list
@@ -84,6 +83,13 @@ def get_stopword_list(stop_word_path):
     """
     停用词表存储录路径，每一行为一个词，按行读取进行加载.
         - 进行编码转换确保匹配准确率
+        - 返回停用词的列表
+
+    Args:
+        stop_word_path ([type]): [description]
+
+    Returns:
+        [type]: [description]
     """
     stopword_list = [sw.replace("\n", "") for sw in open(stop_word_path, encoding = "utf-8").readlines()]
 
@@ -92,6 +98,16 @@ def get_stopword_list(stop_word_path):
 
 # 3.对数据集中的文档进行 **分词**
 def seg_to_list(sentence, pos = False):
+    """
+    分词方法，调用jieba接口
+
+    Args:
+        sentence ([type]): [description]
+        pos (bool, optional): [description]. Defaults to False.
+
+    Returns:
+        [type]: [description]
+    """
     if not pos:
         # 不进行词性标注的分词方法
         seg_list = jieba.cut(sentence)
@@ -103,7 +119,7 @@ def seg_to_list(sentence, pos = False):
 
 
 # 4.根据停用词表，过滤干扰词
-def word_filter(seg_list, stopword_list,  pos = False):
+def word_filter(seg_list, stopword_list, pos = False):
     """
     根据停用词表，过滤干扰词
 
@@ -123,11 +139,12 @@ def word_filter(seg_list, stopword_list,  pos = False):
         else:
             word = seg.word
             flag = seg.flag
-
+        
         if not flag.startswith("n"):
             continue
+        
         # 过滤停用词表中的词，以及长度 < 2 的词
-        if word not in stopword_list and len(word) > 1:
+        if not word in stopword_list and len(word) > 1:
             filter_list.append(word)
     
     return filter_list
@@ -147,7 +164,7 @@ def train_idf(doc_list):
     
     # 按公式转换为 IDF 值，分母加1进行平滑处理
     for key, value in idf_dict.items():
-        idf_dict[key] = math.log(tt_count / (1.0 + v))
+        idf_dict[key] = math.log(tt_count / (1.0 + value))
     
     # 对于没有在字典中的词，默认其仅在一个文档出现，得到默认IDF值
     default_idf = math.log(tt_count / 1.0)
@@ -192,8 +209,13 @@ class TfIdfModel(object):
         self.keyword_num = keyword_num
         self.tf_dict = self.get_tf_dict()
     
-    # 统计 TF 值
     def get_tf_dict(self):
+        """
+        统计 TF 值
+
+        Returns:
+            [type]: [description]
+        """
         tf_dict = {}
         for word in self.word_list:
             tf_dict[word] = tf_dict.get(word, 0.0) + 1.0
@@ -204,8 +226,10 @@ class TfIdfModel(object):
         
         return tf_dict
 
-    # 按公式计算 TF-IDF
     def get_tfidf(self):
+        """
+        按公式计算 TF-IDF
+        """
         tfidf_dict  = {}
         for word in self.word_list:
             idf = self.idf_dict.get(word, self.default_idf)
@@ -222,6 +246,7 @@ class TfIdfModel(object):
 
 # LSI, LDA 主题模型
 class TopicModel(object):
+    
     def __init__(self, doc_list, keyword_num, model = "LSI", num_topics = 4):
         """
         Args:
@@ -237,7 +262,7 @@ class TopicModel(object):
         self.keyword_num = keyword_num
         self.num_topics = num_topics
         if model == "LSI":
-            self.mdoel = self.train_lsi()
+            self.model = self.train_lsi()
         else:
             self.model = self.train_lda()
         word_dict = self.word_dictionary(doc_list)
@@ -261,7 +286,7 @@ class TopicModel(object):
             wordtopic = self.model[wordcorpus]
             wordtopic_dict[word] = wordtopic
         
-        return wordtopic
+        return wordtopic_dict
 
     def get_simword(self, word_list):
         """
@@ -298,10 +323,10 @@ class TopicModel(object):
             if key not in word_list:
                 continue
             sim = calsim(value, senttopic)
-            sim_dict[k] = sim
+            sim_dict[key] = sim
         
-        for k, v in sorted(sim_dic.items(), key = functools.cmp_to_key(cmp), reverse = True)[:self.keyword_num]:
-            print(k + "/ ", end = '')
+        for key, value in sorted(sim_dict.items(), key = functools.cmp_to_key(cmp), reverse = True)[:self.keyword_num]:
+            print(key + "/ ", end = '')
         print()
 
 
@@ -331,8 +356,7 @@ class TopicModel(object):
 
 
 # TF-IDF 关键字提取
-def tfidf_extract(word_list, pos = False, keyword_num = 10):
-    doc_list = load_data(data_path, pos)
+def tfidf_extract(doc_list, word_list, pos = False, keyword_num = 10):
     idf_dict, default_idf = train_idf(doc_list)
     tf_idf_model = TfIdfModel(idf_dict, default_idf, word_list, keyword_num)
     tf_idf_model.get_tfidf()
@@ -347,8 +371,7 @@ def textrank_extract(text, pos = False, keyword_num = 10):
 
 
 # LSI, LDA 关键字提取
-def topic_extract(word_list, model, pos = False, keyword_num = 10):
-    doc_list = load_data(data_path, pos)
+def topic_extract(doc_list, word_list, model, pos = False, keyword_num = 10):
     topic_model = TopicModel(doc_list, keyword_num, model = model)
     topic_model.get_simword(word_list)
 
@@ -364,33 +387,23 @@ def topic_extract(word_list, model, pos = False, keyword_num = 10):
 
 if __name__ == "__main__":
     text = load_train_data()
-   
     pos = True
-
     # 停用词
     stopword_list = get_stopword_list(stop_word_path = stopword_path)
-    # print(stopword_list)
-
+    # 分词
     seg_list = seg_to_list(text, pos)
-    # print("/".join(seg_list))
-
+    # 根据停用词去除分词后的语料干扰词
     filter_list = word_filter(seg_list, stopword_list, pos)
-    print(filter_list)
+    doc_list = load_data(corpus_path, stopword_list, pos)
 
-    # print("TF-IDF 模型结果：")
-    # tfidf_extract(filter_list)
+    print("TF-IDF 模型结果：")
+    tfidf_extract(doc_list, filter_list)
 
-    # print("TextRank 模型结果：")
-    # textrank_extract(text)
+    print("TextRank 模型结果：")
+    textrank_extract(text)
 
-    # print("LSI 模型结果：")
-    # topic_extract(filter_list, "LSI", pos)
+    print("LSI 模型结果：")
+    topic_extract(doc_list, filter_list, "LSI", pos)
 
-    # print("LDA 模型结果：")
-    # topic_extract(filter_list, "LDA", pos)
-    
-    # --------
-    # new data
-    # --------
-    # doc_list = load_data(corpus_path, pos)
-    # print(doc_list)
+    print("LDA 模型结果：")
+    topic_extract(doc_list, filter_list, "LDA", pos)

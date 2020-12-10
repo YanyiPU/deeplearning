@@ -47,6 +47,7 @@ deeplearning
    deeplearning/NLP/NLP-segment
    deeplearning/NLP/deeplearningAI_NLP
    deeplearning/NLP/NLP_classification_and_vector_spaces
+   deeplearning/NLP/Neo4j
 
 
 .. toctree::

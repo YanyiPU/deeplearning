@@ -5,10 +5,7 @@ Neo4j 图形数据库
 1.Neo4j 介绍
 ------------------------
 
-1.1 Neo4j 简介
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Neo4j是什么
+- Neo4j 是什么
 
     - Neo4j 是一个世界领先的开源图形数据库。它是由 Neo 技术使用 Java 语言完全开发的。
 
@@ -26,20 +23,20 @@ Neo4j 图形数据库
 
 - Neo4j的特点
 
-    - 开源的
+    - Neo4j 是开源的
 
-        - 无 Schema 的
+    - Neo4j 无 Schema
 
-    - SQL 就像简单的查询语言 Neo4j CQL
+    - Neo4j 的查询语言是 Neo4j CQL, 类似 SQL
 
-        - Neo4j 是没有 SQL 的
-
-    - 遵循 **属性图** 数据模型、图形数据库
+    - Neo4j 是一种图形数据库
 
         - 图形数据库是以图形结构的形式存储数据的数据库。它以节点、关系、属性的形式存储应用程序的数据，
           正如 RDBMS 以表的“行、列”的形式存储数据，GDBMS 以"图形"的形式存储数据。
 
-        - Neo4j 图数据库遵循属性图模型来存储和管理数据，属性图模型规则如下：
+    - Neo4j 遵循 **属性图数据模型** 存储和管理数据
+
+        - 属性图模型规则如下：
 
             - 图形是 **一组节点** 和 **连接这些节点的关系**
 
@@ -51,13 +48,13 @@ Neo4j 图形数据库
 
                         - 在属性图数据模型中，关系应该是定向的，如果尝试创建没有方向的关系，那么将抛出一个错误
 
-                        - 在 Neo4j 中，关系也应该是有方向性的，乳沟尝试创建没有方向的关系，那么将抛出一个错误
+                        - 在 Neo4j 中，关系也应该是有方向性的，如果尝试创建没有方向的关系，那么将抛出一个错误
 
                     - 每个关系包含：
 
                         - 开始节点 或 从节点
 
-                        - 到节点 或 结束节点
+                        - 结束节点 或 到节点 
 
                 - 属性是用于表示数据的键值对
 
@@ -65,7 +62,7 @@ Neo4j 图形数据库
 
         - Neo4j 是一个流行的图数据库。其他图形数据库有: 
         
-            - Oracel NoSQL 数据库
+            - Oracel NoSQL
 
             - OrientDB
 
@@ -77,15 +74,15 @@ Neo4j 图形数据库
 
             - AllegroGraph
 
-    - 通过使用 Apache Lucence 支持索引
-    - 支持 UNIQUE 约束
-    - 包含一个用于执行 CQL 命令的 UI:Neo4j 数据浏览器
-    - 支持完整的 ACID(原子性，一致性，隔离性和持久性)规则
-    - 采用原生图形库与本地 GPE(图形处理引擎)
-    - 支持查询的数据导出到 JSON 和 XLS 格式
-    - 提供了 REST API，可以被任何编程语言 (如Java，Spring，Scala等) 访问
-    - 提供了可以通过任何 UI MVC 框架 (如Node JS) 访问的 Java 脚本 
-    - 支持两种 Java API: Cypher API 和 Native Java API 来开发 Java 应用程序
+    - Neo4j 通过使用 Apache Lucence 支持索引
+    - Neo4j 支持 UNIQUE 约束
+    - Neo4j 包含一个用于执行 CQL 命令的 UI:Neo4j 数据浏览器
+    - Neo4j 支持完整的 ACID(原子性，一致性，隔离性和持久性)规则
+    - Neo4j 采用原生图形库与本地 GPE(图形处理引擎)
+    - Neo4j 支持查询的数据导出到 JSON 和 XLS 格式
+    - Neo4j 提供了 REST API，可以被任何编程语言 (如Java，Spring，Scala等) 访问
+    - Neo4j 提供了可以通过任何 UI MVC 框架 (如Node JS) 访问的 Java 脚本 
+    - Neo4j 支持两种 Java API: Cypher API 和 Native Java API 来开发 Java 应用程序
 
 - Neo4j的优点
 
@@ -121,73 +118,124 @@ Neo4j 图形数据库
 1.2 Neo4j 概念详解
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Neo4j 图数据库遵循属性图模型来存储和管理其数据。根据属性图模型，关系应该是定向的，
-否则，Neo4j 将抛出一个错误消息。基于方向性，Neo4j 关系被分为两种类型：
-
-    - 单向关系
-
-    - 双向关系
-
-1.使用新节点创建关系
-
-    - 示例
-
-        CREATE (e:Employee)-[r:DemoRelation]->(c:Employee)
-
-        CREATE (e:Employee)<-[r:DemoRelation]->(c:Employee)
-
-2.使用已知节点创建带属性的关系
-
-    - 语法
-
-        .. code-block:: 
-
-            MATCH (<node1-label-name>:<node1-name>),(<node2-label-name>:<node2-name>)
-            CREATE
-                (<node1-label-name>)-[<relationship-label-name>:<relationship-name>{<define-properties-list>}]->(<node2-label-name>)
-            RETURN <relationship-label-name>
-
-    - 示例
-
-        MATCH (cust:Customer), (cc.CreditCard)
-        CREATE (cust)-[r:DO_SHOPPING_WITH{shopdate:"12/12/2014", price:55000}]->(cc)
-        RETURN r
-
-3.检索关系节点的详细信息
-
-    - 语法
-
-        .. code-block:: 
-
-            MATCH (<node1-label-name>)-[<relationship-label-name>:<relationship-name>]->(<node2-label-name>)
-            RETURN <relationship-label-name>
-
-    - 示例
-
-        .. code-block:: 
-
-            MATCH (cust)-[r:DO_SHOPPING_WITH]->(cc)
-            RETURN cust, cc
-
-1.3 Neo4j CQL
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-1.2.1 CQL 简介
+1.2.1 Neo4j 关系
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-- CQL 代表 Cypher 查询语言.
+    Neo4j 图数据库遵循属性图模型来存储和管理其数据。根据属性图模型，关系应该是定向的，
+    否则，Neo4j 将抛出一个错误消息。基于方向性，Neo4j 关系被分为两种类型：
 
-     - CQL 是 Neo4j 图形数据库的查询语言
+        - 单向关系
 
-     - CQL 是一种声明性模式匹配语言
+        - 双向关系
 
-     - CQL 遵循 SQL 语法
+    1.使用新节点创建关系
 
-     - CQL 的语法非常简单且人性化、可读性强
+        - 语法
+
+            .. code-block:: 
+            
+                CREATE (<node1-name>:<node1-label-name>)-[<relationship-name>:<relationship-label-name>]->(<node2-name>:<node2-label-name>)
+                CREATE (<node1-name>:<node1-label-name>)<-[<relationship-name>:<relationship-label-name>]-(<node2-name>:<node2-label-name>)
+                CREATE (<node1-name>:<node1-label-name>)<-[<relationship-name>:<relationship-label-name>]->(<node2-name>:<node2-label-name>)
+
+        - 示例
+
+            .. code-block:: 
+            
+                CREATE (e:Employee)-[r:DemoRelation]->(c:Employee)
+                CREATE (e:Employee)<-[r:DemoRelation]-(c:Employee)
+                CREATE (e:Employee)<-[r:DemoRelation]->(c:Employee)
+
+    2.使用已知节点创建带属性的关系
+
+        - 语法
+
+            .. code-block:: 
+
+                MATCH (<node1-name>:<node1-label-name>),(<node2-name>:<node2-label-name>)
+                CREATE
+                    (<node1-name>)-[<relationship-name>:<relationship-label-name>{<define-properties-list>}]->(<node2-name>)
+                RETURN <relationship-name>
+
+        - 示例
+
+            .. code-block:: 
+            
+                MATCH (cust:Customer), (cc.CreditCard)
+                CREATE (cust)-[r:DO_SHOPPING_WITH{shopdate:"12/12/2014", price:55000}]->(cc)
+                RETURN r
+
+    3.检索关系节点的详细信息
+
+        - 语法
+
+            .. code-block:: 
+
+                MATCH (<node1-name>)-[<relationship-name>:<relationship-label-name>]->(<node2-name>)
+                RETURN <node1-name>, <relationship-name>, <node2-name>
+
+        - 示例
+
+            .. code-block:: 
+
+                MATCH (cust)-[r:DO_SHOPPING_WITH]->(cc)
+                RETURN cust, cc, r
 
 
-1.2.2 CQL 命令关键字
-^^^^^^^^^^^^^^^^^^^^^^^^
+    4.示例
+
+        - 目标：演示如何使用属性和创建两个节点、两个节点的关系
+                
+            - 需求: 创建两个节点：客户节点(Customer)和信用卡节点(CreditCard)
+
+                - Customer 节点包含：id, name, dob 属性
+                - CreditCard 节点包含：id, number, cvv, expiredate 属性
+                - Customer 与 CreditCard 关系：DO_SHOPPING_WITH
+                - CreditCard 到 Customer 关系：ASSOCIATED_WITH
+
+            - 步骤:
+
+                - 创建 Customer 节点
+                - 创建 CreditCard 节点
+                - 观察先前创建的两个节点: Customer 和 CreditCard
+                - 创建 Customer 和 CreditCard 节点之间的关系
+                - 查看新创建的关系详细信息
+                - 详细查看每个节点和关系属性
+
+        .. code-block:: 
+
+            CREATE (e:Customer{id:"1001", name:"Abc", dob:"01/10/1982"})
+            CREATE (cc:CreditCard{id:"5001", number:"1234567890", cvv:"888", expiredate:"20/17"})
+            
+            MATCH (cust:Customer), (cc:CreditCard)
+            CREATE (cust)-[r1:DO_SHOPPING_WITH{shopdate:"12/12/2014", price:55000}]->(cc)
+            RETURN r1
+
+            MATCH (cust:Customer), (cc:CreditCard)
+            CREATE (e)<-[r2:ASSOCIATED_WITH]-(cc)
+            RETURN r2
+
+            MATCH (cc:CreditCard) RETURN cc.id, cc.number, cc.cvv, cc.expiredate
+
+2.Neo4j CQL
+------------------------
+
+2.1 CQL 简介
+~~~~~~~~~~~~~~~~~~~~~~~
+
+    - CQL 代表 Cypher Query Language
+
+        - CQL 是 Neo4j 图形数据库的查询语言
+
+        - CQL 是一种声明性模式匹配语言
+
+        - CQL 遵循 SQL 语法
+
+        - CQL 的语法非常简单且人性化、可读性强
+
+
+2.2 CQL 命令关键字
+~~~~~~~~~~~~~~~~~~~~~~~
 
 ========= ======================
 CQL命令     用法
@@ -202,8 +250,8 @@ ORDER BY   排序检索数据
 SET        添加或更新标签
 ========= ======================
 
-1.2.3 CQL 函数
-^^^^^^^^^^^^^^^^^^^^^^^^
+2.3 CQL 函数
+~~~~~~~~~~~~~~~~~~~~~~~
 
 ============== =========================================
 定制列表功能      用法
@@ -213,8 +261,8 @@ Aggregation     用于对 CQL 查询结果执行一些聚合操作
 Relationshop    用于获取关系的细节，startnode, endnode等
 ============== =========================================
 
-1.2.4 CQL 数据类型
-^^^^^^^^^^^^^^^^^^^^^^^^
+2.4 CQL 数据类型
+~~~~~~~~~~~~~~~~~~~~~~~
 
 ============== =========================================
 CQL 数据类型     用法
@@ -230,11 +278,11 @@ char            用于表示16位字符
 String          用于表示字符串
 ============== =========================================
 
-1.2.5 CQL 命令
-^^^^^^^^^^^^^^^^^^^^^^^^
+2.5 CQL 命令
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1.2.5.1 CREATE
-''''''''''''''''''''''''
+2.5.1 CREATE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1.创建没有属性的节点
 
@@ -244,17 +292,17 @@ String          用于表示字符串
 
         .. code-block::
 
-            CREATE (<node-name>:<label-name>)
+            CREATE (<node-name>:<node-label-name>)
 
     - 说明
 
         - ``<node-name>``: 要创建的节点名称
 
-        - ``<label-name>``: 要创建的节点标签
+        - ``<node-label-name>``: 要创建的节点标签
 
         - Neo4j 数据库服务器使用 ``<node-name>`` 将此节点详细信息存储在 Database.As 中作为 Neo4j DBA 或 Developer, 不能使用它来访问节点详细信息。
 
-        - Neo4j 数据库服务器创建一个 ``<label-name>`` 作为内部节点名称的别名，作为 Neo4j DBA 或 Developer，应该使用此标签名称来访问节点详细信息。
+        - Neo4j 数据库服务器创建一个 ``<node-label-name>`` 作为内部节点名称的别名，作为 Neo4j DBA 或 Developer，应该使用此标签名称来访问节点详细信息。
 
     - 示例
 
@@ -273,7 +321,7 @@ String          用于表示字符串
         .. code-block::
 
             CREATE (
-                <node-name>:<label-name> {
+                <node-name>:<node-label-name> {
                     <Property1-name>:<Property1-Value>,
                     <Property2-name>:<Property2-Value>,
                     ...,
@@ -308,7 +356,7 @@ String          用于表示字符串
 
         .. code-block:: 
 
-            CREATE (<node-name>:<label-name1>:<label-name2>...:<label-namen>)
+            CREATE (<node-name>:<node-label-name1>:<label-name2>...:<label-namen>)
 
     - 示例
 
@@ -316,8 +364,8 @@ String          用于表示字符串
 
             CREATE (m:Movie:Cinema:Film:Picture)
 
-1.2.5.2 CREATE...MATCH...RETURN
-'''''''''''''''''''''''''''''''''''
+2.5.2 CREATE...MATCH...RETURN
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     - Neo4j CQL ``MATCH`` 命令用于：
 
@@ -341,7 +389,7 @@ String          用于表示字符串
 
         .. code-block:: 
         
-            MATCH (<node-name>:<label-name>)
+            MATCH (<node-name>:<node-label-name>)
             RETURN
                 <node-name>.<property1-name>,
                 <node-name>.<property1-name>,
@@ -359,38 +407,22 @@ String          用于表示字符串
             MATCH (p:Employee {id:123, name:"Lokesh"}) RETURN p
             MATCH (p:Employee) WHERE p.name = "Lokesh" RETURN p
 
-    - 示例 2:
-
-        - 目标：
-
-            - 演示如何使用属性和创建两个节点、两个节点的关系
-                
-                - 创建两个节点：客户节点(Customer)和信用卡节点(CreditCard)
-
-                    - 客户节点包含：ID，姓名，出生日期属性
-                    - CreditCard 节点包含：id, number, cvv, expiredate 属性
-                    - 客户与信用卡关系：DO_SHOPPING_WITH
-                    - CreditCard 到客户关系：ASSOCIATED_WITH
-
-                - 步骤:
-
-                    - 创建客户节点
-                    - 创建 CreditCard 节点
-                    - 观察先前创建的两个节点: Customer和CreditCard
-                    - 创建客户和 CreditCard 节点之间的关系
-                    - 查看新创建的关系详细信息
-                    - 详细查看每个节点和关系属性
-
-1.2.5.4 WHERE
-''''''''''''''''''''''''
+2.5.4 WHERE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     - Neo4j CQL ``WHERE`` 过滤 ``MATCH`` 查询的结果
+
+        - 
     
     - 语法
 
         .. code-block:: 
 
+            WHERE <condition>
+
             WHERE <property-name> <comparison-operator> <value>
+
+            WHERE <condition> <boolean-operator> <condition>
 
         - ``<comparison-operator>``:
 
@@ -401,17 +433,49 @@ String          用于表示字符串
             - ``<=``
             - ``>=``
 
-        - Neo4j CQL 布尔运算符
+        - ``<boolean-operator>``
 
             - AND
             - OR
             - NOT
             - XOR
+    
+    - 使用 WHERE 子句创建关系
+
+        - 语法
+
+            .. code-block:: 
+
+                MATCH (<node1-name>:<node1-label-name>),(<node2-name>:<node2-label-name>)
+                WHERE <condition>
+                CREATE (<node1-name>)-[<relationship-name>:<relationship-label-name>{<relationship-properties>}]->(<node2-name>)
+        
+        - 示例
+
+            .. code-block:: 
+
+                MATCH (cust:Customer)
+                RETURN cust.id, cust.name, cust.dob
+
+                MATCH (cc:CreditCard)
+                RETURN cc.id, cc.number, cc.expiredate, cc.cvv
+
+                MATCH (cust:Customer), (cc.CreditCard)
+                WHERE cust.id = "1001" AND cc.id = "5001"
+                CREATE (cust)-[r:DO_SHOPPING_WITH{shopdate:"12/12/2014", price:55000}]->(cc)
+                RETURN r
 
     - 示例
 
         .. code-block:: 
-        
+
+            MATCH (emp:Employee)
+            RETURN emp.empid, emp.name, emp.salary, emp.deptno
+
+            MATCH (emp:Employee)
+            WHERE emp.name = "Abc"
+            RETURN emp
+
             MATCH (emp:Employee)
             WHERE emp.name = 'Abc' OR emp.name = 'Xyz'
             RETURN emp
@@ -421,10 +485,11 @@ String          用于表示字符串
             CREATE (cust)-[r:DO_SHOPPING_WITH{shopdate:"12/12/2014", price:55000}]->(cc)
             RETURN r
 
-            MATCH p = (m:Bot{id:123})<-[:BotRelation]->(:Bot) RETURN p
+            MATCH p = (m:Bot{id:123})<-[:BotRelation]->(:Bot) 
+            RETURN p
 
-1.2.5.5 DELETE
-''''''''''''''''''''''''
+2.5.5 DELETE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     - Neo4j 使用 CQL ``DELETE`` 用来:
 
@@ -440,11 +505,26 @@ String          用于表示字符串
 
             DELETE <node-name-list>
 
+            DELETE <node1-name>, <node2-name>, <relationship-name>
+
     - 示例
 
         .. code-block:: 
 
-            MATCH (e:Employee) DELETE e
+            MATCH (e:Employee) 
+            RETURN e
+
+            MATCH (e:Employee) 
+            DELETE e
+
+            MATCH (e:Employee) 
+            RETURN e
+
+            MATCH (cc:CreditCard)-[r]-(c:Customer)
+            RETURN r 
+
+            MATCH (cc:CreditCard)-[rel]-(c:Customer)
+            DELETE cc, c, rel
 
 2.删除节点和关系
 
@@ -461,13 +541,106 @@ String          用于表示字符串
             MATCH (cc:CreditCard)-[rel]-(c:Customer)
             DELETE cc, c,rel
 
-1.2.5.6 REMOVE
-''''''''''''''''''''''''
+2.5.6 REMOVE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - Neo4j CQL ``REMOVE`` 删除节点或关系的现有属性
+
+    - 语法
+
+        .. code-block:: 
+
+            // 删除节点/关系的属性
+            REMOVE <property-name-list>
+
+            REMOVE
+                <node-name>.<property1-name>,
+                <node-name>.<property2-name>, 
+                .... 
+                <node-name>.<propertyn-name> 
+            
+            // 删除节点/关系的标签
+            REMOVE <label-name-list>
+
+            REMOVE 
+                <node-name>:<label2-name>, 
+                .... 
+                <node-name>:<labeln-name> 
 
 
+    - 示例1
 
-1.2.5.7 ORDER BY
-''''''''''''''''''''''''
+        .. code-block:: 
+
+            CREATE (
+                book:Book {
+                    id:122,
+                    title:"Neo4j Tutorial",
+                    pages:340,
+                    price:250
+                }
+            )
+
+            MATCH (book:Book)
+            RETURN book
+
+            MATCH (book {id:122})
+            REMOVE book.price
+            RETURN book
+
+            MATCH (dc:DebitCard)
+            RETURN dc
+
+            MATCH (dc:DebitCard)
+            REMOVE dc.cvv
+            RETURN dc
+
+    - 示例2
+
+        .. code-block:: 
+
+            MATCH (m:Movie)
+            RETURN m
+
+            MATCH (m:Movie) 
+            REMOVE m:Picture
+
+            MATCH (m:Movie) 
+            RETURN m
+
+2.5.7 SET
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - Neo4j CQL 已提供 SET 子句来执行以下操作:
+
+        - 向现有节点或关系添加新属性
+        - 添加或更新属性值
+
+    - 语法
+
+        .. code-block:: 
+
+            SET <property-name-list>
+
+            SET
+                <node-label-name>.<property1-name>,
+                <node-label-name>.<property2-name>, 
+                .... 
+                <node-label-name>.<propertyn-name> 
+
+    - 示例
+
+        .. code-block:: 
+
+            MATCH (book:Book)
+            RETURN book
+
+            MATCH (book:Book)
+            SET book.title = "superstar" 
+            RETURN book
+
+2.5.8 ORDER BY
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     - Neo4j CQL ``ORDER BY`` 对 MATCH 查询返回的结果进行排序
 
@@ -475,39 +648,85 @@ String          用于表示字符串
 
         ORDER BY <property-name-list> [DESC]
 
-        <node-label-name>.<property1-name>,
-        <node-label-name>.<property2-name>, 
-        .... 
-        <node-label-name>.<propertyn-name> 
+        ORDDR BY
+            <node-label-name>.<property1-name> [DESC],
+            <node-label-name>.<property2-name> [DESC], 
+            .... 
+            <node-label-name>.<propertyn-name> [DESC]
 
     - 示例
 
         .. code-block:: 
 
-           MATCH (emp:Employee) 
-           RETURN emp.empid, emp.name, emp.salary, emp.deptno
-           ORDER BY emp.name
+            MATCH (emp:Employee) 
+            RETURN emp.empid, emp.name, emp.salary, emp.deptno
+        
+            MATCH (emp:Employee) 
+            RETURN emp.empid, emp.name, emp.salary, emp.deptno
+            ORDER BY emp.name
+
+2.5.9 Sorting
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.5.10 UNION
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.5.11 LIKE、SKIP
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.5.12 合并
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.5.13 NULL
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.5.14 IN 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.5.15 图形字体
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.5.16 ID 属性
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.5.17 Caption
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.5.18 方向关系
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+2.6 CQL 函数
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+2.6.1 Neo4j CQL 字符串函数
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.6.2 Neo4j CQL AGGREGATION 聚合函数
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.6.3 Neo4j CQL 关系函数
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+2.7 Admin 管理员
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+2.7.1 Neo4j 数据库备份和恢复
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.7.2 Neo4j CQL 索引
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.7.3 Neo4j CQL UNIQUE 约束
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.7.4 Neo4j CQL DROP UNIQUE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 
-1.2.5.8 SET
-''''''''''''''''''''''''
-
-
-
-1.4 Neo4j CQL 函数
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-1.5 Neo4j 管理员
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-1.6 Neo4j Java
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-1.7 Neo4j Spring
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-2.py2neo
+3.py2neo
 ------------------------
 
 - 安装

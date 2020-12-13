@@ -671,30 +671,211 @@ String          用于表示字符串
 2.5.10 UNION
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.5.11 LIKE、SKIP
+    - Neo4j CQL 与 SQL 一样，有两个语句可以将两个不同的结果合并成一组结果
+
+        - ``UNION``
+
+            - 将两组结果中的公共行组合并返回到一组结果中, 会进行去重
+
+            - 限制
+                
+                - 结果列的 名称 和 类型 和来自两组结果的名称、类型必须匹配
+
+            - 语法
+
+                .. code-block:: 
+
+                    MATCH Command
+                    UNION/UNION ALL
+                    MATCH Command
+            
+            - 示例
+
+                .. code-block:: 
+                
+                    MATCH (cc.CreditCard) RETURN cc.id, cc.number
+                    UNION/UNION ALL
+                    MATCH (dc.DebitCard) RETURN dc.id, dc.number
+
+                    MATCH (cc.CreditCard)
+                    RETURN cc.id as id, cc.number as number, cc.name as name, cc.valid_from as valid_from, cc.valid_to as valid_to
+                    UNION/UNION ALL
+                    MATCH (dc.DebitCard)
+                    RETURN dc.id as id, dc.number as number, dc.name as name, dc.valid_from as valid_from, dc.valid_to as valid_to
+
+        - ``UNION ALL``
+
+            - 将两组结果中的公共行组合并返回到一组结果中, 不会进行去重
+
+            - 限制
+                
+                - 结果列的 名称 和 类型 和来自两组结果的名称、类型必须匹配
+
+            - 语法
+
+                - 同 ``UNION``
+                
+            - 示例
+
+                - 同 ``UNION``
+
+2.5.11 LIMIT、SKIP
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.5.12 合并
+- LIMIT
+
+    - Neo4j CQL 提供 ``LIMIT`` 子句来过滤或限制查询返回的行数, 它修剪CQL查询结果集底部的结果
+
+    - 语法
+
+        .. code-block:: 
+
+            LIMIT <number>
+
+    - 示例
+
+        .. code-block:: 
+
+            MATCH (emp:Employee) 
+            RETURN emp
+
+            MATCH (emp:Employee) 
+            RETURN emp
+            LIMIT 2
+
+- SKIP
+
+    - Neo4j CQL 提供 ``SKIP`` 来过滤或限制查询返回的行数, 它修整了CQL查询结果集顶部的结果
+
+    - 语法
+
+        .. code-block:: 
+
+            SKIP <number>
+
+    - 示例
+
+        .. code-block:: 
+        
+            MATCH (emp:Employee) 
+            RETURN emp
+
+            MATCH (emp:Employee) 
+            RETURN emp
+            SKIP 2
+
+2.5.12 MERGE
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - Neo4j CQL ``MERGE`` 命令:
+
+        - 创建节点，关系和属性
+
+        - 为从数据库检索数据
+
+        - MERGE 命令是 CREATE 命令和 MATCH 命令的组合
+
+        - Neo4j CQL MERGE 命令在图中搜索给定模式，如果存在则返回结果; 如果不存在于图中，则创建新的节点/关系并返回结果
+
+    - 语法
+
+        .. code-block:: 
+        
+            MERGE (<node-name>:<label-name> {
+                <Property1-name>:<Pro<rty1-Value>
+                .....
+                <Propertyn-name>:<Propertyn-Value>
+            })
+
+            CREATE (gp1:GoogleProfile1 {Id:201401, Name:"Apple"})
+            CREATE (gp1:GoogleProfile1 {Id:201401, Name:"Apple"})
+            MATCH  (gp1:GoogleProfile1) 
+            RETURN gp1.Id, gp1.Name
+
+            MERGE (gp2:GoogleProfile2 {Id:201402, Name:"Nokia"})
+            MERGE (gp2:GoogleProfile2 {Id:201402, Name:"Nokia"})
+            MATCH  (gp2:GoogleProfile2) 
+            RETURN gp2.Id,g p2.Name
 
 2.5.13 NULL
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+    - Neo4j CQL 将空值视为对节点或关系的属性的缺失值或未定义值
+
+        - 当创建一个具有现有节点标签名称但未指定其属性值的节点时，它将创建一个具有 NULL 属性值的新节点
+
+    - 示例
+
+        .. code-block:: 
+
+            MATCH (e:Employee) 
+            RETURN e.id, e.name, e.sal, e.deptno
+
+            CREATE (e:Employee)
+
+            MATCH (e:Employee) 
+            RETURN e.id, e.name, e.sal, e.deptno
+
+            MATCH (e:Employee) 
+            WHERE e.id IS NOT NULL
+            RETURN e.id, e.name, e.sal, e.deptno
+
+            MATCH (e:Employee) 
+            WHERE e.id IS NULL
+            RETURN e.id, e.name, e.sal, e.deptno
+
 2.5.14 IN 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - Neo4j CQL 提供了一个 IN 运算符，以便为 CQL 命令提供值的集合
+
+    - 语法
+
+        .. code-block:: 
+        
+            IN [<Collection-of-values>]
+
+    - 示例
+
+        .. code-block:: 
+
+            MATCH (e:Employee) 
+            RETURN e.id, e.name, e.sal, e.deptno
+
+            MATCH (e:Employee) 
+            WHERE e.id IN [123,124]
+            RETURN e.id, e.name, e.sal, e.deptno
+
+
+
 
 2.5.15 图形字体
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+    - 使用 Neo4j 数据浏览器来执行和查看 Neo4j CQL 命令或查询的结果, Neo4j 数据浏览器包含两种视图来显示查询结果:
+
+        - UI查看
+        
+        - 网格视图
+    
+    - 默认情况下，Neo4j数据浏览器以小字体显示节点或关系图，并在UI视图中显示默认颜色
+
 2.5.16 ID 属性
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - 在 Neo4j 中，``Id`` 是节点和关系的默认内部属性. 这意味着，当我们创建一个新的节点或关系时，Neo4j 数据库服务器将为内部使用分配一个数字。它会自动递增。
+
+    - 以相同的方式，Neo4j 数据库服务器为关系分配一个默认 Id 属性
+
+        - 节点的 Id 属性的最大值约为 35 亿
+        - 关系的 Id 属性的最大值约为 35 亿
+
 
 2.5.17 Caption
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.5.18 方向关系
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+    - 在 Neo4j 数据中，当我们在 Neo4j DATA 浏览器中执行 ``MATCH + RETURN`` 命令以查看 UI 视图中的数据时，
+      通过使用它们的 Id 属性显示节点和/或关系结果。它被称为 ``CAPTION`` 的 ``id`` 属性
 
 2.6 CQL 函数
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -702,12 +883,34 @@ String          用于表示字符串
 2.6.1 Neo4j CQL 字符串函数
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+    - Neo4J CQL 提供了一组 String 函数，用于在 CQL 查询中获取所需的结果
+
+        - UPPER
+        - LOWER
+        - SUBSTRING
+        - REPLACE
+
+
 2.6.2 Neo4j CQL AGGREGATION 聚合函数
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - Neo4j CQL 提供了一些在 RETURN 子句中使用的聚合函数
+
+        - COUNT
+        - MAX
+        - MIN
+        - SUM
+        - AVG
 
 2.6.3 Neo4j CQL 关系函数
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+    - Neo4j CQL 提供了一组关系函数，以在获取开始节点，结束节点等细节时知道关系的细节
+
+        - STARTNODE
+        - ENDNODE
+        - ID
+        - TYPE
 
 2.7 Admin 管理员
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -723,8 +926,6 @@ String          用于表示字符串
 
 2.7.4 Neo4j CQL DROP UNIQUE
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
 
 3.py2neo
 ------------------------

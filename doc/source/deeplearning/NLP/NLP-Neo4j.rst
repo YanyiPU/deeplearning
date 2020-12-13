@@ -1,9 +1,12 @@
 
-Neo4j 图形数据库
+NLP--Neo4j
 ========================
 
 1.Neo4j 介绍
 ------------------------
+
+1.1 Neo4j 是什么
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Neo4j 是什么
 
@@ -217,22 +220,53 @@ Neo4j 图形数据库
 
             MATCH (cc:CreditCard) RETURN cc.id, cc.number, cc.cvv, cc.expiredate
 
+1.3 Neo4j 安装、使用
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+1.3.1 Neo4j 安装
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - 首先在 https://neo4j.com/download/ 下载 Neo4j。Neo4j 分为社区版和企业版，
+      企业版在横向扩展、权限控制、运行性能、HA 等方面都比社区版好，适合正式的生产环境，
+      普通的学习和开发采用免费社区版就好。
+
+    - 在 Mac 或者 Linux 中，安装好 jdk 后，直接解压下载好的 Neo4J 包，
+      运行 ``bin/neo4j start`` 即可
+
+1.3.2 Neo4j 使用
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - Neo4j 提供了一个用户友好的 web 界面，可以进行各项配置、写入、查询等操作，并且提供了可视化功能。
+      类似 ElasticSearch 一样。
+
+    - 打开浏览器，输入 http://127.0.0.1:7474/browser/，界面最上方就是交互的输入框。
+
+
+
+
 2.Neo4j CQL
 ------------------------
 
 2.1 CQL 简介
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-    - CQL 代表 Cypher Query Language
+    - Cypher 是 Neo4j 的声明式图形查询语言，允许用户不必编写图形结构的遍历代码，
+      就可以对图形数据进行高效的查询。Cypher 的设计目的类似 SQL，适合于开发者以
+      及在数据库上做点对点模式(ad-hoc)查询的专业操作人员。其具备的能力包括：
+        
+        - 创建、更新、删除节点和关系 
+        - 通过模式匹配来查询和修改节点和关系 
+        - 管理索引和约束等
+
+    - Neo4j CQL 代表 Neo4j Cypher Query Language
 
         - CQL 是 Neo4j 图形数据库的查询语言
-
         - CQL 是一种声明性模式匹配语言
-
         - CQL 遵循 SQL 语法
-
         - CQL 的语法非常简单且人性化、可读性强
 
+    - 类似 MySQL 一样，在实际的生产应用中，除了简单的查询操作会在 Neo4j 的 web 页面进行外，
+      一般还是使用 Python、Java 等的 driver 来在程序中实现。
 
 2.2 CQL 命令关键字
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -926,6 +960,180 @@ String          用于表示字符串
 
 2.7.4 Neo4j CQL DROP UNIQUE
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+2.8 Neo4j 实战
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+本文通过一个实际的案例来一步一步教你使用 Cypher 来操作 Neo4j。
+
+    - 案例的节点主要包括人物和城市两类，人物和人物之间有朋友、夫妻等关系，人物和城市之间有出生地的关系。
+
+
+1. 首先，我们删除数据库中以往的图，确保一个空白的环境进行操作
+
+    .. code-block:: 
+
+        MATCH (n) DETACH DELETE n
+
+2. 创建人物节点
+
+    .. code-block:: 
+    
+        CREATE (n:Person {name:"John"}) RETURN n
+        CREATE (n:Person {name:'Sally'}) RETURN n
+        CREATE (n:Person {name:'Steve'}) RETURN n
+        CREATE (n:Person {name:'Mike'}) RETURN n
+        CREATE (n:Person {name:'Liz'}) RETURN n
+        CREATE (n:Person {name:'Shawn'}) RETURN n
+
+.. note:: 
+
+    - node-name: n
+
+    - node-label-name: Person
+
+    - <id>: 0
+
+    - name: "John"
+
+3. 创建地区节点
+
+    .. code-block:: 
+
+        CREATE (n:Location {city:'Miami', state:'FL'})
+        CREATE (n:Location {city:'Boston', state:'MA'})
+        CREATE (n:Location {city:'Lynn', state:'MA'})
+        CREATE (n:Location {city:'Portland', state:'ME'})
+        CREATE (n:Location {city:'San Francisco', state:'CA'})
+
+4. 创建人物之间的关系
+
+    .. code-block:: 
+
+        MATCH (a:Person {name:"Shawn"}), (b:Person {name:"Sally"})
+        MERGE (a)-[:FRIENDS {since:2001}]->(b)
+
+        MATCH (a:Person {name:'Shawn'}), (b:Person {name:'John'}) 
+        MERGE (a)-[:FRIENDS {since:2012}]->(b)
+        
+        MATCH (a:Person {name:'Mike'}), (b:Person {name:'Shawn'}) 
+        MERGE (a)-[:FRIENDS {since:2006}]->(b)
+        
+        MATCH (a:Person {name:'Sally'}), (b:Person {name:'Steve'}) 
+        MERGE (a)-[:FRIENDS {since:2006}]->(b)
+
+        MATCH (a:Person {name:'Liz'}), (b:Person {name:'John'}) 
+        MERGE (a)-[:MARRIED {since:1998}]->(b)
+
+5. 创建人物-地区之间的关系
+
+
+    .. code-block:: 
+    
+        MATCH (a:Person {name:"John"}), (b:Location {city:"Boston"})
+        MERGE (a)-[:BORN_IN {year:1978}]->(b)
+
+        MATCH (a:Person {name:'Liz'}), (b:Location {city:'Boston'}) 
+        MERGE (a)-[:BORN_IN {year:1981}]->(b)
+        
+        MATCH (a:Person {name:'Mike'}), (b:Location {city:'San Francisco'}) 
+        MERGE (a)-[:BORN_IN {year:1960}]->(b)
+        
+        MATCH (a:Person {name:'Shawn'}), (b:Location {city:'Miami'}) 
+        MERGE (a)-[:BORN_IN {year:1960}]->(b)
+        
+        MATCH (a:Person {name:'Steve'}), (b:Location {city:'Lynn'}) 
+        MERGE (a)-[:BORN_IN {year:1970}]->(b)
+
+6. 查询-所有在 Boston 出生的人物
+
+    .. code-block:: 
+    
+        MATCH (a:Person)-[:BORN_IN]->(b:Location {city:"Boston"})
+        RETURN a, b
+
+7. 查询所有对外有关系的节点
+
+    .. code-block:: 
+
+        MATCH (a)-->()
+        RETURN a
+
+8. 查询所有有关系的节点
+
+    .. code-block:: 
+
+        MATCH (a)--() 
+        RETURN a
+
+9. 查询所有对外有关系的节点，以及关系类型
+
+    .. code-block:: 
+
+        MATCH (a)-[r]->()
+        RETURN a.name, type(r)
+
+10. 查询所有有结婚关系的节点
+
+    .. code-block:: 
+
+        MATCH (n)-[:MARRIED]-()
+        RETURN n
+
+11. 创建节点的时候就建好关系
+
+    .. code-block:: 
+
+        CREATE (a:Person {name:"Todd"})-[r:FRIENDS]->(b:Person {name:"Carlos"})
+
+12. 查询某人的朋友的朋友
+
+    .. code-block:: 
+
+        MATCH (a:Person {name:"Mike"})-[r1:FRIENDS]-()-[r2:FRIENDS]-(friend_of_a_friend)
+        RETURN friend_of_a_friend.name AS fofName
+
+13. 增加、修改节点的属性
+
+    .. code-block:: 
+
+        MATCH (a:Person {name:'Liz'}) SET a.age=34
+        MATCH (a:Person {name:'Shawn'}) SET a.age=32
+        MATCH (a:Person {name:'John'}) SET a.age=44
+        MATCH (a:Person {name:'Mike'}) SET a.age=25
+
+14. 删除节点的属性
+
+    .. code-block:: 
+
+        MATCH (a:Person {name:"Mike"})
+        SET a.test = "test"
+
+        MATCH (a:Person {name:"Mike"})
+        REMOVE a.test
+
+15. 删除节点
+
+    .. code-block::
+
+        MATCH (a:Location {city:"Portland"})
+        DELETE a
+
+16. 删除有关系的节点
+
+    .. code-block:: 
+    
+        MATCH (a:Person {name:"Todd"})-[rel]-(b:Person)
+        DELETE a, b, rel
+
+17. 查询所有节点、关系
+
+    .. code-block:: 
+
+        MATCH (n) 
+        RETURN n
+        LIMIT 25
 
 3.py2neo
 ------------------------

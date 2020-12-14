@@ -48,17 +48,17 @@ deeplearning
    :maxdepth: 2
 
    deeplearning/NLP/NLP
-   deeplearning/NLP/NLP-NLU
-   deeplearning/NLP/NLP-NLG
-   deeplearning/NLP/NLP-feature_engine
-   deeplearning/NLP/NLP-python
+   deeplearning/NLP/NLP-utils
    deeplearning/NLP/NLP-segment
-   deeplearning/NLP/NLP-text_classification
-   deeplearning/NLP/deeplearningAI_NLP
-   deeplearning/NLP/NLP-classification_and_vector_spaces
-   deeplearning/NLP/knowledge_graph
-   deeplearning/NLP/NLP-BERT
-   deeplearning/NLP/NLP-Neo4j
+   deeplearning/NLP/NLP-feature_engine
+   deeplearning/NLP/NLP-text_vector
+   deeplearning/NLP/NLP-DL-word_embedding
+   deeplearning/NLP/NLP-DL-BERT
+   deeplearning/NLP/NLP-DL-Attention
+   deeplearning/NLP/NLP-DL-Transformer
+   deeplearning/NLP/NLP-APP-text_classification
+   deeplearning/NLP/NLP-APP-KG-knowledge_graph
+   deeplearning/NLP/NLP-APP-KG-Neo4j
 
 
 .. toctree::

@@ -1,11 +1,19 @@
 import numpy as np
 import tensorflow as tf
-# import MNISTLoader
+import MNISTLoader
+
 
 print(tf.__version__)
 
+
 """
-多层感知机模型
+- 目标：使用多层感知机模型完成 MNIST 手写数字图片数据集 LeCun1998 的分类任务
+- 数据： MNIST 
+- 流程
+    (1)使用 tf.keras.datasets 获得数据集并预处理
+    (2)使用 tf.keras.Model 和 tf.keras.layers 构建模型
+    (3)构建模型训练过程，使用 tf.keras.losses 计算损失函数，并使用 tf.keras.optimizer 优化模型
+    (4)构建模型评估过程，使用 tf.keras.metrics 计算评估指标
 """
 
 
@@ -43,6 +51,8 @@ if __name__ == "__main__":
 
     # batches
     num_batches = int(data_loader.num_train_data // batch_size * num_epochs)
+
+    # model training
     for batch_index in range(num_batches):
         X, y = data_loader.get_batch(batch_size)
         with tf.GradientTape() as tape:

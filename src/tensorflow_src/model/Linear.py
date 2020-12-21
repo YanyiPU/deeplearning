@@ -6,6 +6,11 @@ from tensorflow.keras import layers
 print(tf.__version__)
 
 
+"""
+y = ax + b
+"""
+
+
 class Linear(tf.keras.Model):
     """线性回归
 
@@ -45,6 +50,7 @@ if __name__ == "__main__":
     # optimizer
     optimizer = tf.keras.optimizers.SGD(learning_rate = learning_rate)
     
+    # model training
     for i in range(num_epochs):
         with tf.GradientTape() as tape:
             y_pred = model(X)

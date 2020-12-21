@@ -14,7 +14,7 @@ deeplearning
    Envs/Python-Env
    Envs/TensorFlow-Env
    Envs/Keras-Env
-   Envs/torch-Env
+   Envs/PyTorch-Env
 
 
 .. toctree::
@@ -56,6 +56,7 @@ deeplearning
    deeplearning/NLP/NLP-DL-BERT
    deeplearning/NLP/NLP-DL-Attention
    deeplearning/NLP/NLP-DL-Transformer
+   deeplearning/NLP/NLP-DL-seq2seq
    deeplearning/NLP/NLP-APP-text_classification
    deeplearning/NLP/NLP-APP-KG-knowledge_graph
    deeplearning/NLP/NLP-APP-KG-Neo4j
@@ -90,21 +91,21 @@ deeplearning
 .. toctree::
    :caption: TensorFlow
    :maxdepth: 2
-   
-   TensorFlow/TensorFlow-Example
-   TensorFlow/TensorFlow
-   TensorFlow/TensorFlow-Variable
+
    TensorFlow/TensorFlow-Datasets
-   TensorFlow/TensorFlow-EagerExecution
    TensorFlow/TensorFlow-TensorBoard
    TensorFlow/TensorFlow-Estimator
-   TensorFlow/TensorFlow-APIs
    TensorFlow/TensorFlow-SaveModel
-   TensorFlow/TensorFLow-Serving
-   TensorFlow/TF-keras/TF-keras
-   TensorFlow/TF-keras/TF-keras-functional-API
-   TensorFlow/TF-keras/TF-keras-custom
-   TensorFlow/TF-keras/TF-keras-RNN
+   TensorFlow/TensorFlow-Serving
+
+
+.. toctree::
+   :caption: NLP-utils
+   :maxdepth: 2
+
+   deeplearning/NLP/NLP-opencc
+   deeplearning/NLP/NLP-gensim
+
 
 .. toctree::
    :caption: pillow
@@ -117,3 +118,9 @@ deeplearning
    :maxdepth: 2
 
    opencv/opencv
+
+.. toctree::
+   :caption: NVIDIA Xavier
+   :maxdepth: 2
+
+   deeplearning/NVIDIA_Xavier

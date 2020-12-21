@@ -1,9 +1,6 @@
-.. _header-n0:
 
-torch Env
+PyTorch Env
 =============
-
-.. _header-n4:
 
 1.PyTorch 支持的硬件平台
 ----------------------------
@@ -102,8 +99,6 @@ torch Env
 
 3.3.2 Ubuntu
 ^^^^^^^^^^^^^^^^^
-
-
 
 
 3.4 Verification

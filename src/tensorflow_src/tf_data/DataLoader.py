@@ -3,7 +3,6 @@ import tensorflow as tf
 
 
 class DataLoader():
-
     def __init__(self):
         path = tf.keras.utils.get_file("nietzsche.txt", origin = "https://s3.amazonaws.com/text-datasets/nietzsche.txt")
         with open(path, encoding = "utf-8") as f:
@@ -12,7 +11,7 @@ class DataLoader():
         self.char_indices = dict((c, i) for i, c in enumerate(self.chars))
         self.indices_char = dict((i, c) for i, c in enumerate(self.chars))
         self.text = [self.char_indices[c] for c in self.raw_text]
-        
+
 
     def get_batch(self, input):
         seq = []
@@ -25,4 +24,5 @@ class DataLoader():
 
 
 if __name__ == "__main__":
-    pass
+    data_loader = DataLoader()
+    

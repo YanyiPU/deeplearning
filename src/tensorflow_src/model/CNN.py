@@ -4,13 +4,13 @@ import MNISTLoader
 
 print(tf.__version__)
 
+
 """
 CNN
 """
 
 
 class CNN(tf.keras.Model):
-
     def __init__(self):
         super().__init__()
         self.conv1 = tf.keras.layers.Conv2D(
@@ -60,6 +60,8 @@ if __name__ == "__main__":
 
     # batches
     num_batches = int(data_loader.num_train_data // batch_size * num_epochs)
+
+    # model training
     for batch_index in range(num_batches):
         X, y = data_loader.get_batch(batch_size)
         with tf.GradientTape() as tape:

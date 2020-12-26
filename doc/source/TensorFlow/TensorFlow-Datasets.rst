@@ -1,94 +1,151 @@
 
 TensorFlow Datasets
-=====================
+=========================
 
 1.TensorFlow Datasets 安装及使用
 ----------------------------------
 
-库安装:
+   - 库安装:
 
-   .. code-block:: shell
+      .. code-block:: shell
 
-      $ pip install tensorflow
-      $ pip install tensorflow-datasets
+         $ pip install tensorflow
+         $ pip install tensorflow-datasets
 
-库导入:
+   - 库导入:
 
-   .. code-block:: python
-   
-      import numpy as np
-      import tensorflow as tf
-      import matplotlib.pyplot as plt
-      import tensorflow_datasets as tfds
+      .. code-block:: python
+      
+         import numpy as np
+         import tensorflow as tf
+         import matplotlib.pyplot as plt
+         import tensorflow_datasets as tfds
 
 2.TensorFlow Datasets 介绍
 ----------------------------------
 
-2.1 介绍
+2.1 数据集对象介绍
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TensorFlow Datasets 是可用于 TensorFlow 或其他 Python 机器学习框架(例如 Jax) 的一系列数据集。
-所有数据集都作为 ``tf.data.Datasets`` 提供，实现易用且高性能的输入流水线。
+   - TensorFlow Datasets 是可用于 TensorFlow 或其他 Python 机器学习框架(例如 Jax) 的一系列数据集。
+     所有数据集都作为 ``tf.data.Dataset`` 提供，实现易用且高性能的输入流水线。
 
-示例:
+   - TensorFlow 提供了 ``tf.data`` 模块，它包括了一套灵活的数据集构建 API，
+     能够帮助快速、高效地构建数据输入的流水线，尤其适用于数据量巨大的情景
+
+      - ``tf.data`` 的核心是 ``tf.data.Dataset`` 类，提供了对数据集的高层封装
+      - ``tf.data.Dataset`` 由一系列可迭代访问的元素(element)组成，每个元素包含一个或多个张量
+   
+   - TensorFlow 数据集 API
+
+      - ``tf.data``
+         - ``tf.data.Dataset``
+      - ``tensorflow_datasets``
+      - ``tf.keras.datasets``
+
+2.2 数据集对象的建立
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   1.建立 ``tf.data.Dataset`` 的最基本的方法是使用 ``tf.data.Dataset.from_tensor_slices()``
+
+      - 使用与数据量较小(能够将数据全部装进内存)的情况
+      - 如果数据集中的所有元素通过张量的第 0 维拼接成一个大的张量
+
+      .. code-block:: python
+
+         import tensorflow as tf
+         import numpy as np
+
+         X = tf.constant([2013, 2014, 2015, 2016, 2017])
+         Y = tf.constant([12000, 14000, 15000, 16500, 17500])
+
+         dataset = tf.data.Dataset.from_tensor_slices((X, Y))
+         for x, y in dataset:
+            print(x.numpy(), y.numpy())
+
+   2.使用 ``tf.data.Dataset.from_tensor_slices()``、``tf.keras.datasets.mnist.load_data()``
+
+      .. code-block:: python
+
+         import tensorflow as tf
+         import matplotlib.pyplot as plt
+
+         (train_data, train_label), (_, _) = tf.keras.datasets.mnist.load_data()
+         train_data = np.expand_dim(train_data.astype(np.float32) / 255, axis = -1)
+         mnist_dataset = tf.data.Dataset.from_tensor_slices((train_data, train_label))
+
+         for image, label in mnist_dataset:
+            plt.title(label.numpy())
+            plt.imshow(image.numpy()[:, :, 0])
+            plt.show()
+
+   3.TensorFlow Datasets 提供了一个基于 ``tf.data.Dataset`` 的开箱即用的数据集合
+
+      .. code-block:: python
+
+         import tensorflow_datasets as tfds
+
+         # 构建 tf.data.Dataset
+         dataset1 = tfds.load("mnist", split = "train", shuffle_files = True)
+         dataset2 = tfds.load("mnist", split = tfds.Split.TRAIN, as_supervised = True)
+
+         # 构建输入数据 Pipeline
+         dataset1 = dataset1 \
+            .shuffle(1024) \
+            .batch(32) \
+            .prefetch(tf.data.experimential.AUTOTUNE)
+         
+         for example in dataset1.take(1):
+            image, label = example["image"], example["label"]
+
+.. note:: 
+
+   - 对于特别巨大而无法完整载入内存的数据集，可以先将数据集处理为 ``TFRecord`` 格式，
+     然后使用 ``tf.data.TFRecordDataset()`` 进行载入
+
+2.3 内置数据集
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   每一个数据集都通过实现了抽象基类 ``tfds.core.DatasetBuilder`` 来构建.
+
+1.查看数据集
 
    .. code-block:: python
 
       import tensorflow as tf
       import tensorflow_datasets as tfds
 
-      # Construct a tf.data.Dataset
-      ds =  tfds.load("mnist", split = "train", shuffle_files = True)
-
-      # Build your input pipeline
-      ds = ds.shuffle(1024).batch(32).prefetch(tf.data.experimential.AUTOTUNE)
-      for example in ds.take(1):
-         image, label = example["image"], example["label"]
-
-
-2.2 内置数据集
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-每一个数据集都通过实现了抽象基类 ``tfds.core.DatasetBuilder`` 来构建.
-
-查看数据集：
-
-.. code-block:: python
-
-   import tensorflow as tf
-   import tensorflow_datasets as tfds
-
-   # 所有可用的数据集
-   print(tfds.list_builders()) 
+      # 所有可用的数据集
+      print(tfds.list_builders()) 
 
 查看数据集结果：
 
-.. code-block:: 
+   .. code-block:: 
 
-   ['abstract_reasoning', 'aflw2k3d', 'amazon_us_reviews', 
-    'bair_robot_pushing_small', 'bigearthnet', 'binarized_mnist', 'binary_alpha_digits', 
-    'caltech101', 'caltech_birds2010', 'caltech_birds2011', 'cats_vs_dogs', 'celeb_a', 'celeb_a_hq', 'chexpert', 'cifar10', 'cifar100', 'cifar10_corrupted', 'clevr', 'cnn_dailymail', 'coco', 'coco2014', 'coil100', 'colorectal_histology', 'colorectal_histology_large', 'curated_breast_imaging_ddsm', 'cycle_gan', 
-    'deep_weeds', 'definite_pronoun_resolution', 'diabetic_retinopathy_detection', 'downsampled_imagenet', 'dsprites', 'dtd', 'dummy_dataset_shared_generator', 'dummy_mnist', 
-    'emnist', 'eurosat', 
-    'fashion_mnist', 'flores', 'food101', 
-    'gap', 'glue', 'groove', 
-    'higgs', 'horses_or_humans', 
-    'image_label_folder', 'imagenet2012', 'imagenet2012_corrupted', 'imdb_reviews', 'iris', 'kitti', 
-    'kmnist', 
-    'lfw', 'lm1b', 'lsun', 
-    'mnist', 'mnist_corrupted', 'moving_mnist', 'multi_nli', 
-    'nsynth', 
-    'omniglot', 'open_images_v4', 'oxford_flowers102', 'oxford_iiit_pet', 
-    'para_crawl', 'patch_camelyon', 'pet_finder', 'quickdraw_bitmap', 
-    'resisc45', 'rock_paper_scissors', 'rock_you', 
-    'scene_parse150', 'shapes3d', 'smallnorb', 'snli', 'so2sat', 'squad', 'stanford_dogs', 'stanford_online_products', 'starcraft_video', 'sun397', 'super_glue', 'svhn_cropped', 
-    'ted_hrlr_translate', 'ted_multi_translate', 'tf_flowers', 'titanic', 'trivia_qa', 
-    'uc_merced', 'ucf101', 
-    'visual_domain_decathlon', 'voc2007', 
-    'wikipedia', 'wmt14_translate', 'wmt15_translate', 'wmt16_translate', 'wmt17_translate', 'wmt18_translate', 'wmt19_translate', 'wmt_t2t_translate', 'wmt_translate', 
-    'xnli']
+      ['abstract_reasoning', 'aflw2k3d', 'amazon_us_reviews', 
+      'bair_robot_pushing_small', 'bigearthnet', 'binarized_mnist', 'binary_alpha_digits', 
+      'caltech101', 'caltech_birds2010', 'caltech_birds2011', 'cats_vs_dogs', 'celeb_a', 'celeb_a_hq', 'chexpert', 'cifar10', 'cifar100', 'cifar10_corrupted', 'clevr', 'cnn_dailymail', 'coco', 'coco2014', 'coil100', 'colorectal_histology', 'colorectal_histology_large', 'curated_breast_imaging_ddsm', 'cycle_gan', 
+      'deep_weeds', 'definite_pronoun_resolution', 'diabetic_retinopathy_detection', 'downsampled_imagenet', 'dsprites', 'dtd', 'dummy_dataset_shared_generator', 'dummy_mnist', 
+      'emnist', 'eurosat', 
+      'fashion_mnist', 'flores', 'food101', 
+      'gap', 'glue', 'groove', 
+      'higgs', 'horses_or_humans', 
+      'image_label_folder', 'imagenet2012', 'imagenet2012_corrupted', 'imdb_reviews', 'iris', 'kitti', 
+      'kmnist', 
+      'lfw', 'lm1b', 'lsun', 
+      'mnist', 'mnist_corrupted', 'moving_mnist', 'multi_nli', 
+      'nsynth', 
+      'omniglot', 'open_images_v4', 'oxford_flowers102', 'oxford_iiit_pet', 
+      'para_crawl', 'patch_camelyon', 'pet_finder', 'quickdraw_bitmap', 
+      'resisc45', 'rock_paper_scissors', 'rock_you', 
+      'scene_parse150', 'shapes3d', 'smallnorb', 'snli', 'so2sat', 'squad', 'stanford_dogs', 'stanford_online_products', 'starcraft_video', 'sun397', 'super_glue', 'svhn_cropped', 
+      'ted_hrlr_translate', 'ted_multi_translate', 'tf_flowers', 'titanic', 'trivia_qa', 
+      'uc_merced', 'ucf101', 
+      'visual_domain_decathlon', 'voc2007', 
+      'wikipedia', 'wmt14_translate', 'wmt15_translate', 'wmt16_translate', 'wmt17_translate', 'wmt18_translate', 'wmt19_translate', 'wmt_t2t_translate', 'wmt_translate', 
+      'xnli']
 
-数据集分类：
+2.数据集分类
 
    -  Audio
 
@@ -296,7 +353,7 @@ TensorFlow Datasets 是可用于 TensorFlow 或其他 Python 机器学习框架(
 
       -  ucf101
 
-2.3 获取内置数据集
+2.4 获取内置数据集
 ~~~~~~~~~~~~~~~~~~~~
 
 ``tfds.load`` 是构建并加载 ``tf.data.Dataset`` 最简单的方式。``tf.data.Dataset`` 是构建输入流水线的标准 TensorFlow 接口。
@@ -396,12 +453,9 @@ TensorFlow Datasets 是可用于 TensorFlow 或其他 Python 机器学习框架(
 
 
 
-.. _header-n329:
 
 3.TensorFlow Datasets
----------------------
-
-.. _header-n330:
+-------------------------------------------
 
 3.1 数据集的信息
 ~~~~~~~~~~~~~~~~
@@ -698,7 +752,7 @@ TensorFlow Datasets 是可用于 TensorFlow 或其他 Python 机器学习框架(
          -  表示一系列元素，其中每个元素包含一个或多个 ``Tensor``
             对象。可以通过两种方式来创建数据集：
 
-            -  ``tf.data.Dataset.from_tensor_slice()`` 通过一个或多个
+            -  ``tf.data.Dataset.from_tensor_slices()`` 通过一个或多个
                ``tf.Tensor`` 对象创建数据集
 
             -  ``tf.data.Dataset.batch()`` 通过一个或多个
@@ -856,42 +910,167 @@ method 2:
 
          -  返回对应于有符号下一个元素的tf.Tensor对象
 
-.. _header-n106:
-
 3.1.2 数据集结构
 ^^^^^^^^^^^^^^^^^^^^^
 
 
 
-4.加载和预处理数据
-----------------------------
 
 
-4.1 tf.data 数据集的构建与预处理
+
+4.TensorFlow Dataset 预处理数据
+-------------------------------------
+
+4.1 数据集预处理
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TensorFlow 提供了 ``tf.data`` 模块，它包含了一套灵活的数据集构建 API，能够帮助我们快速、高效地构建数据输入的流水线，
-尤其适用于数据量巨大的场景。
+4.1.1 数据集预处理 API 介绍
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-4.1.1 数据集对象的建立
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   - ``tf.data.Dataset`` 类提供了多种数据集预处理方法:
+      - ``tf.data.Dataset.map(f)``: 
+         - 对数据集中的每个元素应用函数 ``f``，得到一个新的数据集
+         - 结合 ``tf.io`` 对文件进行读写和解码
+         - 结合 ``tf.image`` 进行图像处理
+      - ``tf.data.Dataset.shuffle(buffer_size)``: 
+         - 将数据集打乱
+         - 设定一个固定大小的缓冲区(buffer)，取出前 buffer_size 个元素放入，并从缓冲区中随机采样，采样后的数据用后续数据替换
+      - ``tf.data.Dataset.batch(batch_size)``: 
+         - 将数据集分成批次
+         - 对每 ``batch_size`` 个元素，使用 ``tf.stack()`` 在第 0 维合并，成为一个元素
+      - ``tf.data.Dataset.repeat()``: 
+         - 重复数据集的元素
+      - ``tf.data.Dataset.reduce()``: 
+         - 与 Map 相对的聚合操作
+      - ``tf.data.Dataset.take()``: 
+         - 截取数据集中的前若干个元素
+   - ``tf.data.Dataset.prefetch()``:
+      - 并行化策略提高训练流程效率
+   - 获取与使用 ``tf.data.Dataset`` 数据集元素
+      - ``tf.data.Dataset`` 是一个 Python 的可迭代对象
 
-``tf.data`` 的核心是 ``tf.data.Dataset`` 类，提供对数据集的高层封装。
+4.1.2 数据集处理示例
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``tf.data.Dataset`` 由一系列可迭代访问的元素(element)组成，每个元素包含一个或多个张量。
+- (1)使用 ``tf.data.Dataset.map()`` 将所有图片旋转 90 度
 
+   .. code-block:: python
+      
+      import tensorflow as tf
 
+      # data preprocessing function
+      def rot90(image, label):
+         image = tf.image.rot90(image)
+         return image, label
+      
+      # data
+      mnist_dataset = tf.keras.datasets.mnist.load_data()
+      
+      # data preprocessing
+      mnist_dataset = mnist_dataset.map(rot90)
 
+      # data visual
+      for image, label in mnist_dataset:
+         plt.title(label.numpy())
+         plt.imshow(image.numpy()[:, :, 0])
+         plt.show()
 
+- (2)使用 ``tf.data.Dataset.batch()`` 将数据集划分为批次，每个批次的大小为 4
+
+   .. code-block:: python
+
+      import tensorflow as tf
+      
+      # data
+      mnist_dataset = tf.keras.datasets.mnist.load_data()
+      
+      # data preprocessing
+      mnist_dataset = mnist_dataset.batch(4)
+
+      # data visual
+      for images, labels in mnist_dataset: # image: [4, 28, 28, 1], labels: [4]
+         fig, axs = plt.subplots(1, 4)
+         for i in range(4):
+            axs[i].set_title(label.numpy()[i])
+            axs[i].imshow(images.numpy()[i, :, :, 0])
+         plt.show()
+
+- (3)使用 ``tf.data.Dataset.shuffle()`` 将数据打散后再设置批次，缓存大小设置为 10000
+
+   .. code-block:: python
+
+      import tensorflow as tf
+      
+      # data
+      mnist_dataset = tf.keras.datasets.mnist.load_data()
+      
+      # data preprocessing
+      mnist_dataset = mnist_dataset.shuffle(buffer_size = 10000).batch(4)
+
+      # data visual
+      for i in range(2):
+         for images, labels in mnist_dataset: # image: [4, 28, 28, 1], labels: [4]
+            fig, axs = plt.subplots(1, 4)
+            for i in range(4):
+               axs[i].set_title(label.numpy()[i])
+               axs[i].imshow(images.numpy()[i, :, :, 0])
+            plt.show()
+
+   .. note:: 
+   
+      - 一般而言，若数据集的顺序分布较为随机，则缓冲区的大小可较小，否则需要设置较大的缓冲区
+
+- (4)使用 ``tf.data.Dataset.prefetch()`` 并行化策略提高训练流程效率
+
+   - 常规的训练流程
+      - 当训练模型时，希望充分利用计算资源，减少 CPU/GPU 的空载时间，然而，有时数据集的准备处理非常耗时，
+         使得在每进行一次训练前都需要花费大量的时间准备带训练的数据，GPU 只能空载等待数据，造成了计算资源的浪费
+
+   - 使用 ``tf.data.Dataset.prefetch()`` 方法进行数据预加载后的训练流程
+      - ``tf.data.Dataset.prefetch()`` 可以让数据集对象 ``Dataset`` 在训练时预先取出若干个元素，
+         使得在 GPU 训练的同时 CPU 可以准备数据，从而提升训练流程的效率
+
+   .. code-block:: python
+
+      import tensorflow as tf
+      
+      # data preprocessing function
+      def rot90(image, label):
+         image = tf.image.rot90(image)
+         return image, label
+      
+      # data
+      mnist_dataset = tf.keras.datasets.mnist.load_data()
+      
+      # data preprocessing
+      # 开启数据预加载功能
+      mnist_dataset = mnist_dataset.prefetch(buffer_size = tf.data.experimental.AUTOTUNE)
+      # 利用多 GPU 资源，并行化地对数据进行变换
+      mnist_dataset = mnist_dataset.map(map_func = rot90, num_parallel_calls = 2)
+      mnist_dataset = mnist_dataset.map(map_func = rot90, num_parallel_calls = tf.data.experimental.AUTOTUNE)
+
+- (5)获取与使用 ``tf.data.Dataset`` 数据集元素
+
+   - 构建好数据并预处理后，需要从中迭代获取数据用于训练
+
+   .. code-block:: python
+
+      dataset = tf.data.Dataset.from_tensor_slices((A, B, C, ...))
+      for a, b, c ... in dataset:
+         pass
+
+   .. code-block:: python
+
+      dataset = tf.data.Dataset.from_tensor_slices((A, B, C, ...))
+      it = iter(dataset)
+      a_0, b_0, c_0, ... = next(it)
+      a_1, b_1, c_1, ... = next(it)
 
 4.2 图像
 ~~~~~~~~~~~~~~~~~~~~~
 
-
-
 4.2 文本
 ~~~~~~~~~~~~~~~~~~~~~
-
 
 
 4.3 CSV
@@ -914,12 +1093,19 @@ TensorFlow 提供了 ``tf.data`` 模块，它包含了一套灵活的数据集�
 ~~~~~~~~~~~~~~~~~~~~~
 
 
-4.8 TFRecord 和 tf.Example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4.8 TFRecord 和 tf.Example--TensorFlow 数据集存储
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 4.9 tf.io 的其他格式
 ~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
 
 
 5.数据输入流水线
@@ -928,13 +1114,9 @@ TensorFlow 提供了 ``tf.data`` 模块，它包含了一套灵活的数据集�
 5.1 tf.data
 ~~~~~~~~~~~~~~~~~~~
 
-
 5.2 优化流水线性能
 ~~~~~~~~~~~~~~~~~~~~
 
-
-
 5.3 分析流水线性能
 ~~~~~~~~~~~~~~~~~~~~~~
-
 

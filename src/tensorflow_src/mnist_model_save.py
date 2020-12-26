@@ -24,4 +24,4 @@ model.compile(
 
 model.fit(data_loader.train_data, data_loader.train_label, epochs = num_epochs, batch_size = batch_size)
 
-tf.saved_model.save(model, "saved/1")
+tf.saved_model.save(model, "save/1")

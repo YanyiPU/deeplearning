@@ -1,7 +1,4 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-
 import os
 import numpy as np
 from keras import layers, models
@@ -10,9 +7,10 @@ from keras.preprocessing import image
 import matplotlib.pyplot as plt
 
 
-base_path = "/Users/zfwang/project/deeplearning_project/dogs-vs-cats"
-data_path = os.path.join(base_path, "data/cats_and_dogs_small")
-model_path = os.path.join(base_path, "models")
+root_dir = "/Users/zfwang/project/machinelearning/deeplearning"
+data_dir = os.path.join(root_dir, "data/cats_vs_dogs/")
+data_path = os.path.join(data_dir, "cats_and_dogs_small")
+model_path = os.path.join(project_path, "models")
 
 
 def model_load():

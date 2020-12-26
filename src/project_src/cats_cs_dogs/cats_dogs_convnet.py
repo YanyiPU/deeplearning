@@ -1,30 +1,29 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-__author__ = "wangzhefeng"
-
-
 import os
 import shutil
 import numpy as np
-import keras
-from keras import layers, models, optimizers
-from keras.preprocessing.image import ImageDataGenerator
-from keras.preprocessing import image
-from keras.applications import VGG16
+# import keras
+# from keras import layers, models, optimizers
+# from keras.preprocessing.image import ImageDataGenerator
+# from keras.preprocessing import image
+# from keras.applications import VGG16
 import matplotlib.pyplot as plt
 
 print(f"Using Keras: {keras.__version__}")
+print(f"Using TensorFlow: {tensorflow.__version__}")
 
-root_dir = "/Users/zfwang/project/deeplearning_project/dogs-vs-cats/"
-data_dir = os.path.join(root_dir, "data")
-models_path = os.path.join(root_dir, "models")
-original_dataset_dir = os.path.join(root_dir, "data/kaggle_original_data")
-small_data_dir = os.path.join(root_dir, "data/cats_and_dogs_small")
+
+root_dir = "/Users/zfwang/project/machinelearning/deeplearning"
+data_path = os.path.join(root_dir, "data/cats_vs_dogs/")
+original_dataset_dir = os.path.join(data_path, "kaggle_original_data")
+small_data_dir = os.path.join(data_path, "cats_and_dogs_small")
 train_dir = os.path.join(small_data_dir, "train")
 validation_dir = os.path.join(small_data_dir, "validation")
 test_dir = os.path.join(small_data_dir, "test")
 train_cats_dir = os.path.join(small_data_dir, "train/cat")
+project_path = os.path.join(root_dir, "deeplearning/src/project_src/cats_vs_dogs")
+models_path = os.path.join(project_path, "models")
+
 
 
 def mkdir_data_class(base_dir, data_class):

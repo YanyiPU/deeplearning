@@ -1,4 +1,5 @@
 import numpy as np
+import tensorflow as tf
 
 
 # ---------------
@@ -14,6 +15,7 @@ def vectorize_sequences(sequences, dimension = 10000):
 # x_train = vectorize_sequences(train_data)
 # x_test = vectorize_sequences(test_data)
 
+
 # ---------------
 # 将标签向量化
 # ---------------
@@ -27,3 +29,17 @@ def to_one_hot(labels, dimension = 46):
 # one_hot_train_labels = to_one_hot(train_label)
 # one_hot_test_labels = to_one_hot(test_label)
 
+
+# ---------------
+# 将图片旋转 90 度
+# ---------------
+def rot90(image, label):
+    image = tf.image.rot90(image)
+    return image, label
+
+
+
+
+
+if __name__ == "__main__":
+    pass

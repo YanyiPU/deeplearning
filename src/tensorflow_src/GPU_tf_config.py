@@ -4,8 +4,7 @@ import tensorflow as tf
 """
 TensorFlow 提供了 tf.config 模块来帮助设置 GPU 的使用和分配方式
 
-    1.当出现多人共同使用一台多 GPU 的工作站的时候，默认情况下，TensorFlow 会使用其所能够使用的所有 GPU，
-      这时就需要合理分配显卡资源。
+1.当出现多人共同使用一台多 GPU 的工作站的时候，默认情况下，TensorFlow 会使用其所能够使用的所有 GPU，这时就需要合理分配显卡资源。
 """
 
 
@@ -55,6 +54,8 @@ tf.config.set_virtual_device_configuration(
 gpus = tf.config.list_physical_devices(device_type = "GPU")
 tf.config.set_virtual_device_configuration(
     gpus[0],
-    [tf.config.VirtualDeviceConfiguration(memory_limit = 2048),
-     tf.config.VirtualDeviceConfiguration(memory_limit = 2048),]
+    [
+        tf.config.VirtualDeviceConfiguration(memory_limit = 2048), 
+        tf.config.VirtualDeviceConfiguration(memory_limit = 2048),
+    ]
 )

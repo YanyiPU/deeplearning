@@ -43,6 +43,7 @@ deeplearning
    deeplearning/GPU/GPU-hardware
    deeplearning/GPU/GPU-software
 
+
 .. toctree::
    :caption: NLP
    :maxdepth: 2
@@ -50,8 +51,16 @@ deeplearning
    deeplearning/NLP/NLP
    deeplearning/NLP/NLP-utils
    deeplearning/NLP/NLP-segment
+   deeplearning/NLP/NLP-tagging
+   deeplearning/NLP/NLP-NER
+   deeplearning/NLP/NLP-keyword-extraction
+   deeplearning/NLP/NLP-syntax-parsing
    deeplearning/NLP/NLP-feature_engine
-   deeplearning/NLP/NLP-text_vector
+   deeplearning/NLP/NLP-text-vector
+   deeplearning/NLP/NLP-anaphora-resolution
+   deeplearning/NLP/NLP-emotion-recognition
+   deeplearning/NLP/NLP-correction
+   deeplearning/NLP/NLP-QA-system
    deeplearning/NLP/NLP-DL-word_embedding
    deeplearning/NLP/NLP-DL-BERT
    deeplearning/NLP/NLP-DL-Attention
@@ -113,11 +122,13 @@ deeplearning
 
    pillow/pillow
 
+
 .. toctree::
    :caption: opencv
    :maxdepth: 2
 
    opencv/opencv
+
 
 .. toctree::
    :caption: NVIDIA Xavier

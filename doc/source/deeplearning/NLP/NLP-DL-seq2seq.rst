@@ -1,5 +1,5 @@
 
-NLP--encoder-decoder、seq2seq
+NLP--seq2seq
 ===============================
 
 1.encoder-decoder、seq2seq 简介
@@ -49,7 +49,7 @@ NLP--encoder-decoder、seq2seq
 变换为当前时间步的隐藏状态 :math:`\boldsymbol{h}_t`。我们可以用函数 :math:`f` 表达循环神经网络隐藏层的变换：
 
     - :math:`\boldsymbol{h}_t = f(\boldsymbol{x}_t, \boldsymbol{h}_{t-1}).` 
- 
+
 接下来，编码器通过自定义函数 :math:`q`  将各个时间步的隐藏状态变换为背景变量:
 
     - :math:`\boldsymbol{c} = q(\boldsymbol{h}_1, \ldots, \boldsymbol{h}_T)` 
@@ -76,7 +76,7 @@ NLP--encoder-decoder、seq2seq
 因此，我们可以用函数 :math:`g` 表达解码器隐藏层的变换：
 
     - :math:`\boldsymbol{s}_{t^\prime} = g(y_{t^\prime-1}, \boldsymbol{c}, \boldsymbol{s}_{t^\prime-1}).` 
- 
+
 有了解码器的隐藏状态后，我们可以使用自定义的输出层和 softmax 运算来计算 :math:`P(y_{t^\prime} \mid y_1, \ldots, y_{t^\prime-1}, \boldsymbol{c})`，
 例如，基于当前时间步的解码器隐藏状态 :math:`\boldsymbol{s}_{t^\prime}`、上一时间步的输出 :math:`y_{t^\prime-1}` 以及
 背景变量 :math:`c` 来计算当前时间步输出 :math:`y_{t^\prime}` 的概率分布。
@@ -91,11 +91,11 @@ P(y_1, \ldots, y_{T'} \mid x_1, \ldots, x_T)
 &= \prod_{t'=1}^{T'} P(y_{t'} \mid y_1, \ldots, y_{t'-1}, x_1, \ldots, x_T)\\
 &= \prod_{t'=1}^{T'} P(y_{t'} \mid y_1, \ldots, y_{t'-1}, \boldsymbol{c}),
 \end{aligned}\end{split}` 
- 
+
 并得到该输出序列的损失
 
 :math:`- \log P(y_1, \ldots, y_{T'} \mid x_1, \ldots, x_T) = -\sum_{t'=1}^{T'} \log P(y_{t'} \mid y_1, \ldots, y_{t'-1}, \boldsymbol{c}).` 
- 
+
 在模型训练中，所有输出序列损失的均值通常作为需要最小化的损失函数。在上面图所描述的模型预测中，
 我们需要将解码器在上一个时间步的输出作为当前时间步的输入。与此不同，在训练中我们也可以将标签
 序列(训练集的真实输出序列)在上一个时间步的标签作为解码器在当前时间步的输入。这叫作强制教学(teacher forcing)。

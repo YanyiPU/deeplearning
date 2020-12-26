@@ -1,6 +1,6 @@
 import numpy as np
 import tensorflow as tf
-import MNISTLoader
+# import MNISTLoader
 
 
 print(tf.__version__)

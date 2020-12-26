@@ -32,6 +32,7 @@ deeplearning
    deeplearning/GEN/DeepDream
    deeplearning/GEN/VAE
    deeplearning/GEN/GAN
+   deeplearning/RL/RL
    deeplearning/Backforward
    deeplearning/Optimization
    deeplearning/Regularization
@@ -42,6 +43,8 @@ deeplearning
    deeplearning/Net/LeNet-5
    deeplearning/GPU/GPU-hardware
    deeplearning/GPU/GPU-software
+   deeplearning/TPU/TPU-hardware
+   deeplearning/TPU/TPU-software
 
 
 .. toctree::
@@ -106,6 +109,7 @@ deeplearning
    TensorFlow/TensorFlow-Estimator
    TensorFlow/TensorFlow-SaveModel
    TensorFlow/TensorFlow-Serving
+   TensorFlow/TensorFlow-Keras-Pipeline
 
 
 .. toctree::

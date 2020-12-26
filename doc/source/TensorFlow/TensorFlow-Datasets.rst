@@ -1,9 +1,6 @@
-.. _header-n0:
 
 TensorFlow Datasets
 =====================
-
-.. _header-n108:
 
 1.TensorFlow Datasets 安装及使用
 ----------------------------------
@@ -24,9 +21,6 @@ TensorFlow Datasets
       import matplotlib.pyplot as plt
       import tensorflow_datasets as tfds
 
-
-.. _header-n110:
-
 2.TensorFlow Datasets 介绍
 ----------------------------------
 
@@ -35,7 +29,6 @@ TensorFlow Datasets
 
 TensorFlow Datasets 是可用于 TensorFlow 或其他 Python 机器学习框架(例如 Jax) 的一系列数据集。
 所有数据集都作为 ``tf.data.Datasets`` 提供，实现易用且高性能的输入流水线。
-
 
 示例:
 

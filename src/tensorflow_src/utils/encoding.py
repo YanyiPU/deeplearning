@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 #===========================================================
 #                        codeing
 #===========================================================
-
 #  单词级的one-hot encoding
 samples = ["The cat sat on the mat.", "The dog ate my homework."]
 token_index = {}

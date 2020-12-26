@@ -1,16 +1,14 @@
-
 GPU 软件
-================================
+===================================================
 
 .. important:: 
-
+   
    系统：Ubuntu 20.04
-
 
 1.安装 Ubuntu 20.04
 -------------------------------------------------------
 
-
+- test
 
 
 
@@ -29,7 +27,7 @@ GPU 软件
          - Using NVIDIA dirver metapackage from nvidia-driver-455(proprietary, tested)
          - Using X.Org x server -- Nouveau display driver from xserver-xorg-video-nouveau(open source)
 
-        选择第一个安装 Nvidia 官方驱动(第二个是开源驱动)即可，根据网络情况稍等大概十分钟，安装完重启服务器。
+      - 选择第一个安装 Nvidia 官方驱动(第二个是开源驱动)即可，根据网络情况稍等大概十分钟，安装完重启服务器。
 
    2. 重启完之后更新一下软件
 
@@ -339,19 +337,13 @@ TensorFlow GPU 支持需要各种驱动程序和库。为了简化安装并避�
          C:\> SET PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include;%PATH%
          C:\> SET PATH=C:\tools\cuda\bin;%PATH%
 
-
-
-
-
 7.2 PyTorch
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 PyTorch GPU 支持
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+   .. code:: python
 
-
-.. code:: python
-
-   import torch
-   torch.CUDA.is_available()
+      import torch
+      torch.CUDA.is_available()

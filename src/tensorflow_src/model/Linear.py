@@ -12,7 +12,8 @@ y = ax + b
 
 
 class Linear(tf.keras.Model):
-    """线性回归
+    """
+    线性回归
 
     Args:
         tf ([type]): [description]

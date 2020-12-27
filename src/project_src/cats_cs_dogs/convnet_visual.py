@@ -14,15 +14,18 @@ model_path = os.path.join(project_path, "models")
 
 
 def model_load():
-    # model
+    """
+    model
+    """
     model_dir = os.path.join(model_path, "cats_and_dogs_small_2.h5")
     model = load_model(model_dir)
-    
     return model
 
 
 def image_visual():
-    # image
+    """
+    image
+    """
     cat1700_img_path = os.path.join(data_path, "test/cat/cat.1700.jpg")
     img = image.load_img(cat1700_img_path, target_size = (150, 150))
     img_tensor = image.img_to_array(img)
@@ -40,7 +43,6 @@ def channel_visual(model):
     img_tensor = image.img_to_array(img)
     img_tensor = np.expand_dims(img_tensor, axis = 0)
     img_tensor /= 255.0
-
     layers_outputs = [layer.output for layer in model.layers[:8]]
     activation_model = models.Model(inputs = model.input, outputs = layers_outputs)
     activations = activation_model.predict(img_tensor)
@@ -49,7 +51,6 @@ def channel_visual(model):
     plt.matshow(first_layer_activation[0, :, :, 4], cmap = "viridis")
     plt.matshow(first_layer_activation[0, :, :, 7], cmap = "viridis")
     plt.show()
-
     return activations
 
 
@@ -86,5 +87,3 @@ if  __name__ == "__main__":
     image_visual()
     activations = channel_visual(model)
     all_channel_visual(model, activations)
-
-

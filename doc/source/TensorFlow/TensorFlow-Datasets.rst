@@ -15,10 +15,12 @@ TensorFlow Datasets
    - 库导入:
 
       .. code-block:: python
-      
-         import numpy as np
+
+         # tf.data, tf.data.Dataset
          import tensorflow as tf
-         import matplotlib.pyplot as plt
+         # tf.keras.datasets.<dataset_name>.load_data
+         from tensorflow.keras import datasets
+         # tfds.load
          import tensorflow_datasets as tfds
 
 2.TensorFlow Datasets 介绍
@@ -1093,9 +1095,54 @@ method 2:
 ~~~~~~~~~~~~~~~~~~~~~
 
 
-4.8 TFRecord 和 tf.Example--TensorFlow 数据集存储
+4.8 TFRecord
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+4.8.1 TFRecord 数据文件介绍
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+TFRecord 是 TensorFlow 中的数据集存储格式。当将数据集整理成 TFRecord 格式后，
+TensorFlow 就可以高效地读取和处理这些数据集了。从而帮助更高效地进行大规模模型训练。
+
+TFRecord 可以理解为一系列序列化的 ``tf.train.Example`` 元素所组成的列表文件，
+而每一个 ``tf.train.Example`` 又由若干个 ``tf.train.Feature`` 的字典组成：
+
+   .. code-block:: python
+   
+      # dataset.tfrecords
+      [
+         {  # example 1 (tf.train.Example)
+            'feature_1': tf.train.Feature,
+            ...
+            'feature_k': tf.train.Feature,
+         },
+         ...
+         {  # example N (tf.train.Example)
+            'feature_1': tf.train.Feature,
+            ...
+            'feature_k': tf.train.Feature,
+         }, 
+      ]
+
+4.8.1 TFRecord 文件保存
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+为了将形式各样的数据集整理为 TFRecord 格式，可以对数据集中的每个元素进行以下步骤：
+
+   - (1)读取该数据元素到内存
+   - (2)将该元素转换为 ``tf.train.Example`` 对象
+      - 每个 ``tf.train.Example`` 对象由若干个 ``tf.train.Feature`` 的字典组成，因此需要先建立 Feature 的子典
+   - (3)将 ``tf.train.Example`` 对象序列化为字符串，并通过一个预先定义的 ``tf.io.TFRecordWriter`` 写入 ``TFRecord``
+
+4.8.2 TFRecord 文件读取
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+读取 TFRecord 数据的步骤：
+
+   - (1)通过 ``tf.data.TFRecordDataset`` 读入原始的 TFRecord 文件，获得一个 ``tf.data.Dataset`` 数据集对象
+      - 此时文件中的 ``tf.train.Example`` 对象尚未被反序列化
+   - (2)通过 ``tf.data.Dataset.map`` 方法，对该数据集对象中的每个序列化的 ``tf.train.Example`` 字符串
+      执行 ``tf.io.parse_single_example`` 函数，从而实现反序列化
 
 4.9 tf.io 的其他格式
 ~~~~~~~~~~~~~~~~~~~~~

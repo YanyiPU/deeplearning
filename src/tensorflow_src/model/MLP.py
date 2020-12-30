@@ -18,7 +18,6 @@ print(tf.__version__)
 
 
 class MLP(tf.keras.Model):
-
     def __init__(self):
         super().__init__()
         self.flatten = tf.keras.layers.Flatten() # Flatten 层将除第一维(batch_size)以外的维度”展平“
@@ -31,7 +30,6 @@ class MLP(tf.keras.Model):
         x = self.dense1(x)        # [batch_size, 100]
         x = self.dense2(x)        # [batch_size, 10]
         output = tf.nn.softmax(x) # []
-
         return output
 
 

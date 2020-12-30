@@ -2,6 +2,7 @@ import numpy as np
 import tensorflow as tf
 import MNISTLoader
 
+
 print(tf.__version__)
 
 
@@ -31,8 +32,8 @@ class CNN(tf.keras.Model):
         self.dense1 = tf.keras.layers.Dense(units = 1024, activation = tf.nn.relu)
         self.dense2 = tf.keras.layers.Dense(units = 10)
     
-    def call(self, input):    # [batch_size, 28, 28, 3]
-        x = self.conv1(input) # [batch_size, 28, 28, 32]
+    def call(self, inputs):    # [batch_size, 28, 28, 3]
+        x = self.conv1(inputs) # [batch_size, 28, 28, 32]
         x = self.pool1(x)     # [batch_size, 14, 14, 32]
         x = self.conv2(x)     # [batch_size, 14, 14, 64]
         x = self.pool2(x)     # [batch_size, 7, 7, 64]

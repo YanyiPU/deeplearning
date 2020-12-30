@@ -110,6 +110,7 @@ deeplearning
    TensorFlow/TensorFlow-SaveModel
    TensorFlow/TensorFlow-Serving
    TensorFlow/TensorFlow-Keras-Pipeline
+   TensorFlow/TensorFlow-Performance
 
 
 .. toctree::

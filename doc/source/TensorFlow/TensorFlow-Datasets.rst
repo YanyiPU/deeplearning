@@ -924,7 +924,7 @@ method 2:
 -------------------------------------
 
 4.1 数据集预处理
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 4.1.1 数据集预处理 API 介绍
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1069,88 +1069,240 @@ method 2:
       a_1, b_1, c_1, ... = next(it)
 
 4.2 图像
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 4.2 文本
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 4.3 CSV
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 4.4 Numpy
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 4.5 pandas.DataFrame
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 4.6 Unicode
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 4.7 TF.Text
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 4.8 TFRecord
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 4.8.1 TFRecord 数据文件介绍
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-TFRecord 是 TensorFlow 中的数据集存储格式。当将数据集整理成 TFRecord 格式后，
-TensorFlow 就可以高效地读取和处理这些数据集了。从而帮助更高效地进行大规模模型训练。
+   TFRecord 是 TensorFlow 中的数据集存储格式。当将数据集整理成 TFRecord 格式后，
+   TensorFlow 就可以高效地读取和处理这些数据集了。从而帮助更高效地进行大规模模型训练。
 
-TFRecord 可以理解为一系列序列化的 ``tf.train.Example`` 元素所组成的列表文件，
-而每一个 ``tf.train.Example`` 又由若干个 ``tf.train.Feature`` 的字典组成：
+   TFRecord 可以理解为一系列序列化的 ``tf.train.Example`` 元素所组成的列表文件，
+   而每一个 ``tf.train.Example`` 又由若干个 ``tf.train.Feature`` 的字典组成：
+
+      .. code-block:: python
+      
+         # dataset.tfrecords
+         [
+            {  # example 1 (tf.train.Example)
+               'feature_1': tf.train.Feature,
+               ...
+               'feature_k': tf.train.Feature,
+            },
+            ...
+            {  # example N (tf.train.Example)
+               'feature_1': tf.train.Feature,
+               ...
+               'feature_k': tf.train.Feature,
+            }, 
+         ]
+
+4.8.2 TFRecord 文件保存
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- TFRecord 文件保存步骤
+
+   为了将形式各样的数据集整理为 TFRecord 格式，可以对数据集中的每个元素进行以下步骤：
+
+      - (1) 读取该数据元素到内存
+      - (2) 将该元素转换为 ``tf.train.Example`` 对象
+
+         - 每个 ``tf.train.Example`` 对象由若干个 ``tf.train.Feature`` 的字典组成，因此需要先建立 Feature 的子典
+
+      - (3) 将 ``tf.train.Example`` 对象序列化为字符串，并通过一个预先定义的 ``tf.io.TFRecordWriter`` 写入 ``TFRecord`` 文件
+
+- TFRecord 文件保存示例
 
    .. code-block:: python
-   
-      # dataset.tfrecords
-      [
-         {  # example 1 (tf.train.Example)
-            'feature_1': tf.train.Feature,
-            ...
-            'feature_k': tf.train.Feature,
-         },
-         ...
-         {  # example N (tf.train.Example)
-            'feature_1': tf.train.Feature,
-            ...
-            'feature_k': tf.train.Feature,
-         }, 
-      ]
 
-4.8.1 TFRecord 文件保存
+      import tensorflow as tf
+      import os
+
+      # root
+      root_dir = "/Users/zfwang/project/machinelearning/deeplearning"
+      # project
+      project_path = os.path.join(root_dir, "deeplearning/src/tensorflow_src")
+      # model save
+      models_path = os.path.join(project_path, "save")
+      # data
+      cats_and_dogs_dir = os.path.join(root_dir, "datasets/cats_vs_dogs")
+      data_dir = os.path.join(root_dir, "datasets/cats_vs_dogs/cats_and_dogs_small")
+      # train data
+      train_dir = os.path.join(data_dir, "train")
+      train_cats_dir = os.path.join(train_dir, "cat")
+      train_dogs_dir = os.path.join(train_dir, "dog")
+      # tfrecord
+      tfrecord_file = os.path.join(cats_and_dogs_dir, "train.tfrecord")
+
+      # 训练数据
+      train_cat_filenames = [os.path.join(train_cats_dir, filename) for filename in os.listdir(train_cats_dir)]
+      train_dog_filenames = [os.path.join(train_dogs_dir, filename) for filename in os.listdir(train_dogs_dir)]
+      train_filenames = train_cat_filenames + train_dog_filenames
+      train_labels = [0] * len(train_cat_filenames) + [1] * len(train_dog_filenames)
+
+      # 迭代读取每张图片，建立 tf.train.Feature 字典和 tf.train.Example 对象，序列化并写入 TFRecord
+      with tf.io.TFRecordWriter(tfrecord_file) as writer:
+         for filename, label in zip(train_filenames, train_labels):
+            # 读取数据集图片到内存，image 为一个 Byte 类型的字符串
+            image = open(filename, "rb").read()
+            # 建立 tf.train.Feature 字典
+            feature = {
+                  # 图片是一个 Byte 对象
+                  "image": tf.train.Feature(bytes_list = tf.train.BytesList(value = [image])),
+                  "label": tf.train.Feature(int64_list = tf.train.Int64List(value = [label]))
+            }
+            # 通过字典建立 Example
+            example = tf.train.Example(features = tf.train.Features(feature = feature))
+            # 将 Example 序列化并写入 TFRecord 文件
+            writer.write(example.SerializeToString())
+
+
+
+4.8.3 TFRecord 文件读取
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-为了将形式各样的数据集整理为 TFRecord 格式，可以对数据集中的每个元素进行以下步骤：
+- TFRecord 数据文件读取步骤
 
-   - (1)读取该数据元素到内存
-   - (2)将该元素转换为 ``tf.train.Example`` 对象
-      - 每个 ``tf.train.Example`` 对象由若干个 ``tf.train.Feature`` 的字典组成，因此需要先建立 Feature 的子典
-   - (3)将 ``tf.train.Example`` 对象序列化为字符串，并通过一个预先定义的 ``tf.io.TFRecordWriter`` 写入 ``TFRecord``
+      - (1)通过 ``tf.data.TFRecordDataset`` 读入原始的 TFRecord 文件，获得一个 ``tf.data.Dataset`` 数据集对象
 
-4.8.2 TFRecord 文件读取
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         - 此时文件中的 ``tf.train.Example`` 对象尚未被反序列化
 
-读取 TFRecord 数据的步骤：
+      - (2)通过 ``tf.data.Dataset.map`` 方法，对该数据集对象中的每个序列化的 ``tf.train.Example`` 字符串
+        执行 ``tf.io.parse_single_example`` 函数，从而实现反序列化
 
-   - (1)通过 ``tf.data.TFRecordDataset`` 读入原始的 TFRecord 文件，获得一个 ``tf.data.Dataset`` 数据集对象
-      - 此时文件中的 ``tf.train.Example`` 对象尚未被反序列化
-   - (2)通过 ``tf.data.Dataset.map`` 方法，对该数据集对象中的每个序列化的 ``tf.train.Example`` 字符串
-      执行 ``tf.io.parse_single_example`` 函数，从而实现反序列化
+- TFRecord 数据文件读取示例
+
+   .. code-block:: python
+
+      import tensorflow as tf
+      import os
+      import matplotlib.pyplot as plt
+
+      # root
+      root_dir = "/Users/zfwang/project/machinelearning/deeplearning"
+      # data
+      cats_and_dogs_dir = os.path.join(root_dir, "datasets/cats_vs_dogs")
+      # tfrecord
+      tfrecord_file = os.path.join(cats_and_dogs_dir, "train.tfrecord")
+
+      def _parse_example(example_string):
+         """
+         将 TFRecord 文件中的每一个序列化的 tf.train.Example 解码
+         """
+         # 定义 Feature 结构，告诉解码器每个 Feature 的类型是什么
+         feature_description = {
+            "image": tf.io.FixedLenFeature([], tf.string),
+            "label": tf.io.FixedLenFeature([], tf.int64)
+         }
+         feature_dict = tf.io.parse_single_example(example_string, feature_description)
+         # 解码 JPEG 图片
+         feature_dict["image"] = tf.io.decode_jpeg(feature_dict["image"])
+         return feature_dict["image"], feature_dict["label"]
+
+      # 读取 TFRecord 文件
+      raw_dataset = tf.data.TFRecordDataset(tfrecord_file)
+      dataset = raw_dataset.map(_parse_example)
+
+      for image, label in dataset:
+         plt.title("cat" if label == 0 else "dog")
+         plt.imshow(image.numpy())
+         plt.show()
 
 4.9 tf.io 的其他格式
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
+4.10 tf.TensorArray
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+4.10.1 tf.TensorArray 介绍
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+   在部分网络结构中，尤其是涉及时间序列的结构中，可能需要将一系列张量以数组的方式依次存放起来，以供进一步处理。
+
+      - 在即时执行模式下，可以直接使用一个 Python 列表存放数组
+      - 如果需要基于计算图的特性，例如使用 @tf.function 加速模型运行或者使用 SaveModel 导出模型，就无法使用 Python 列表了
+
+   TensorFlow 提供了 ``tf.TensorArray`` (TensorFlow 动态数组) 支持计算图特性的 TensorFlow 动态数组.
+
+      - 声明方式如下:
+
+         - ``arr = tf.TensorArray(dtype, size, dynamic_size = False)``: 
+
+            - 声明一个大小为 ``size``，类型为 ``dtype`` 的 ``TensorArray arr``
+            - 如果将 ``dynamic_size`` 参数设置为 True，则该数组会自动增长空间
+
+      - 读取和写入的方法如下:
+
+         - ``write(index, value)``: 将 value 写入数组的第 index 个位置
+         - ``read(index)``: 读取数组的第 index 个值
+         - ``stack()``
+         - ``unstack()``
+
+4.10.2 tf.TensorArray 介绍
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+   .. code-block:: python
+
+      import tensorflow as tf
+
+      @tf.function
+      def array_write_and_read():
+         arr = tf.TensorArray(dtype = tf.float32, size = 3)
+         arr = arr.write(0, tf.constant(0.0))
+         arr = arr.write(1, tf.constant(1.0))
+         arr = arr.write(2, tf.constant(2.0))
+         arr_0 = arr.read(0)
+         arr_1 = arr.read(1)
+         arr_2 = arr.read(2)
+         return arr_0, arr_1, arr_2
+      
+      a, b, c = array_write_and_read()
+      print(a, b, c)
+
+.. note:: 
+
+   - 由于需要支持计算图，``tf.TensorArray`` 的 ``write()`` 是不可以忽略左值的，
+     也就是说，在图执行模式下，必须按照以下的形式写入数组，才可以正常生成一个计算图操作，
+     并将该操作返回给 ``arr``:
+
+      .. code-block:: python
+
+         arr.write(index, value)
+
+   - 不可以写成
+
+      .. code-block:: python
+
+         arr.write(index, value)
 
 
 

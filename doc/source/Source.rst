@@ -1,9 +1,7 @@
-.. _header-n0:
 
 资源目录
 ========
 
-.. _header-n3:
 
 资源列表
 --------
@@ -62,7 +60,6 @@
 
    -  `MNIST <http://yann.lecun.com/exdb/mnist/>`__
 
-.. _header-n67:
 
 学习计划
 --------

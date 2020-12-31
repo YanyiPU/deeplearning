@@ -3,9 +3,6 @@ import tensorflow as tf
 import MNISTLoader
 
 
-print(tf.__version__)
-
-
 """
 CNN
 """
@@ -32,12 +29,18 @@ class CNN(tf.keras.Model):
         self.dense1 = tf.keras.layers.Dense(units = 1024, activation = tf.nn.relu)
         self.dense2 = tf.keras.layers.Dense(units = 10)
     
-    def call(self, inputs):    # [batch_size, 28, 28, 3]
+    def call(self, inputs):    # [batch_size, 28, 28, 32]
+        print(inputs.shape)
         x = self.conv1(inputs) # [batch_size, 28, 28, 32]
+        print(x.shape)
         x = self.pool1(x)     # [batch_size, 14, 14, 32]
+        print(x.shape)
         x = self.conv2(x)     # [batch_size, 14, 14, 64]
+        print(x.shape)
         x = self.pool2(x)     # [batch_size, 7, 7, 64]
+        print(x.shape)
         x = self.flatten(x)   # [batch_size, 7 * 7 * 64]
+        print(x.shape)
         x = self.dense1(x)    # [batch_size, 1024]
         x = self.dense2(x)    # [batch_size, 10]
         output = tf.nn.softmax(x)
@@ -65,6 +68,8 @@ if __name__ == "__main__":
     # model training
     for batch_index in range(num_batches):
         X, y = data_loader.get_batch(batch_size)
+        print("X.shape:", X.shape)
+        print("y.shape:", y.shape)
         with tf.GradientTape() as tape:
             y_pred = model(X)
             loss = tf.reduce_mean(tf.keras.losses.sparse_categorical_crossentropy(y_true = y, y_pred = y_pred))

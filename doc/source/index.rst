@@ -7,40 +7,80 @@ deeplearning
 ========================================
 
 .. toctree::
-   :caption: Source
+   :caption: ENV
    :maxdepth: 2
 
    Source
-   Envs/Python-Env
-   Envs/TensorFlow-Env
-   Envs/Keras-Env
-   Envs/PyTorch-Env
+   Env/Python-Env
+   Env/TensorFlow-Env
+   Env/Keras-Env
+   Env/PyTorch-Env
 
 
 .. toctree::
-   :caption: DeepLearning
+   :caption: DNN
    :maxdepth: 2
 
    deeplearning/DNN
-   deeplearning/CNN
-   deeplearning/RNN/RNN
-   deeplearning/RNN/RNN-GRU
-   deeplearning/RNN/RNN-LSTM
-   deeplearning/RNN/RNN-Attention-Augmented
-   deeplearning/GEN/LSTM_TextGen
-   deeplearning/GEN/Neural_Style_Transfer
-   deeplearning/GEN/DeepDream
-   deeplearning/GEN/VAE
-   deeplearning/GEN/GAN
-   deeplearning/RL/RL
    deeplearning/Backforward
    deeplearning/Optimization
    deeplearning/Regularization
    deeplearning/Parameter_Init
    deeplearning/Losses
    deeplearning/Metrics
+
+
+.. toctree::
+   :caption: CNN
+   :maxdepth: 2
+
+   deeplearning/CNN/CNN
+   deeplearning/CNN/CNN-classification
+   deeplearning/CNN/CNN-image-segment
+   deeplearning/CNN/CNN-target-detection
+   deeplearning/CNN/CNN-transform
+
+
+.. toctree::
+   :caption: RNN
+   :maxdepth: 2
+   
+   deeplearning/RNN/RNN
+   deeplearning/RNN/RNN-GRU
+   deeplearning/RNN/RNN-LSTM
+   deeplearning/RNN/RNN-Attention-Augmented
+   
+
+.. toctree::
+   :caption: GEN
+   :maxdepth: 2
+   
+   deeplearning/GEN/LSTM_TextGen
+   deeplearning/GEN/Neural_Style_Transfer
+   deeplearning/GEN/DeepDream
+   deeplearning/GEN/VAE
+   deeplearning/GEN/GAN
+
+
+.. toctree::
+   :caption: RL
+   :maxdepth: 2
+
+   deeplearning/RL/RL
+
+
+.. toctree::
+   :caption: Network
+   :maxdepth: 2
+
    deeplearning/Net/ResNet-V1
    deeplearning/Net/LeNet-5
+
+
+.. toctree::
+   :caption: GPU/TPU
+   :maxdepth: 2
+
    deeplearning/GPU/GPU-hardware
    deeplearning/GPU/GPU-software
    deeplearning/TPU/TPU-hardware
@@ -52,7 +92,6 @@ deeplearning
    :maxdepth: 2
 
    deeplearning/NLP/NLP
-   deeplearning/NLP/NLP-utils
    deeplearning/NLP/NLP-segment
    deeplearning/NLP/NLP-tagging
    deeplearning/NLP/NLP-NER
@@ -114,29 +153,11 @@ deeplearning
 
 
 .. toctree::
-   :caption: NLP-utils
+   :caption: utils
    :maxdepth: 2
 
-   deeplearning/NLP/NLP-opencc
-   deeplearning/NLP/NLP-gensim
-
-
-.. toctree::
-   :caption: pillow
-   :maxdepth: 2
-
-   pillow/pillow
-
-
-.. toctree::
-   :caption: opencv
-   :maxdepth: 2
-
-   opencv/opencv
-
-
-.. toctree::
-   :caption: NVIDIA Xavier
-   :maxdepth: 2
-
-   deeplearning/NVIDIA_Xavier
+   utils/NLP-opencc
+   utils/NLP-gensim
+   utils/Image-pillow
+   utils/Image-opencv
+   utils/NVIDIA_Xavier

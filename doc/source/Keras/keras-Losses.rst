@@ -197,8 +197,8 @@ Keras 损失函数
 4.创建自定义损失函数
 ------------------------------------------
 
-    - Any callable with the signature ``loss_fn(y_true, y_pred)`` that returns an array of 
-      losses (one of sample in the input batch) can be passed to compile() as a loss. 
+    -  Any callable with the signature ``loss_fn(y_true, y_pred)`` that returns an array of 
+       losses (one of sample in the input batch) can be passed to compile() as a loss. 
     
     - Note that sample weighting is automatically supported for any such loss.
 

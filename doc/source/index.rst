@@ -111,6 +111,7 @@ deeplearning
    deeplearning/NLP/NLP-APP-text_classification
    deeplearning/NLP/NLP-APP-KG-knowledge_graph
    deeplearning/NLP/NLP-APP-KG-Neo4j
+   deeplearning/NLP/NLP-Pipeline
 
 
 .. toctree::
@@ -158,6 +159,7 @@ deeplearning
 
    utils/NLP-opencc
    utils/NLP-gensim
+   utils/NLP-spaCy
    utils/Image-pillow
    utils/Image-opencv
    utils/NVIDIA_Xavier

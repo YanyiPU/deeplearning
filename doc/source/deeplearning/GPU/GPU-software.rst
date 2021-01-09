@@ -69,7 +69,7 @@ NVIDIA® CUDA® 工具包提供了开发环境，可供创建经 GPU 加速的�
 
       - https://developer.nvidia.com/cuda-11.0-download-archive
 
-      .. image:: ../../../images/cuda.png
+      .. image:: ../../images/cuda.png
 
    3. 安装 CUDA
 

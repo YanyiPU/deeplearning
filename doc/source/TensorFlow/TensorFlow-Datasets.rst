@@ -500,7 +500,7 @@ TensorFlow Datasets
 
    -  ``@misc{}``
 
-.. _header-n378:
+
 
 3.2 数据集的使用
 ~~~~~~~~~~~~~~~~
@@ -589,7 +589,7 @@ TensorFlow Datasets
    for features in mnist_train.take(1):
        image, label = features["image"], features["label"]
 
-.. _header-n393:
+
 
 3.3 TensorFlow Datasets APIs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -642,7 +642,7 @@ TensorFlow Datasets
 
    -  show_examples()
 
-.. _header-n448:
+
 
 (1) tfds.load()
 ^^^^^^^^^^^^^^^
@@ -742,7 +742,7 @@ TensorFlow Datasets
 
 -  ds.info
 
-.. _header-n523:
+
 
 3.3.1 导入数据
 ^^^^^^^^^^^^^^
@@ -867,7 +867,7 @@ method 2:
 
             -  使用不同的数据集重新初始化和参数化迭代器
 
-.. _header-n53:
+
 
 3.1.1 基本机制
 ^^^^^^^^^^^^^^^^^^^^^

@@ -2,23 +2,23 @@ import spacy
 import textacy.extract
 
 
-# Load the large English NLP model
+# 1.载入 En NLP 模型
 nlp = spacy.load("en_core_web_lg")
 
-# The text we want to examine
+# 2.文本数据
 text = """London is the capital and most populous city of England and  the United Kingdom.  
-Standing on the River Thames in the south east of the island of Great Britain, 
-London has been a major settlement  for two millennia.  It was founded by the Romans, 
-who named it Londinium.
-"""
+    Standing on the River Thames in the south east of the island of Great Britain, 
+    London has been a major settlement  for two millennia.  It was founded by the Romans, 
+    who named it Londinium.
+    """
 
-# Parse the document with spaCy
+# 3.解析文本数据
 doc = nlp(text)
 
-# Extract semi-structured statements
+# 4.半结构化语句提取
 statements = textacy.extract.semistructured_statements(doc, "London")
 
-# Print the results
+# 5.打印结果
 print("Here are the things I know about London:")
 for statement in statements:
     subject, verb, fact = statement

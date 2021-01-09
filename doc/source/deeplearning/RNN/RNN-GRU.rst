@@ -15,7 +15,7 @@ RNN-GRU
 1.1.1 GRU 神经元
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   .. image:: ../../../images/GRU.PNG
+   .. image:: ../../images/GRU.PNG
       :alt: 
 
    GRU 的输入输出结构与普通的 RNN 一样，有一个 :math:`x^{t}` 和 上一个节点传递下来的隐状态(hidden state) :math:`h^{t-1}`，
@@ -37,7 +37,7 @@ RNN-GRU
 
    - 输出：
 
-      .. image:: ../../../images/GRU-rzGate.png
+      .. image:: ../../images/GRU-rzGate.png
          :alt: 
 
       .. math::
@@ -59,13 +59,13 @@ RNN-GRU
 再将 :math:`h^{t-1 '}` 与输入 :math:`x^{t}`\ ，再通过一个 :math:`tanh` 激活函数来将数据缩放到 
 :math:`[-1, 1]` 的范围内。即得到：
 
-   .. image:: ../../../images/GRU-hGate.png
+   .. image:: ../../images/GRU-hGate.png
       :alt: 
 
 这里的 :math:`h^{'}` 主要是包含了当前输入的 :math:`x^{t}` 数据。有针对性地对 :math:`h^{'}` 添加到当前的隐藏状态，
 相当于“记忆了当前时刻的状态”。类似于 LSTM 的选择记忆阶段。
 
-   .. image:: ../../../images/GRU2.png
+   .. image:: ../../images/GRU2.png
       :alt: 
 
    其中：

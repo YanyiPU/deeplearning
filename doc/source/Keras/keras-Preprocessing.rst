@@ -1,9 +1,9 @@
-.. _header-n0:
+
 
 Keras 数据预处理
 ================
 
-.. _header-n3:
+
 
 内容
 ----
@@ -69,12 +69,12 @@ Keras 数据预处理
             -  标准化
 
 
-.. _header-n100:
+
 
 1.Sequence Preprocessing 
 -------------------------
 
-.. _header-n102:
+
 
 2.Text Preprocessing
 --------------------
@@ -86,7 +86,7 @@ Keras 数据预处理
    from keras.preprocessing.text import one_hot
    from keras.preprocessing.text import text_to_word_sequence
 
-.. _header-n105:
+
 
 3.Image Preprocessing
 ---------------------
@@ -282,5 +282,5 @@ Keras 数据预处理
        steps_per_epoch=2000,
        epochs=50)
 
-.. _header-n116:
+
 

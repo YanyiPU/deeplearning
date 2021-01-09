@@ -95,21 +95,21 @@ CNN
 
    - 函数 :math:`x(t)` 和 :math:`h(t)` 图像如下:
 
-         .. image:: ../../../images/conv_fun.png
+         .. image:: ../../images/conv_fun.png
 
    - 卷
 
       - 对函数 :math:`h(t)` 进行翻转(Reverse)，得到 :math:`h(-\tau)`:
 
-         .. image:: ../../../images/h_reverse.png
+         .. image:: ../../images/h_reverse.png
 
       - 对函数 :math:`h(-\tau)` 进行平移(Shift)，得到 :math:`h(t-\tau)` :
 
-         .. image:: ../../../images/h_shift.png
+         .. image:: ../../images/h_shift.png
 
    - 积
 
-      .. image:: ../../../images/conv_sum.png
+      .. image:: ../../images/conv_sum.png
 
 2.2.1.2 常规卷积
 ''''''''''''''''''''''''''''''''''''
@@ -117,13 +117,13 @@ CNN
 - 单通道图像(灰度图)
    - 单通道卷积
 
-   .. image:: ../../../images/conv.gif
+   .. image:: ../../images/conv.gif
 
 - 多通道图像(RGB 图)
    - 多通道卷积
 
-   .. image:: ../../../images/n_conv.gif
-   .. image:: ../../../images/n_conv2.gif
+   .. image:: ../../images/n_conv.gif
+   .. image:: ../../images/n_conv2.gif
 
 
 2.2.1.3 3D 卷积
@@ -141,9 +141,9 @@ CNN
       那么通过装置卷积来恢复分辨率的操作可以称作 **上采样**。
 
 
-   .. image:: ../../../images/normal_conv.gif
+   .. image:: ../../images/normal_conv.gif
 
-   .. image:: ../../../images/transposed_conv.gif
+   .. image:: ../../images/transposed_conv.gif
 
 2.2.1.5 1x1 卷积
 ''''''''''''''''''''''''''''''''''''
@@ -165,11 +165,11 @@ CNN
 
    -  :math:`a=1, 2, 4` 的时候卷积核的感受野。
 
-      .. image:: ../../../images/dilated_conv.png
+      .. image:: ../../images/dilated_conv.png
 
    - 扩展率 :math:`a=2` 时的卷积过程
 
-      .. image:: ../../../images/dilated_conv.gif
+      .. image:: ../../images/dilated_conv.gif
 
    - 加入空洞之后的实际卷积核尺寸与原始卷积尺寸之间的关系如下：
 
@@ -210,7 +210,7 @@ CNN
 2.2.3 CNN 卷积计算
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   .. image:: ../../../images/conv.gif
+   .. image:: ../../images/conv.gif
 
    -  在上面的图中，用一个 :math:`3 \times 3` 的滤波器扫描一个 :math:`5 \times 5`
       的输入像素矩阵。用滤波器中每一个元素与像素矩阵中感受野内的元素进行乘积运算，可以得到一个
@@ -302,7 +302,7 @@ CNN
          ax[1].set_title("x_pad")
          ax[1].imshow(x_pad[0, :, :, 0])
 
-      .. image:: ../../../images/padding.png
+      .. image:: ../../images/padding.png
          :alt: 
 
 2.2.7 CNN 卷积滤波器初始化和学习
@@ -318,9 +318,9 @@ CNN
 2.2.8 CNN 三维卷积运算
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: ../../../images/3Dconv1.png
-.. image:: ../../../images/3Dconv2.png
-.. image:: ../../../images/3Dconv3.png
+.. image:: ../../images/3Dconv1.png
+.. image:: ../../images/3Dconv2.png
+.. image:: ../../images/3Dconv3.png
 
 -  3 维卷积运算的输入图像数据为 3 通道(channel)的 RGB 数据
 
@@ -377,7 +377,7 @@ CNN
 
    -  池化层只是计算神经网路某一层的静态属性，中间没有学习过程；
 
-   .. image:: ../../../images/pooling.png
+   .. image:: ../../images/pooling.png
       :alt: 
 
 2.3.2 池化层的作用
@@ -423,7 +423,6 @@ CNN
    
    - 相邻层的所有神经元之间都有连接，这称为“全连接层(Full Connected layer)”，可以使用 Affine 层实现全连接层
 
-.. _header-n239:
 
 3 CNN 图像学习过程
 ------------------------------
@@ -445,7 +444,7 @@ CNN
 
 **CNN在计算机视觉领域的三大应用任务：**
 
-   .. image:: ../../../images/computer_visual_task.PNG
+   .. image:: ../../images/computer_visual_task.PNG
       :alt:
 
    -  **图像分类**

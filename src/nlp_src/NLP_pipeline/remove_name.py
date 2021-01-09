@@ -1,9 +1,10 @@
 import spacy
 
-# Load the large English NLP model
+# 1.Load the large English NLP model
 nlp = spacy.load("en_core_web_lg")
 
-# Replace a token with "REDACTED"
+
+# 2.Replace a token with "REDACTED"
 def replace_name_with_placeholder(token):
     if token.ent_iob != 0 and token.ent_type_ == "PERSON":
         return "[REDACTED]"
@@ -11,11 +12,12 @@ def replace_name_with_placeholder(token):
         return token.string
 
 
-# Loop through all the entities in a document and check if they are names.
+# 3.Loop through all the entities in a document and check if they are names.
 def scrub(text):
     doc = nlp(text)
     for ent in doc.ents:
         ent.merge()
+        # ent.retokenize()
     tokens = map(replace_name_with_placeholder, doc)
     return "".join(tokens)
 

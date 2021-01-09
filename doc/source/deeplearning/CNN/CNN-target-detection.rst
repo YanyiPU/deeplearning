@@ -122,7 +122,6 @@ CNN-目标检测
 
     - SSD Tensorflow 源码参考：https://github.com/balancap/SSD-Tensorflow
 
-.. _header-n397:
 
 3.3 yolo v2/yolo9000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -132,7 +131,6 @@ CNN-目标检测
 
     - yolo 9000 源码参考：https://github.com/philipperemy/yolo-9000
 
-.. _header-n399:
 
 3.4 yolo v3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

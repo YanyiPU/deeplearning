@@ -2,7 +2,7 @@
 Keras 数据集
 ============
 
-.. _header-n3:
+
 
 1.[图像分类] CIFAR10
 ------------------------
@@ -48,7 +48,7 @@ Keras 数据集
 
       (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 
-.. _header-n48:
+
 
 2.[图像分类] CIFAR100
 -------------------------
@@ -95,7 +95,7 @@ Keras 数据集
 
       (x_train, y_train), (x_test, y_test) = cifar100.load_data(label_mode = "fine")
 
-.. _header-n93:
+
 
 3.[文本分类] IMDB Movie review sentiment(IMDB电影评论情绪)
 ------------------------------------------------------------
@@ -133,7 +133,7 @@ Keras 数据集
          index_from = 3
       )
 
-.. _header-n117:
+
 
 4.[文本分类] Reuters newswire topics(路透社新闻专题主题分类)
 -------------------------------------------------------------
@@ -167,7 +167,7 @@ Keras 数据集
       # word_index = {"word": index}
       word_index = reuters.get_word_index(path = "reuters_word_index.json")
 
-.. _header-n130:
+
 
 5.[图像分类] MNIST
 ------------------
@@ -194,7 +194,7 @@ Keras 数据集
 
       (x_train, y_train), (x_test, y_test) = mnist.load_data(path = "~/.keras/datasets/")
 
-.. _header-n150:
+
 
 6.[图像分类] Fashion-MNIST
 ------------------------------
@@ -247,7 +247,7 @@ Keras 数据集
 
       (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 
-.. _header-n208:
+
 
 7.[结构化数据回归] Boston housing price
 ------------------------------------------

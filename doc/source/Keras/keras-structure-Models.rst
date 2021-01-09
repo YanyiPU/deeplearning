@@ -1,4 +1,4 @@
-.. _header-n0:
+
 
 Keras 模型
 ==========
@@ -7,7 +7,7 @@ Keras 模型
 
 -  Model class used with the function API
 
-.. _header-n8:
+
 
 1.Keras 模型共有的方法和属性
 ----------------------------
@@ -61,7 +61,7 @@ Keras 模型
 
       -  model\ *from*\ yaml()
 
-.. _header-n65:
+
 
 2.Model subclassing
 -------------------
@@ -134,7 +134,7 @@ Keras 模型
    model.compile(...)
    model.fit(...)
 
-.. _header-n100:
+
 
 3.Keras Sequential 模型的使用文档
 ---------------------------------
@@ -193,7 +193,7 @@ Keras 模型
    # ==========
    classes = model.predict(x_test, batch_size = 128)
 
-.. _header-n106:
+
 
 4.Keras 函数式API 的使用文档
 ----------------------------
@@ -460,7 +460,7 @@ Residual connection on a convolution layer
 Shared vision model Visual question answering model Video question
 answering model
 
-.. _header-n154:
+
 
 5.回调函数-Callbacks
 --------------------
@@ -553,7 +553,7 @@ answering model
    # 模型结果输出
    print(history.losses)
 
-.. _header-n210:
+
 
 6.Applications
 --------------

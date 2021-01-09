@@ -114,7 +114,7 @@ API:
         except IOError as e:
             print(f"Can't open {image_name}")
 
-    .. image:: ../../images/lena.png
+    .. image:: ../images/lena.png
 
 .. note:: 
 
@@ -167,7 +167,7 @@ API:
             except IOError as e:
                 print(f"Can't open {image_name}")
         
-        .. image:: ../../images/lena.jpg
+        .. image:: ../images/lena.jpg
     
     - 创建 JPEG 缩略图(thumbnails)
 
@@ -204,7 +204,7 @@ API:
             except IOError as e:
                 print(f"Can't open {image_name}")
 
-        .. image:: ../../images/lena.JPEG
+        .. image:: ../images/lena.JPEG
 
     - 识别图像文件
 
@@ -270,7 +270,7 @@ API:
             except IOError as e:
                 print(f"Can't open {image_name}")
         
-        .. image:: ../../images/lena_region.png
+        .. image:: ../images/lena_region.png
         
         .. note:: 
 
@@ -298,7 +298,7 @@ API:
             except IOError as e:
                 print(f"Can't open {image_name}")
 
-        .. image:: ../../images/lena_region_paste.png
+        .. image:: ../images/lena_region_paste.png
 
 
     - 图像滚动(image roll)
@@ -331,7 +331,7 @@ API:
             except OSError:
                 print(f"cannot open {image_name}")
 
-        .. image:: ../../images/lena_roll.png
+        .. image:: ../images/lena_roll.png
 
     - RGB波段拆分、合并
 
@@ -351,12 +351,12 @@ API:
             except OSError:
                 print(f"cannot open {image_name}")
 
-        .. image:: ../../images/lena.png
-        .. image:: ../../images/lena_merge_rbg.png
-        .. image:: ../../images/lena_merge_brg.png
-        .. image:: ../../images/lena_merge_bgr.png
-        .. image:: ../../images/lena_merge_grb.png
-        .. image:: ../../images/lena_merge_gbr.png
+        .. image:: ../images/lena.png
+        .. image:: ../images/lena_merge_rbg.png
+        .. image:: ../images/lena_merge_brg.png
+        .. image:: ../images/lena_merge_bgr.png
+        .. image:: ../images/lena_merge_grb.png
+        .. image:: ../images/lena_merge_gbr.png
 
         .. note:: 
 
@@ -397,7 +397,7 @@ API:
             except OSError:
                 print(f"cannot open {image_name}")
             
-        .. image:: ../../images/lena_resize.png
+        .. image:: ../images/lena_resize.png
 
     - 简单的几何变换-图像逆时针旋转一定的角度
 
@@ -416,7 +416,7 @@ API:
             except OSError:
                 print(f"cannot open {image_name}")
 
-        .. image:: ../../images/lena_rotate.png
+        .. image:: ../images/lena_rotate.png
 
     - 图像转置
 
@@ -443,12 +443,12 @@ API:
             except OSError:
                 print(f"cannot open {image_name}")
 
-        .. image:: ../../images/lena.png
-        .. image:: ../../images/lena_rotate_1.png
-        .. image:: ../../images/lena_rotate_2.png
-        .. image:: ../../images/lena_rotate_3.png
-        .. image:: ../../images/lena_rotate_4.png
-        .. image:: ../../images/lena_rotate_5.png
+        .. image:: ../images/lena.png
+        .. image:: ../images/lena_rotate_1.png
+        .. image:: ../images/lena_rotate_2.png
+        .. image:: ../images/lena_rotate_3.png
+        .. image:: ../images/lena_rotate_4.png
+        .. image:: ../images/lena_rotate_5.png
 
     .. note:: 
 

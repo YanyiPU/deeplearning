@@ -7,14 +7,14 @@ deeplearning
 ========================================
 
 .. toctree::
-   :caption: ENV
+   :caption: ENVs
    :maxdepth: 2
 
    Source
-   Env/Python-Env
-   Env/TensorFlow-Env
-   Env/Keras-Env
-   Env/PyTorch-Env
+   Envs/Python-Env
+   Envs/TensorFlow-Env
+   Envs/Keras-Env
+   Envs/PyTorch-Env
 
 
 .. toctree::
@@ -60,13 +60,6 @@ deeplearning
    deeplearning/GEN/DeepDream
    deeplearning/GEN/VAE
    deeplearning/GEN/GAN
-
-
-.. toctree::
-   :caption: RL
-   :maxdepth: 2
-
-   deeplearning/RL/RL
 
 
 .. toctree::

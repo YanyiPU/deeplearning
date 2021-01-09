@@ -19,7 +19,7 @@ NLP--seq2seq
 
     - 法语输出：“Ils”、“regardent”、“.”
 
-.. image:: ../../../images/seq2seq.png
+.. image:: ../../images/seq2seq.png
 
 上图描述了使用编码器—解码器将上述英语句子翻译成法语句子的一种方法:
 

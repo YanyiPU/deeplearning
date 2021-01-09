@@ -1,4 +1,3 @@
-.. _header-n0:
 
 Keras 模型编译
 ==============
@@ -9,7 +8,6 @@ Keras 模型编译
                  optimizer,
                  metrics)
 
-.. _header-n4:
 
 1. Losses
 ---------
@@ -74,7 +72,6 @@ Keras 模型编译
    			  optimizer, 
    			  metircs)
 
-.. _header-n22:
 
 2. Metrics
 ----------
@@ -84,7 +81,6 @@ Keras 模型编译
    -  Metric 函数类似于一个损失函数，只不过模型评估返回的 metric
       不用来训练模型，因此，可以使用任何损失函数当做一个 metric 函数使用
 
-.. _header-n29:
 
 2.1 Keras metrics
 ~~~~~~~~~~~~~~~~~
@@ -122,7 +118,6 @@ Metrics Name:
 
    metrics = ["acc", "accuracy"]
 
-.. _header-n35:
 
 2.3 自定义 metrics
 ~~~~~~~~~~~~~~~~~~
@@ -138,12 +133,10 @@ Metrics Name:
    			  loss = "binary_accuracy",
    			  metrics = ["accuracy", mean_pred])
 
-.. _header-n38:
 
 3. Optimizers
 -------------
 
-.. _header-n39:
 
 3.1 Keras optimizder 的使用方式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -167,7 +160,7 @@ Metrics Name:
    model.compile(loss = "mean_squared_error",
                  optimizer = "sgd")
 
-.. _header-n44:
+
 
 3.2 Keras optimizers 的共有参数
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -191,7 +184,7 @@ Metrics Name:
    # a minimum value of -0.5.
    sgd = optimizers.SGD(lr = 0.01, clipvalue = 0.5)
 
-.. _header-n55:
+
 
 3.3 Keras Optimizers
 ~~~~~~~~~~~~~~~~~~~~

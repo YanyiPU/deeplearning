@@ -1,9 +1,7 @@
-.. _header-n0:
 
 ResNet-V1
 =========
 
-.. _header-n4:
 
 Deep Residual Learning for Image Recognition
 --------------------------------------------

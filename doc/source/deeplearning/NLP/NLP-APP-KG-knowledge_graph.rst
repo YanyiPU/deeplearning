@@ -8,7 +8,7 @@ NLP--知识图谱
 1.知识图谱简介
 -------------------------------
 
-.. image:: ../../../images/knowledge_graph.png
+.. image:: ../../images/knowledge_graph.png
 
 - 知识图谱定义
 

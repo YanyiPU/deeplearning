@@ -24,6 +24,8 @@ if not 'READTHEDOCS' in os.environ:
 sys.path.insert(0, os.path.abspath('../..src/'))
 sys.path.append(os.path.abspath('.Envs/'))
 sys.path.append(os.path.abspath('.deeplearning/'))
+sys.path.append(os.path.abspath('.deeplearning/CNN/'))
+sys.path.append(os.path.abspath('.deeplearning/TPU/'))
 sys.path.append(os.path.abspath('.deeplearning/RNN/'))
 sys.path.append(os.path.abspath('.deeplearning/NLP/'))
 sys.path.append(os.path.abspath('.deeplearning/Net/'))
@@ -31,9 +33,7 @@ sys.path.append(os.path.abspath('.deeplearning/GEN/'))
 sys.path.append(os.path.abspath('.deeplearning/GPU/'))
 sys.path.append(os.path.abspath('.Keras/'))
 sys.path.append(os.path.abspath('.TensorFlow/'))
-sys.path.append(os.path.abspath('.TensorFlow/TF-keras/'))
-sys.path.append(os.path.abspath('.pilllow/'))
-sys.path.append(os.path.abspath('.opencv/'))
+sys.path.append(os.path.abspath('.utils/'))
 
 # -- General configuration ------------------------------------------------
 

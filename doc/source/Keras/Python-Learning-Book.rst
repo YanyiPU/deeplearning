@@ -1,4 +1,4 @@
-.. _header-n0:
+
 
 Python Deeplearning
 =====================
@@ -37,7 +37,7 @@ Python Deeplearning
          -  向模型中添加残差连接(residual
             connection)，将前面的输出张量与后面的输出张量相加，从而将前面的表示重新注入下游数据流中，这有助于防止信息处理流程中的信息损失；
 
-.. _header-n43:
+
 
 多输入模型
 ----------
@@ -125,7 +125,7 @@ Python Deeplearning
    	epochs = 10,
    	batch_size = 128)
 
-.. _header-n71:
+
 
 多输出模型
 ----------
@@ -169,12 +169,12 @@ Python Deeplearning
    			  	"gender": "binary_crossentropy"
    			  })
 
-.. _header-n80:
+
 
 经验总结
 --------
 
-.. _header-n81:
+
 
 机器、深度学习任务问题：
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -185,7 +185,7 @@ Python Deeplearning
 
 -  标量回归
 
-.. _header-n91:
+
 
 回归问题：
 ~~~~~~~~~~
@@ -200,7 +200,7 @@ Python Deeplearning
 
 -  回归问题网络的最后一层只有一个单元，没有激活，是一个线性层，这是回归的典型设置，添加激活函数会限制输出范围
 
-.. _header-n106:
+
 
 二分类问题
 ~~~~~~~~~~
@@ -212,7 +212,7 @@ Python Deeplearning
 -  对于二分类问题，网络的最后一层应该是只有一个单元并使用 sigmoid 激活的
    Dense 层，网络输出应该是 0~1 范围内的标量，表示概率值
 
-.. _header-n116:
+
 
 数据预处理问题：
 ~~~~~~~~~~~~~~~~
@@ -236,7 +236,7 @@ Python Deeplearning
 
 -  如果输入数据的特征具有不同的取值范围，应该首先进行预处理，对每个特征单独进行缩放
 
-.. _header-n139:
+
 
 样本量问题：
 ~~~~~~~~~~~~
@@ -247,7 +247,7 @@ Python Deeplearning
 
    -  较小的网络可以降低过拟合
 
-.. _header-n148:
+
 
 网络结构选择问题：
 ~~~~~~~~~~~~~~~~~~
@@ -256,7 +256,7 @@ Python Deeplearning
 
 -  如果数据被分为多个类别，那么中间层过小可能会导致信息瓶颈
 
-.. _header-n155:
+
 
 优化器
 ~~~~~~

@@ -5,7 +5,7 @@ NLP Pipeline
 1.构建 NLP Pipeline
 --------------------------------------------
 
-    .. image:: ../../../images/London.gif
+    .. image:: ../../images/London.gif
 
 1.0 数据
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -40,11 +40,11 @@ NLP Pipeline
 
     - 句子:
 
-        .. image:: ../../../images/London_sentences.png
+        .. image:: ../../images/London_sentences.png
 
     - 分词(tokenization):
 
-        .. image:: ../../../images/London_word.png
+        .. image:: ../../images/London_word.png
 
     .. note:: 
 
@@ -63,11 +63,11 @@ NLP Pipeline
 
     - 词性标注过程
 
-        .. image:: ../../../images/sentence1.png
+        .. image:: ../../images/sentence1.png
 
     - 词性标注结果
 
-        .. image:: ../../../images/sentence2.png
+        .. image:: ../../images/sentence2.png
         
 
 
@@ -103,7 +103,7 @@ NLP Pipeline
 
     - London 句子示例:
 
-        .. image:: ../../../images/sentence3.png
+        .. image:: ../../images/sentence3.png
 
 1.5 识别停用词(Identifying Stop Words)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,7 +117,7 @@ NLP Pipeline
 
     - London 示例:
 
-        .. image:: ../../../images/sentence4.png
+        .. image:: ../../images/sentence4.png
 
     .. note:: 
     
@@ -146,7 +146,7 @@ NLP Pipeline
 2.构建 Python NLP Pipeline
 --------------------------------------------
 
-    .. image:: ../../../images/NLP_Pipeline.png
+    .. image:: ../../images/NLP_Pipeline.png
 
 3.工具
 ----------------------------------------------

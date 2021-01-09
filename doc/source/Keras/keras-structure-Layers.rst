@@ -1,9 +1,9 @@
-.. _header-n0:
+
 
 Keras 网络层
 ============
 
-.. _header-n3:
+
 
 1.Keras Layers 共有的方法：
 ---------------------------
@@ -44,7 +44,7 @@ Keras 网络层
 
    -  layer.get\ *output*\ shaep\ *at(note*\ index)
 
-.. _header-n39:
+
 
 2.Keras Layers
 --------------
@@ -279,7 +279,7 @@ Keras 网络层
 
       -  ``compute_output_shape(input_shape)``
 
-.. _header-n299:
+
 
 3.Keras Layers 配置
 -------------------
@@ -307,7 +307,7 @@ Keras 网络层
    # 激活函数
    model.add(Activation)
 
-.. _header-n302:
+
 
 3.1 Activation Function
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -365,7 +365,7 @@ Keras 网络层
 
    -  ``keras.activations.linear(x)``
 
-.. _header-n351:
+
 
 3.2 Keras 参数初始化(Initializers)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -492,7 +492,7 @@ Keras 网络层
 
    model.add(Dense(64, kernel_initializer = my_init))
 
-.. _header-n469:
+
 
 3.3 Keras 正则化(Regularizers)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -524,7 +524,7 @@ Conv3D 这些层具有统一的 API
 
    -  ``def l1_reg: pass``
 
-.. _header-n497:
+
 
 3.4 Keras 约束(Constraints)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~

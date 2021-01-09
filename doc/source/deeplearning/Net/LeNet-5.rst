@@ -1,19 +1,16 @@
-.. _header-n0:
 
 LeNet-5
 =======
 
-.. _header-n3:
 
 Gradient-based learning applied to document recognition
 -------------------------------------------------------
 
-.. _header-n4:
 
 LeNet-5 结构分析
 ~~~~~~~~~~~~~~~~
 
-.. image:: ../../../images/LeNet-5.png
+.. image:: ../../images/LeNet-5.png
    :alt: 
 
 :math:`输入-卷积-池化-卷积-池化-卷积(全连接)-全连接-全连接(输出)`
@@ -122,7 +119,6 @@ LeNet-5 结构分析
 
    -  参数个数: 84 x 10 + 10
 
-.. _header-n125:
 
 LeNet-5 TensorFlow 实现
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -170,7 +166,6 @@ LeNet-5 TensorFlow 实现
    if __init__ == "__main__":
    	main()
 
-.. _header-n143:
 
 Reference
 ---------

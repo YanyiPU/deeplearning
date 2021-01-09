@@ -1,4 +1,3 @@
-.. _header-n0:
 
 TensorFlow Estimator
 ========================
@@ -44,7 +43,6 @@ TensorFlow Estimator
 
          -  保存 TensorBoard 的摘要
 
-.. _header-n47:
 
 1.预创建的Estimator
 -------------------
@@ -111,7 +109,6 @@ TensorFlow Estimator
 
       -  事件（汇总）编写和普遍有用的汇总的最佳做法。
 
-.. _header-n90:
 
 2.自定义的Estimator
 -------------------
@@ -131,7 +128,6 @@ TensorFlow Estimator
 
       -  4.可以通过构建自定义的Estimator进一步改进模型；
 
-.. _header-n107:
 
 3.从 Keras 模型创建 Estimator
 -----------------------------

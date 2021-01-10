@@ -153,6 +153,7 @@ deeplearning
    utils/NLP-opencc
    utils/NLP-gensim
    utils/NLP-spaCy
+   utils/NLP-fastText
    utils/Image-pillow
    utils/Image-opencv
    utils/NVIDIA_Xavier

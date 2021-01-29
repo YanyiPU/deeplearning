@@ -1,25 +1,21 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 
 import os
 import sys
 import numpy as np
 import random
-# import keras
 import tensorflow as tf
 from tensorflow import keras
 
 
-base_dir = "/Users/zfwang/project/deeplearning_project/projects/nietzsche"
-data_dir = os.path.join(base_dir, "data")
-models_dir = os.path.join(base_dir, "models")
-images_dir = os.path.join(base_dir, "images")
+base_dir = "/Users/zfwang/project/machinelearning/deeplearning"
+project_dir = os.path.join(base_dir, "deeplearning/src/project_src/nietzsche")
+data_dir = os.path.join(base_dir, "datasets/nietzsche_data")
+models_dir = os.path.join(project_dir, "models")
+images_dir = os.path.join(project_dir, "images")
 
 
-# ------------------------------------------
-# download the text file data
-# ------------------------------------------
+# 1.准备数据
 print("-" * 100)
 print("Text data...")
 print("-" * 100)
@@ -27,7 +23,9 @@ text_data_path = os.path.join(data_dir, "nietzsche.txt")
 path = keras.utils.get_file(fname = text_data_path, origin = "https://s3.amazonaws.com/text-datasets/nietzsche.txt")
 text = open(path).read().lower()
 print("Corpus length:", len(text)) # 共有600893个字符
+print()
 print("text head sequences:", text[:100])
+print()
 print("text tail sequences:", text[-100:])
 
 
@@ -82,7 +80,6 @@ def reweight_distribution(original_distribution, temperature):
     distribution = np.log(original_distribution) / temperature
     exp_distribution = np.exp(distribution)
     distribution = exp_distribution / np.sum(exp_distribution)
-
     return distribution
 
 def sample(preds, temperature = 1.0):
@@ -90,7 +87,6 @@ def sample(preds, temperature = 1.0):
     preds = reweight_distribution(preds, temperature)
     probas = np.random.multinomial(1, preds, 1)
     new_sample = np.argmax(probas)
-    
     return new_sample
 
 

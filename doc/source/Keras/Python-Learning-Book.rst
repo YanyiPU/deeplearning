@@ -1,49 +1,45 @@
 
 
 Python Deeplearning
-=====================
+=================================
 
--  Keras Sequential
-   模型假设，网路只有一个输入和一个输出，而且网络是层的线性堆叠；
+-  Keras Sequential 
+
+   - 模型假设，网路只有一个输入和一个输出，而且网络是层的线性堆叠；
 
 -  有些网络需要多个独立的输入，有些网络则需要多个输出，而有些网络在层与层之间具有内部分支，这样的网络看起来像是层构成的图(graph)，而不是层的线性堆叠；
 
    -  多模态(multimodal)输入
 
-      -  元数据
+   -  元数据
 
-      -  文本描述
+   -  文本描述
 
-      -  图片
-
-      -  ...
+   -  图片
 
    -  预测输入数据的多个目标属性
 
-      -  类别
+   -  类别
 
-      -  连续值
-
-      -  ...
+   -  连续值
 
    -  非线性地网络拓扑结构，网络结构是有向无环图
 
-      -  Inception 系列网络
+   -  Inception 系列网络
 
-         -  输入被多个并行的卷积分支所处理，然后将这些分支的输出合并为单个张量；
+      -  输入被多个并行的卷积分支所处理，然后将这些分支的输出合并为单个张量；
 
-      -  ResNet 系列网络
+   -  ResNet 系列网络
 
-         -  向模型中添加残差连接(residual
-            connection)，将前面的输出张量与后面的输出张量相加，从而将前面的表示重新注入下游数据流中，这有助于防止信息处理流程中的信息损失；
+      -  向模型中添加残差连接(residual connection)，将前面的输出张量与后面的输出张量相加，
+         从而将前面的表示重新注入下游数据流中，这有助于防止信息处理流程中的信息损失；
 
-
-
-多输入模型
-----------
+1.多输入模型
+-------------------------
 
    -  Keras 函数式 API
-      可以构建具有多个输入的模型，通常情况下，这种模型会在某一时刻用一个可以组合多个张量的层将不同输入分支合并，张量组合方式可能是相加，连接等，比如：
+      
+      - 可以构建具有多个输入的模型，通常情况下，这种模型会在某一时刻用一个可以组合多个张量的层将不同输入分支合并，张量组合方式可能是相加，连接等，比如：
 
    -  ``keras.layers.add``
 
@@ -72,8 +68,6 @@ Python Deeplearning
    from tensorflow.keras import layers, Input
    # from keras import layers, Input
 
-
-
    # =========================================================================
    # 构建模型
    # =========================================================================
@@ -81,15 +75,19 @@ Python Deeplearning
    question_vocabulary_size = 10000
    answer_vocabulary_size = 500
    # 文本片段
-   text_input = Input(shape = (None,), 
-   				   dtype = "int32", 
-   				   name = "text")
+   text_input = Input(
+      shape = (None,), 
+      dtype = "int32", 
+      name = "text"
+   )
    embedded_text = layers.Embedding(text_vocabulary_size, 64)(text_input)
    encoded_text = layres.LSTM(32)(embedded_text)
    # 自然语言描述的问题
-   question_input = Input(shape = (None,),
-   					   dtype = "int32",
-   					   name = "question")
+   question_input = Input(
+      shape = (None,),
+      dtype = "int32",
+      name = "question"
+   )
    embedded_question = layers.Embedding(question_vocabulary_size, 32)(question_input)
    encoded_question = layers.LSTM(16)(embedded_question)
 
@@ -97,12 +95,13 @@ Python Deeplearning
 
    answer = layers.Dense(answer_vocabulary_size, activation = "softmax")(concatenated)
 
-   model = Model(inputs = [text_input, question_input], 
-   			  outputs = answer)
+   model = Model(inputs = [text_input, question_input], outputs = answer)
 
-   model.compile(optimizer = "rmsprop",
-   			  loss = "categorical_crossentropy",
-   			  metrics = ["acc"])
+   model.compile(
+      optimizer = "rmsprop",
+      loss = "categorical_crossentropy",
+      metrics = ["acc"]
+   )
 
    # =========================================================================
    # 训练模型
@@ -117,18 +116,20 @@ Python Deeplearning
    answers = keras.utils.to_categorical(answers, answer_vocabulary_size)
 
    model.fit([text, question], answers, epochs = 10, batch_size = 128)
-   model.fit({
-   	"text": text,
-   	"question": question,
-   	},
-   	answers,
-   	epochs = 10,
-   	batch_size = 128)
+   model.fit(
+      {
+         "text": text,
+         "question": question,
+      },
+      answers,
+      epochs = 10,
+      batch_size = 128
+   )
 
 
 
-多输出模型
-----------
+2.多输出模型
+------------------
 
    网络同时预测数据的不同性质
 
@@ -160,105 +161,93 @@ Python Deeplearning
    # 构建模型
    model = Model(posts_input, [age_prediction, income_prediction, gender_prediction])
 
-   model.compile(optimizer = "rmsprop",
-   			  loss = ["mse", "categorical_crossentropy", "binary_crossentropy"])
-   model.compile(optimizer = "rmsprop",
-   			  loss = {
-   			  	"age": "mse",
-   			  	"income": "categorical_crossentropy",
-   			  	"gender": "binary_crossentropy"
-   			  })
+   model.compile(optimizer = "rmsprop", loss = ["mse", "categorical_crossentropy", "binary_crossentropy"])
+   model.compile(
+      optimizer = "rmsprop",
+      loss = {
+         "age": "mse",
+         "income": "categorical_crossentropy",
+         "gender": "binary_crossentropy"
+      }
+   )
 
 
 
-经验总结
---------
+3.经验总结
+--------------------------------
+
+3.1 机器、深度学习任务问题
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   - 二分类
+
+   - 多分类
+
+   - 标量回归
 
 
+3.2 回归问题
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-机器、深度学习任务问题：
-~~~~~~~~~~~~~~~~~~~~~~~~
+   - 回归问题使用的损失函数
 
--  二分类
+      - 均方误差（MSE）
 
--  多分类
+   - 回归问题使用的评估指标
 
--  标量回归
+      - 平均绝对误差（MAE）
 
+   - 回归问题网络的最后一层只有一个单元，没有激活，是一个线性层，这是回归的典型设置，添加激活函数会限制输出范围
 
+3.3 二分类问题
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-回归问题：
-~~~~~~~~~~
+   - 二分类问题使用的损失函数
 
--  回归问题使用的损失函数
+      - 对于二分类问题的 sigmoid 标量输出，``binary_crossentropy``
 
-   -  均方误差（MSE）
+   - 对于二分类问题，网络的最后一层应该是只有一个单元并使用 sigmoid 激活的 Dense 层，网络输出应该是 0~1 范围内的标量，表示概率值
 
--  回归问题使用的评估指标
+3.4 数据预处理问题
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   -  平均绝对误差（MAE）
+   - 在将原始数据输入神经网络之前，通常需要对其进行预处理
 
--  回归问题网络的最后一层只有一个单元，没有激活，是一个线性层，这是回归的典型设置，添加激活函数会限制输出范围
+      - 结构化数据
 
+      - 图像数据
 
+      - 文本数据
 
-二分类问题
-~~~~~~~~~~
+   - 将取值范围差异很大的数据输入到神经网络中是有问题的
 
--  二分类问题使用的损失函数
+      - 网路可能会自动适应这种取值范围不同的数据，但学习肯定变得更加困难
 
-   -  对于二分类问题的 sigmoid 标量输出，\ ``binary_crossentropy``
+      -  对于这种数据，普遍采用的最佳实践是对每个特征做标准化，即对于输入数据的每个特征(输入数据矩阵中的列)，
+         减去特征平均值，再除以标准差，这样得到的特征平均值为 0，标准差为 1
 
--  对于二分类问题，网络的最后一层应该是只有一个单元并使用 sigmoid 激活的
-   Dense 层，网络输出应该是 0~1 范围内的标量，表示概率值
+      -  用于测试数据标准化的均值和标准差都是在训练数据上计算得到的。在工作流程中，不能使用测试数据上计算得到的任何结果，
+         即使是像数据标准化这么简单的事情也不行
 
+   -  如果输入数据的特征具有不同的取值范围，应该首先进行预处理，对每个特征单独进行缩放
 
+3.5 样本量问题
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-数据预处理问题：
-~~~~~~~~~~~~~~~~
+   -  如果可用的数据很少，使用 K 折交叉验证可以可靠地评估模型
 
--  在将原始数据输入神经网络之前，通常需要对其进行预处理
+   -  如果可用的训练数据很少，最好使用隐藏层较少（通常只有一到两个）的小型模型，以避免严重的过拟合
 
-   -  结构化数据
+      -  较小的网络可以降低过拟合
 
-   -  图像数据
+3.6 网络结构选择问题
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   -  文本数据
+   -  如果可用的训练数据很少，最好使用隐藏层较少（通常只有一到两个）的小型模型，以避免严重的过拟合
 
--  将取值范围差异很大的数据输入到神经网络中是有问题的
+   -  如果数据被分为多个类别，那么中间层过小可能会导致信息瓶颈
 
-   -  网路可能会自动适应这种取值范围不同的数据，但学习肯定变得更加困难
+3.7 优化器
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   -  对于这种数据，普遍采用的最佳实践是对每个特征做标准化，即对于输入数据的每个特征（输入数据矩阵中的列），减去特征平均值，再除以标准差，这样得到的特征平均值为
-      0，标准差为 1
-
-   -  用于测试数据标准化的均值和标准差都是在训练数据上计算得到的。在工作流程中，不能使用测试数据上计算得到的任何结果，即使是像数据标准化这么简单的事情也不行
-
--  如果输入数据的特征具有不同的取值范围，应该首先进行预处理，对每个特征单独进行缩放
-
-
-
-样本量问题：
-~~~~~~~~~~~~
-
--  如果可用的数据很少，使用 K 折交叉验证可以可靠地评估模型
-
--  如果可用的训练数据很少，最好使用隐藏层较少（通常只有一到两个）的小型模型，以避免严重的过拟合
-
-   -  较小的网络可以降低过拟合
-
-
-
-网络结构选择问题：
-~~~~~~~~~~~~~~~~~~
-
--  如果可用的训练数据很少，最好使用隐藏层较少（通常只有一到两个）的小型模型，以避免严重的过拟合
-
--  如果数据被分为多个类别，那么中间层过小可能会导致信息瓶颈
-
-
-
-优化器
-~~~~~~
-
--  无论你的问题是什么，\ ``rmsprop`` 优化器通常都是足够好的选择
+   -  无论你的问题是什么，``rmsprop`` 优化器通常都是足够好的选择

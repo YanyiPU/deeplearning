@@ -96,15 +96,18 @@ deeplearning
    deeplearning/NLP/NLP-emotion-recognition
    deeplearning/NLP/NLP-correction
    deeplearning/NLP/NLP-QA-system
+   deeplearning/NLP/NLP-ML
+   deeplearning/NLP/NLP-ML-text_classification
+   deeplearning/NLP/NLP-ML-text_clustering
    deeplearning/NLP/NLP-DL-word_embedding
    deeplearning/NLP/NLP-DL-BERT
    deeplearning/NLP/NLP-DL-Attention
    deeplearning/NLP/NLP-DL-Transformer
    deeplearning/NLP/NLP-DL-seq2seq
-   deeplearning/NLP/NLP-APP-text_classification
    deeplearning/NLP/NLP-APP-KG-knowledge_graph
    deeplearning/NLP/NLP-APP-KG-Neo4j
    deeplearning/NLP/NLP-Pipeline
+   deeplearning/NLP/NLP-Solr_search_engine
 
 
 .. toctree::

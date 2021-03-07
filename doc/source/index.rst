@@ -107,33 +107,6 @@ deeplearning
    deeplearning/NLP/NLP-Pipeline
    deeplearning/NLP/NLP-Solr_search_engine
 
-
-.. toctree::
-   :caption: Keras
-   :maxdepth: 2
-
-   Keras/keras
-   Keras/keras-engineers
-   Keras/keras-Backend
-   Keras/keras-Datasets
-   Keras/keras-Preprocessing
-   Keras/keras-model-Sequential-model
-   Keras/keras-model-Functional-API
-   Keras/keras-model-Subclassing
-   Keras/keras-structure-Layers
-   Keras/keras-structure-Models
-   Keras/keras-structure-Callbacks
-   Keras/keras-Utilities
-   Keras/keras-Compile
-   Keras/keras-Fit
-   Keras/keras-Losses
-   Keras/keras-Metrics
-   Keras/keras-Optimizers
-   Keras/keras-Applications
-   Keras/Python-Learning-Book
-   Keras/keras-ecosystem
-
-
 .. toctree::
    :caption: TensorFlow
    :maxdepth: 2
@@ -145,6 +118,26 @@ deeplearning
    TensorFlow/TensorFlow-Serving
    TensorFlow/TensorFlow-Keras-Pipeline
    TensorFlow/TensorFlow-Performance
+   TensorFlow/keras
+   TensorFlow/keras-engineers
+   TensorFlow/keras-Backend
+   TensorFlow/keras-Datasets
+   TensorFlow/keras-Preprocessing
+   TensorFlow/keras-model-Sequential-model
+   TensorFlow/keras-model-Functional-API
+   TensorFlow/keras-model-Subclassing
+   TensorFlow/keras-structure-Layers
+   TensorFlow/keras-structure-Models
+   TensorFlow/keras-structure-Callbacks
+   TensorFlow/keras-Utilities
+   TensorFlow/keras-Compile
+   TensorFlow/keras-Fit
+   TensorFlow/keras-Losses
+   TensorFlow/keras-Metrics
+   TensorFlow/keras-Optimizers
+   TensorFlow/keras-Applications
+   TensorFlow/Python-Learning-Book
+   TensorFlow/keras-ecosystem
 
 
 .. toctree::

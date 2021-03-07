@@ -5,26 +5,18 @@ Keras Ecosystem
 1.Keras Tuner
 ---------------------------
 
-
-
-- `Keras Tuner <https://keras-team.github.io/keras-tuner/>`_ 
+   - `Keras Tuner <https://keras-team.github.io/keras-tuner/>`_ 
+   - `GitHub <https://github.com/keras-team/keras-tuner>`_ 
 
 2.AutoKeras
 ---------------------------
 
-
-
-
-- `AutoKeras Doc <https://autokeras.com/>`_ 
+   - `AutoKeras Doc <https://autokeras.com/>`_ 
 
 3.TensorFlow Cloud
 ---------------------------
 
-
-
-
-- `GitHub Respository <https://github.com/tensorflow/cloud>`_ 
-
+   - `GitHub Respository <https://github.com/tensorflow/cloud>`_ 
 
 4.TensorFlow.js
 ---------------------------

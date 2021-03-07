@@ -141,6 +141,26 @@ deeplearning
 
 
 .. toctree::
+   :caption: PyTorch
+   :maxdepth: 2
+   
+   pytorch/torch
+   pytorch/torch_api
+   pytorch/torch_nn
+   pytorch/torch_tensor
+   pytorch/torch_autogard
+   pytorch/torch_data
+   pytorch/torch_data_parallel
+   pytorch/torch_loss
+   pytorch/torch_model_save
+   pytorch/torch_model
+   pytorch/torch_parameter_init
+   pytorch/torch_linear_regression
+   pytorch/torch_logistic_regression
+   pytorch/classifier
+
+
+.. toctree::
    :caption: utils
    :maxdepth: 2
 

@@ -49,6 +49,8 @@ deeplearning
    deeplearning/RNN/RNN-LSTM
    deeplearning/RNN/RNN-GRU
    deeplearning/RNN/RNN-Attention-Augmented
+   deeplearning/RNN/RNN-audio-recognition
+   deeplearning/RNN/RNN-effectiveness
 
 
 .. toctree::

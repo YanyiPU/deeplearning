@@ -46,10 +46,10 @@ deeplearning
    :maxdepth: 2
    
    deeplearning/RNN/RNN
-   deeplearning/RNN/RNN-GRU
    deeplearning/RNN/RNN-LSTM
+   deeplearning/RNN/RNN-GRU
    deeplearning/RNN/RNN-Attention-Augmented
-   
+
 
 .. toctree::
    :caption: GEN

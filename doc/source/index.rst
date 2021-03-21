@@ -49,6 +49,7 @@ deeplearning
    deeplearning/RNN/RNN-LSTM
    deeplearning/RNN/RNN-GRU
    deeplearning/RNN/RNN-Attention-Augmented
+   deeplearning/RNN/RNN-seq2seq
    deeplearning/RNN/RNN-audio-recognition
    deeplearning/RNN/RNN-effectiveness
 
@@ -103,7 +104,6 @@ deeplearning
    deeplearning/NLP/NLP-DL-BERT
    deeplearning/NLP/NLP-DL-Attention
    deeplearning/NLP/NLP-DL-Transformer
-   deeplearning/NLP/NLP-DL-seq2seq
    deeplearning/NLP/NLP-APP-KG
    deeplearning/NLP/NLP-APP-KG-Neo4j
    deeplearning/NLP/NLP-Pipeline
@@ -145,11 +145,9 @@ deeplearning
 .. toctree::
    :caption: PyTorch
    :maxdepth: 2
-   
-   pytorch/torch
-   pytorch/torch_api
-   pytorch/torch_nn
+
    pytorch/torch_tensor
+   pytorch/torch_nn
    pytorch/torch_autogard
    pytorch/torch_data
    pytorch/torch_data_parallel
@@ -157,9 +155,6 @@ deeplearning
    pytorch/torch_model_save
    pytorch/torch_model
    pytorch/torch_parameter_init
-   pytorch/torch_linear_regression
-   pytorch/torch_logistic_regression
-   pytorch/classifier
 
 
 .. toctree::

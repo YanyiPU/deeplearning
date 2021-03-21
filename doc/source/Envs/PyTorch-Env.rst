@@ -25,7 +25,6 @@ PyTorch Env
 -----------------------------------------
 
    .. image:: ../images/torch_install.png
-      :alt: 
 
    - Linux distributions that use glibc >= v2.17
 
@@ -54,29 +53,62 @@ PyTorch Env
       - Windows 7 and greater; Windows 10 or greater recommended.
       - Windows Server 2008 r2 and greater
 
-3.安装 PyTorch
----------------------------
+3.macOS 安装 PyTorch
+---------------------------------------
 
 3.1 使用 pip 安装 PyTorch
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code:: shell
-
-   $ pip3 install numpy
-   $ pip3 install torch torchvision
-
-
-
-
-3.2 使用 Docker 安装 PyTorch
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+   .. code:: shell
 
-3.3 Building from source
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      $ pip install numpy
+      $ pip install torch torchvision
 
-3.3.1 macOS
-^^^^^^^^^^^^^^^^^
+3.2 使用 Anaconda 安装 PyTorch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   .. code-block:: shell
+
+      $ conda install pytorch torchvision -c pytorch
+
+3.3 使用 Docker 安装 PyTorch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   .. code-block:: shell
+
+      $ test test
+
+
+4.Ubuntu 安装 Pytorch
+----------------------------------------
+
+4.1 使用 pip 安装 PyTorch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   .. code-block:: shell
+
+      $ pip install torch==1.8.0+cpu torchvision==0.9.0+cpu torchaudio==0.8.0 -f https://download.pytorch.org/whl/torch_stable.html
+
+4.2 使用 Anaconda 安装 PyTorch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   .. code-block:: shell
+
+      $ conda install pytorch torchvision torchaudio cpuonly -c pytorch
+
+
+4.3 使用 Docker 安装 PyTorch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   .. code-block:: shell
+
+      $ test test
+
+5.Building from source
+----------------------------------------
+
+5.1 macOS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    -  Prerequisites
 
@@ -97,12 +129,21 @@ PyTorch Env
       $ cd pytorch
       $ MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ python setup.py install
 
-3.3.2 Ubuntu
-^^^^^^^^^^^^^^^^^
+   .. note:: 
+
+      当前，仅可以通过从源码构建 PyTorch 来获得 macOS 的 CUDA 支持
+
+5.2 Ubuntu
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   .. code-block:: shell
+
+      $ git clone 
 
 
-3.4 Verification
-~~~~~~~~~~~~~~~~
+
+6.Verification
+----------------------------------------
 
 - Torch 使用:
 

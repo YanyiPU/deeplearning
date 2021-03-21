@@ -46,8 +46,9 @@ RNN-LSTM
 1.2.1 LSTM cell state
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   LSTM 最关键的部分是水平贯穿与上图顶部的 cell state，这个单元状态有点像传送带，
-   它在整个链中一直沿直线运行，只有一些较小的线性相互作用，信息很容易不加改动地流动：
+   LSTM 最关键的部分是 LSTM 单元的最上层有一条水平贯穿的关于记忆细胞(remember cell) :math:`c_{t-1}` 到 :math:`c_{t}` 
+   的箭头直线 cell state，这个单元状态有点像传送带，它在整个链中一直沿直线运行，只有一些较小的线性相互作用，信息很容易不加改动地流动，
+   这样贯穿的直线表现记忆信息在网络各层之间保持下去很容易：
 
       .. image:: ../../images/LSTM_cell_state.png
       
@@ -69,17 +70,26 @@ RNN-LSTM
 
    -  遗忘门(forget gate)
 
+      - 遗忘门就是要决定从记忆细胞中是否丢弃某些信息，通过一个 Sigmoid 函数进行处理，
+        可以看到，遗忘门接受来自输入 :math:`x_{t}` 和上一层隐状态 :math:`h_{t-1}` 的值进行加权计算处理.
+      
       .. image:: ../../images/LSTM_forget_gate_layer.png
       .. image:: ../../images/LSTM_forget_gate.png
 
    -  更新门/输入门(update/input gate)
 
+      - 更新门确定什么信息能存入记忆细胞状态中，除了计算更新门之外，还需要通过 :math:`tanh` 计算记忆细胞的候选值 :math:`\tilde{C}_{t}`.
+        然后，LSTM 结合遗忘门 :math:`f_{t}`、更新门 :math:`i_{t} * \tilde{C}_{t}`、
+        上一层记忆细胞值和记忆细胞候选值 :math:`C_{t-1}` 来共同决定和更新当前细胞状态 :math:`C_{t}`.
+      
       .. image:: ../../images/LSTM_input_gate_layer.png
       .. image:: ../../images/LSTM_update_gate_layer.png
       .. image:: ../../images/LSTM_input_gate.png
       .. image:: ../../images/LSTM_update_gate.png
 
-   -  输出门(output)
+   -  输出门(output gate)
+
+      - LSTM 提供了单独的输出门
 
       .. image:: ../../images/LSTM_output_gate_layer.png
       .. image:: ../../images/LSTM_output_gate.png
@@ -102,15 +112,12 @@ RNN-LSTM
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    .. image:: ../../images/LSTM_GRU.png
-   
 
-
-
-4.参考文章
+3.参考文章
 -------------------
 
    - http://colah.github.io/posts/2015-08-Understanding-LSTMs/
    - http://karpathy.github.io/2015/05/21/rnn-effectiveness/
    - http://www.bioinf.jku.at/publications/older/2604.pdf
-   - https://mp.weixin.qq.com/s?__biz=MzA5MjEyMTYwMg==&mid=2650243045&idx=1&sn=e77f19bf316268813dcdd572a0b49213&chksm=88722088bf05a99e6ce2759808781884aa69c8de831cd4c27fc8198698b42289923ee41eee33&scene=21#wechat_redirect
+   - `狗熊会课程 <https://mp.weixin.qq.com/s?__biz=MzA5MjEyMTYwMg==&mid=2650243045&idx=1&sn=e77f19bf316268813dcdd572a0b49213&chksm=88722088bf05a99e6ce2759808781884aa69c8de831cd4c27fc8198698b42289923ee41eee33&scene=21#wechat_redirect>`_ 
    - https://blog.csdn.net/qq_28743951/article/details/78974058

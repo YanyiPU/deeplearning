@@ -341,10 +341,10 @@ NLP--分词
 3.1 安装
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    .. code-block:: shell
+   .. code-block:: shell
 
-        $ pip install paddlepaddle-tiny=1.6.1 # Python3.7
-        $ pip install jieba
+      $ pip install paddlepaddle-tiny=1.6.1 # Python3.7
+      $ pip install jieba
 
 3.2 特点、算法
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -374,215 +374,196 @@ NLP--分词
                      $ pip install jieba --upgrade
 
       - 支持繁体分词
-
       - 支持自定义词典
-
       - MIT 授权协议
 
    - 算法:
 
       - 基于前缀词典实现高效的词图扫描，生成句子中汉字所有可能成词情况所构成的有向无环图(DAG)
-
       - 采用了动态规划查找最大概率路径, 找出基于词频的最大切分组合
-
       - 对于未登录词，采用了基于汉字成词能力的 HMM 模型，使用了 Viterbi 算法
 
-3.3 主要功能
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-3.3.1 分词 API
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3.3 分词
+~~~~~~~~~~~~~~~~~
 
-   - ``jieba.enable_paddle()``
+   - API
 
-   - ``jieba.cut(sentence = "", cut_all = False, HMM = True, use_paddle = False)``
+      - ``jieba.enable_paddle()``
+      - ``jieba.cut(sentence = "", cut_all = False, HMM = True, use_paddle = False)``
+      - ``jieba.lcut(sentence = "", cut_all = False, HMM = True, use_paddle = False)``
+      - ``jieba.cut_for_search(sentence = "", HMM = True)``
+      - ``jieba.lcut_for_search(sentence = "", HMM = True)``
+      - ``jieba.Tokenizer(dictionary = DEFAULT_DICT)``
 
-   - ``jieba.lcut(sentence = "", cut_all = False, HMM = True, use_paddle = False)``
+         - 新建自定义分词器，可用于同时使用不同词典，jieba.dt 为默认分词器，所有全局分词相关函数都是该分词器的映射
 
-   - ``jieba.cut_for_search(sentence = "", HMM = True)``
+3.4 添加自定义词典
+~~~~~~~~~~~~~~~~~~~
 
-   - ``jieba.lcut_for_search(sentence = "", HMM = True)``
+开发者可以指定自己自定义的词典，以便包含 jieba 词库里没有的词。虽然 jieba 有新词识别能力，但是自行添加新词可以保证更高的正确率。
 
-3.3.2 添加自定义词典
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   - 用法
 
-   - jieba.load_userdict(file_name): 载入自定义词典
+      - 1.创建新的词典
+         
+         - 词典格式：
 
-   - jieba.dt.tmp_dir
+            - 文件名: ``dict.txt``
+            - 文件格式: 若为路径或二进制方式打开的文件，则文件必须为 UTF-8 编码
+            - 一个词占一行
+            - 每一行分三部分：词语、词频(可省略)、词性(可省略)，用空格分隔开顺序不可颠倒
 
-   - jieba.dt.cache_file
+      - 2.使用 jieba.load_userdict(file_name) 载入自定义词典
+      - 3.更改分词器(默认为 jieba.dt)的 ``tmp_dir`` 和 ``cache_file`` 属性，可分别指定缓存文件所在的文件夹及其文件名，用于受限的文件系统
 
-   - add_word(word, freq = None, tag = None)
+   - API
 
-   - del_word(word)
+      - ``jieba.load_userdict(file_name)``
+         
+         - 载入自定义词典
 
-   - suggest_freq(segment, tune - True)
+      - ``jieba.dt.tmp_dir``
+      - ``jieba.dt.cache_file``
 
-3.3.3 关键词提取
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-3.3.3.1 基于 TF-IDF 算法的关键词提取
-''''''''''''''''''''''''''''''''''''''''''''
-
-
-
-
-3.3.3.2 基于 TextRank 算法的关键词提取
-''''''''''''''''''''''''''''''''''''''''''''
-
-- ``jieba`` API
-
-   - ``jieba.analyse.textrank()``
-
-      - 直接使用，接口相同，注意默认过滤词性
+   - 示例
 
       .. code-block:: python
+
+         import sys
+         import jieba
+         import jieba.posseg as pseg
+         sys.path.append("./util_data")
+         jieba.load_userdict("./util_data/userdict.txt")
          
-         jieba.analyse.textrank(
-            sentence, 
-            topK = 20, 
-            withWeight = False, 
-            allowPOS = ("ns", "n", "vn", "v")
+         jieba.add_word("石墨烯")
+         jieba.add_word("凱特琳")
+         jieba.add_word("自定义词")
+         
+         test_sent = (
+            "李小福是创新办主任也是云计算方面的专家; 什么是八一双鹿\n"
+            "例如我输入一个带“韩玉赏鉴”的标题，在自定义词库中也增加了此词为N类\n"
+            "「台中」正確應該不會被切開。mac上可分出「石墨烯」；此時又可以分出來凱特琳了。"
          )
+         words = jieba.cut(test_sent)
+         print(" ".join(words))
 
-   - ``jieba.analyse.TextRank()``
+3.5 调整词典
+~~~~~~~~~~~~~~~~~~~~
 
-      - 新建自定义 TextRank 实例
+   - API
 
-- 基本思想：
+      - ``add_word(word, freq = None, tag = None)``
+      - ``del_word(word)``
+      - ``suggest_freq(segment, tune - True)``
 
-   - 将待抽取关键词的文本进行分词
-   - 以固定窗口大小(默认为5，通过span属性调整)，词之间的共现关系，构建图
-   - 计算图中节点的PageRank，注意是无向带权图
+   - 示例
 
-- 使用示例：
+      .. code-block:: python
 
-   .. code-block:: python
+         string = "如果放到旧字典中将出错。"
+         seg_list = jieba.cut(string, HMM = False)
+         print(" ".join(seg_list))
+         jieba.suggest_freq(segment = ("中", "将"), tune = True)
+         seg_list_tuned = jieba.cut(string, HMM = False)
+         print(" ".join(seg_list_tuned))
 
-      #encoding=utf-8
-      from __future__ import unicode_literals
-      import sys
-      sys.path.append("../")
+3.5 关键词提取
+~~~~~~~~~~~~~~~~~~
 
-      import jieba
-      import jieba.posseg
-      import jieba.analyse
+3.5.1 基于 TF-IDF 算法的关键词提取
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-      # --------------------------------
-      print('='*40)
-      print('1. 分词')
-      print('-'*40)
-      # --------------------------------
-      seg_list = jieba.cut("我来到北京清华大学", cut_all=True)
-      print("Full Mode: " + "/ ".join(seg_list))  # 全模式
+   - API
 
-      seg_list = jieba.cut("我来到北京清华大学", cut_all=False)
-      print("Default Mode: " + "/ ".join(seg_list))  # 默认模式
+      - ``jieba.analyse.extract_tags(sentence, topK = 20, withWeight = False, allowPOS = ())``
+      - ``jieba.analyse.TFIDF(idf_path = None``
 
-      seg_list = jieba.cut("他来到了网易杭研大厦")
-      print(", ".join(seg_list))
+         - 新建 TF-IDF 实例，idf_path 为 IDF 频率文件
 
-      seg_list = jieba.cut_for_search("小明硕士毕业于中国科学院计算所，后在日本京都大学深造")  # 搜索引擎模式
-      print(", ".join(seg_list))
+   - 用法
 
-      # --------------------------------
-      print('='*40)
-      print('2. 添加自定义词典/调整词典')
-      print('-'*40)
-      # --------------------------------
-      print('/'.join(jieba.cut('如果放到post中将出错。', HMM=False)))
-      #如果/放到/post/中将/出错/。
-      print(jieba.suggest_freq(('中', '将'), True))
-      #494
-      print('/'.join(jieba.cut('如果放到post中将出错。', HMM=False)))
-      #如果/放到/post/中/将/出错/。
-      print('/'.join(jieba.cut('「台中」正确应该不会被切开', HMM=False)))
-      #「/台/中/」/正确/应该/不会/被/切开
-      print(jieba.suggest_freq('台中', True))
-      #69
-      print('/'.join(jieba.cut('「台中」正确应该不会被切开', HMM=False)))
-      #「/台中/」/正确/应该/不会/被/切开
-      # --------------------------------
-      print('='*40)
-      print('3. 关键词提取')
-      print('-'*40)
-      print(' TF-IDF')
-      print('-'*40)
-      # --------------------------------
-      s = "此外，公司拟对全资子公司吉林欧亚置业有限公司增资4.3亿元，增资后，吉林欧亚置业注册资本由7000万元增加到5亿元。吉林欧亚置业主要经营范围为房地产开发及百货零售等业务。目前在建吉林欧亚城市商业综合体项目。2013年，实现营业收入0万元，实现净利润-139.13万元。"
-      for x, w in jieba.analyse.extract_tags(s, withWeight=True):
-         print('%s %s' % (x, w))
+      - 关键词提取所使用的逆向文档频率(IDF)文本语料库可以切换成自定义语料库的路径
 
-      print('-'*40)
-      print(' TextRank')
-      print('-'*40)
+         - 
 
-      for x, w in jieba.analyse.textrank(s, withWeight=True):
-         print('%s %s' % (x, w))
-      # --------------------------------
-      print('='*40)
-      print('4. 词性标注')
-      print('-'*40)
-      # --------------------------------
-      words = jieba.posseg.cut("我爱北京天安门")
-      for word, flag in words:
-         print('%s %s' % (word, flag))
-      # --------------------------------
-      print('='*40)
-      print('6. Tokenize: 返回词语在原文的起止位置')
-      print('-'*40)
-      print(' 默认模式')
-      print('-'*40)
-      # --------------------------------
-      result = jieba.tokenize('永和服装饰品有限公司')
-      for tk in result:
-         print("word %s\t\t start: %d \t\t end:%d" % (tk[0],tk[1],tk[2]))
-
-      print('-'*40)
-      print(' 搜索模式')
-      print('-'*40)
-
-      result = jieba.tokenize('永和服装饰品有限公司', mode='search')
-      for tk in result:
-         print("word %s\t\t start: %d \t\t end:%d" % (tk[0],tk[1],tk[2]))
+      - 关键词提取所使用停止词(Stop Words)文本语料库可以切换成自定义语料库的路径
 
 
 
+3.5.2 基于 TextRank 算法的关键词提取
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+   - API
+
+      - ``jieba.analyse.textrank(sentence, topK = 20, withWeight = False, allowPOS = ("ns", "n", "vn", "v"))``
+      - ``jieba.analyse.TextRank()``
+
+   - 算法论文
+
+      - `TextRank: Bringing Order into Texts <http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf>`_ 
+
+   - 基本思想：
+
+      - 1.将待抽取关键词的文本进行分词
+      - 2.以固定窗口大小(默认为5，通过span属性调整)，词之间的共现关系，构建图
+      - 3.计算图中节点的PageRank，注意是无向带权图
+
+   - 使用示例：
+
+      - test
+
+3.6 词性标注
+~~~~~~~~~~~~~
 
 
+3.7 并行分词
+~~~~~~~~~~~~~~
 
 
-
-3.3.4 词性标注
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+3.8 Tokenize：返回词语在原文的起止位置
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-3.3.5 并行分词
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3.9 ChineseAnalyzer for Whoosh 搜索引擎
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+   - API
 
+      - from jieba.analyse import ChineseAnalyzer
 
-3.3.6 Tokenize：返回词语在原文的起止位置
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   - 示例
 
+      .. code-block:: python
 
+         
 
-3.3.7 ChineseAnalyzer for Whoosh 搜索引擎
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3.10 命令行分词
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+   - 语法
 
+      .. code-block:: shell
 
-3.3.8 命令行分词
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         $ python -m jieba [option] filename
 
+   - 示例
 
+      .. code-block:: shell
 
+         $ python -m jieba news.txt > cut_result.txt
 
+   - 命令行选项
 
-
-
-
+      - filename
+      - ``python -m jieba -h``, --help
+      - ``-d [DELIM]``, --delimiter [DELIM]
+      - ``-p [DELIM]``, --pos [DELIM]
+      - ``-D DICT``
+      - ``-a``, --cut-all
+      - ``-n``, --no-hmm
+      - ``-q``, --quiet
+      - ``-V``, --version
 
 
 

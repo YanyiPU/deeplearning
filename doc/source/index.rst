@@ -108,6 +108,7 @@ deeplearning
    deeplearning/NLP/NLP-APP-KG-Neo4j
    deeplearning/NLP/NLP-Pipeline
    deeplearning/NLP/NLP-Solr_search_engine
+   deeplearning/NLP/NLP-feature-extraction
 
 .. toctree::
    :caption: TensorFlow

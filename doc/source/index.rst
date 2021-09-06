@@ -147,6 +147,7 @@ deeplearning
    :caption: PyTorch
    :maxdepth: 2
 
+   pytorch/pytorch_cheat_sheet
    pytorch/torch_tensor
    pytorch/torch_nn
    pytorch/torch_autogard
@@ -162,6 +163,8 @@ deeplearning
    :caption: utils
    :maxdepth: 2
 
+   utils/Audio-scipy
+   utils/Audio-librosa
    utils/NLP-opencc
    utils/NLP-gensim
    utils/NLP-spaCy
